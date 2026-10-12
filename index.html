@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>工程表エディタ</title>
+<title>MSM</title>
 <script>/*!
 
 JSZip v3.10.2 - A JavaScript class for generating and reading zip files
@@ -93,11 +93,27 @@ svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:
 .wkb .su{color:#c33}.wkb .sa{color:#36c}.wkb .wkx{color:#ccd}
 .wkb .wkd{padding:0;border:1px dashed #99a;border-radius:3px;background:#fff;margin:0}.wkb .wkd.on{background:#3b78d8;border:1px solid #2a5fb8;color:#fff;font-weight:700}
 .wkb .wkf{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}.wkb .pri{background:#3b78d8;color:#fff;border-color:#2a5fb8}
+</style><style>
+#ob{position:absolute;z-index:1;overflow:visible;pointer-events:none}
+#ob .o{pointer-events:visiblePainted}
+body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
+.obtx{position:absolute;z-index:6;box-sizing:border-box;border:2px solid #4c7bd9;background:rgba(255,255,255,.95);font-family:inherit;line-height:1.25;padding:2px 4px;resize:none;outline:none;overflow:auto}
+.rbc input[type=color]{width:34px;height:26px;padding:0;border:1px solid #99a;border-radius:3px;background:#fff;cursor:pointer}
+.rbc select{height:26px;font:inherit;border:1px solid #99a;border-radius:3px;background:#fff}
+.rbc label{font-size:12px;display:flex;align-items:center;gap:2px;white-space:nowrap;color:#334}
+@media print{#ob .obh{display:none}}
+</style><style>
+#brand{font-weight:800;letter-spacing:.08em;color:#1d4fa8;font-size:15px;margin:0 8px 0 2px}
+#nt .nth{height:34px;box-sizing:border-box;line-height:33px;background:#fff3cd;font-weight:600;font-size:13px;padding:0 8px;border-bottom:1px solid #e1e4ea;white-space:nowrap;overflow:hidden}
+#nt .nth small{font-weight:400;color:#778;margin-left:10px;font-size:11px}
+#nt .ntl{height:34px;box-sizing:border-box;border-bottom:1px solid #e1e4ea;background:#fff}
+#nt .nl{display:block;width:100%;height:33px;box-sizing:border-box;border:0;padding:0 8px;font:inherit;font-size:13px;background:transparent}
+#nt .nl:focus{outline:2px solid #4c7bd9;outline-offset:-2px;background:#fff}
 </style></head><body>
 <div id="bar">
-<div id="qat"><button id="bz" title="元に戻す(Ctrl+Z)">↶ 戻る</button><button id="by" title="やり直し(Ctrl+Y)">↷ 進む</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button><span class="pnw"><label for="pn">工事名称</label><input id="pn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"></span></div>
+<div id="qat"><span id="brand">MSM</span><button id="bz" title="元に戻す(Ctrl+Z)">↶ 戻る</button><button id="by" title="やり直し(Ctrl+Y)">↷ 進む</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button><span class="pnw"><label for="pn">工事名称</label><input id="pn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"></span></div>
 <div id="rbh">
-<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">編集</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="data" role="tab">データ</button></div>
+<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">編集</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="ins" role="tab">挿入</button><button class="rbt" data-t="data" role="tab">データ</button></div>
 <span id="warn"></span><span id="msg" title="各行の「階層 ◀ ▶」で字下げを変更(◀=左へ/▶=右へ)。複数行は「#」をShift+クリックで選んでから。">各行の「階層 ◀ ▶」で字下げを変更。複数行は「#」をShift+クリックで選択。</span>
 </div>
 <div id="rbb">
@@ -114,6 +130,7 @@ svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:
 <div class="rbg" id="zmw"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を隠す</button></div><div class="rbl">列</div></div>
 </div>
+<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_sc" value="#d9230f" title="線の色"><label><input type="checkbox" id="oc_scn">なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">線</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_fc" value="#ffffff" title="塗りつぶしの色"><label><input type="checkbox" id="oc_fcn" checked>なし</label></div><div class="rbl">塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_tc" value="#222222" title="文字の色"><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">文字を編集</button></div><div class="rbl">文字</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ">前面へ</button><button id="oc_bk" title="最背面へ">背面へ</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">操作</div></div></div>
 <div class="rbp" data-p="data" role="tabpanel">
 <div class="rbg"><div class="rbc"><button id="bx0" title="既存の工程表Excelから工程を読み込みます">Excel読込(.xlsm)</button><button id="bx" title="内蔵の工程表Excelに書き込んで出力します(日付・行数は自動調整)">Excel出力</button><span id="tgt"></span></div><div class="rbl">Excel</div></div>
 <div class="rbg"><div class="rbc"><button id="bo">JSON読込</button><button id="bs">JSON保存</button></div><div class="rbl">JSON</div></div>
@@ -132,7 +149,7 @@ svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:
 <div class="pb"><button id="pok">印刷</button><button id="pcx">キャンセル</button></div>
 <div style="font-size:11px;color:#667;line-height:1.5">※表示中の期間・折りたたみ状態のまま印刷します。縦方向は行単位でページ分割し、各ページに見出し(日付)を付けます。印刷画面で「背景のグラフィック」をオンにしてください。</div></div></div>
 <div id="main"><div class="wrap"><div id="L">
-<div class="h"><b>#</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="ym"></div></div>
+<div class="h"><b>#</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
 <div id="R"><svg id="hd"></svg><svg id="bd"></svg></div></div></div>
 <div id="hs"><div id="hsp"></div><div id="hsc"><div id="hsi"></div></div></div>
 <div id="tabs"></div>
@@ -406,8 +423,8 @@ let T=[K('基本工程',0),K('運転停止',1,1,dayOf(2026,9,1)),K('パージ期
 const clean=a=>a.map(({n,l,d,s,p,q,co,k,m,mf,c,b,u,dd,bg,hv,wk})=>({n,l,d,s,p,co:co||'',bg:bg&&typeof bg=='object'&&Object.keys(bg).length?{...bg}:null,q:q||'',k:k||'',m:m||'',mf:mf||'',c:!!c,b:b==null?null:!!b,u:!!u,dd:Array.isArray(dd)?dd.slice():[],hv:hv==null?null:!!hv,wk:Array.isArray(wk)?wk.slice():null}));
 function vis(){let h=null;return T.map((t,i)=>{if(h!=null){if(t.l>h)return false;h=null}if(t.c&&T[i+1]&&T[i+1].l>t.l)h=t.l;return true})}
 function stash(){SH[cur]={...SH[cur],T,vs:VS,ve:VE}}
-function pack(){stash();return{v:2,wd:1,pn:PN,cord:CORD.slice(),po:JSON.parse(JSON.stringify(PO)),MS:MS.map(x=>({g:x.g||'',n:x.n,k:x.k,r:x.r||''})),msd:1,cur,SH:SH.map(x=>({name:x.name,vs:x.vs,ve:x.ve,dc:x.dc||{},T:clean(x.T)}))}}
-function unpack(j){PO=j.po&&typeof j.po=='object'?JSON.parse(JSON.stringify(j.po)):{};CORD=Array.isArray(j.cord)?j.cord.map(String):[];if(Array.isArray(j))j={SH:[{name:'シート1',T:j}],cur:0};if(j.pn!=null){PN=String(j.pn);syncPN()}SH=j.SH.map(x=>({name:x.name,T:x.T,vs:x.vs??null,ve:x.ve??null,dc:x.dc||{}}));cur=Math.min(j.cur||0,SH.length-1);if(Array.isArray(j.MS))MS=j.MS.map(x=>({g:String(x.g||''),n:String(x.n||''),k:String(x.k??''),r:String(x.r||'')}));if(j.msd!==1)MSDEF.forEach(d=>{if(!MS.some(x=>x.g===d.g&&x.n===d.n))MS.push({...d})});T=SH[cur].T;VS=SH[cur].vs;VE=SH[cur].ve;if(!j.wd){if(MIGRDY)migrate();else MIGPEND=1}}
+function pack(){stash();return{v:2,wd:1,pn:PN,cord:CORD.slice(),po:JSON.parse(JSON.stringify(PO)),MS:MS.map(x=>({g:x.g||'',n:x.n,k:x.k,r:x.r||''})),msd:1,cur,SH:SH.map(x=>({name:x.name,vs:x.vs,ve:x.ve,dc:x.dc||{},ob:Array.isArray(x.ob)?JSON.parse(JSON.stringify(x.ob)):[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['','',''],T:clean(x.T)}))}}
+function unpack(j){PO=j.po&&typeof j.po=='object'?JSON.parse(JSON.stringify(j.po)):{};CORD=Array.isArray(j.cord)?j.cord.map(String):[];if(Array.isArray(j))j={SH:[{name:'シート1',T:j}],cur:0};if(j.pn!=null){PN=String(j.pn);syncPN()}SH=j.SH.map(x=>({name:x.name,T:x.T,vs:x.vs??null,ve:x.ve??null,dc:x.dc||{},ob:Array.isArray(x.ob)?x.ob:[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['','','']}));cur=Math.min(j.cur||0,SH.length-1);if(Array.isArray(j.MS))MS=j.MS.map(x=>({g:String(x.g||''),n:String(x.n||''),k:String(x.k??''),r:String(x.r||'')}));if(j.msd!==1)MSDEF.forEach(d=>{if(!MS.some(x=>x.g===d.g&&x.n===d.n))MS.push({...d})});T=SH[cur].T;VS=SH[cur].vs;VE=SH[cur].ve;if(!j.wd){if(MIGRDY)migrate();else MIGPEND=1}}
 SH=[{name:'シート1',T,vs:null,ve:null}];
 let idb=null,ready=false,BKC=null,lsErr=null,LS_T=0,LS_RAW=null;
 try{LS_T=+localStorage.getItem('koutei_t')||0;LS_RAW=localStorage.getItem('koutei')}catch(e){lsErr=e}
@@ -474,7 +491,8 @@ function ymData(){const names=[];T.forEach(t=>{if(t._hv)return;const c=(t.co||''
   rows.forEach(r=>{for(const d in r.ov){r.by[d]=r.ov[d]}});
   rows.forEach(r=>{for(const d in r.by)tot[d]=(tot[d]||0)+r.by[d]})}
  return{rows,tot,hv}}
-function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,ex=YM?1+cR+hR:0; /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
+const ntRows=()=>1+((SH[cur]&&SH[cur].nt)||['','','']).length; /* 備考欄: 見出し1行+各行 */
+function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
  const f0=VS??mn-3,n=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
  const SG=[];{let st=0;for(let k=1;k<=n;k++){if(k==n||dt(f0+k).getUTCDate()==1){const ky=mkey(f0+st);SG.push({st,en:k,key:ky,col:CM.has(ky)});st=k}}}
@@ -512,9 +530,9 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
   if(!YM)E.innerHTML='';else{
    const row=(b,nm,t,c)=>`<div class="ymr${c||''}"><span class="ymb">${b}</span><span class="ymn" title="${X(nm)}">${X(nm)}</span><span class="ymt" title="人日の合計">${t}</span></div>`;
    E.innerHTML=(YM.rows.length?`<div class="ymr ymh"><span class="ymn">山積み(施工会社別の人員)　※人員欄の数字は人日の合計</span></div>`+YM.rows.map((r,j)=>row((Object.keys(r.ov||{}).length?`<i data-ym="clr" data-cn="${encodeURIComponent(r.c)}" title="この会社の手動修正(橙の枠)をすべて自動に戻す" style="color:#d9480f">⟲手動</i>`:'')+(r.c?`<i data-ym="up" data-j="${j}" title="上へ">▲</i><i data-ym="dn" data-j="${j}" title="下へ">▼</i>`:''),r.c||'会社未定',sm(r.by))).join('')+row('','施工会社 合計',sm(YM.tot),' ymtot'):'')+(YM.hv.rows.length?`<div class="ymr ymh"><span class="ymn">山積み(重機・車両の台数)　※台数欄の数字は稼働日の延べ台数</span></div>`+YM.hv.rows.map(r=>row('',r.c,sm(r.by))).join('')+row('','重機 合計',sm(YM.hv.tot),' ymtot'):'')}
-  if(YM){const y0=(vc+1)*H,cl=[]; // +1 = 「＋」行
+  if(YM){const y0=(vc+1+nr)*H,cl=[]; // +1 = 「＋」行 / nr = 備考欄
   if(ZM==10){let k=0;while(k<n){let e=k+1;while(e<n){const d2=dt(f0+e).getUTCDate();if(d2==1||d2==10||d2==20)break;e++}if(!CD(k))cl.push([k,e]);k=e}}else for(let k=0;k<n;k++)if(!CD(k))cl.push([k,k+1]);
-   YMI={vc:vc+1,rows:YM.rows,f0,zm:ZM};const cv=(r,a,b)=>{let v=0;for(let k=a;k<b;k++)v+=r[f0+k]||0;return v},hv=(o,a,b)=>{if(!o)return false;for(let k=a;k<b;k++)if(o[f0+k]!=null)return true;return false};
+   YMI={vc:vc+1+nr,rows:YM.rows,f0,zm:ZM};const cv=(r,a,b)=>{let v=0;for(let k=a;k<b;k++)v+=r[f0+k]||0;return v},hv=(o,a,b)=>{if(!o)return false;for(let k=a;k<b;k++)if(o[f0+k]!=null)return true;return false};
    const blk=(yb,rows,tot,c1,c2,tl)=>{const mx=Math.max(1,...cl.map(([a,b])=>cv(tot,a,b)));
     s+=`<rect x="0" y="${yb}" width="${w}" height="${H}" fill="#fff3cd"/>`;
     rows.concat([{c:tl,by:tot,t:1}]).forEach((r,j)=>{const y=yb+(j+1)*H;
@@ -525,7 +543,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
    if(YM.hv.rows.length)blk(yb,YM.hv.rows,YM.hv.tot,'#5aa9e6','#1f6fb5','重機合計')}}
  const mk='<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#555"/></marker></defs>';
  $('#hd').setAttribute('width',w);$('#hd').setAttribute('height',60);$('#hd').innerHTML=seg+hd;
- $('#bd').setAttribute('width',w);$('#bd').setAttribute('height',Math.max(h,1));$('#bd').innerHTML=mk+bg+s;syncHS();
+ $('#bd').setAttribute('width',w);$('#bd').setAttribute('height',Math.max(h,1));$('#bd').innerHTML=mk+bg+s;syncHS();try{window.syncNt&&window.syncNt()}catch(e){}try{window.renderOb&&window.renderOb()}catch(e){}
 }
 let chgT=0;
 function clrChg(){clearTimeout(chgT);document.querySelectorAll('#tb .chg').forEach(x=>x.classList.remove('chg'))}
@@ -591,8 +609,8 @@ $('#tb').addEventListener('mousedown',e=>{if(e.target.closest&&e.target.closest(
  document.addEventListener('mousedown',e=>{if(!pm.contains(e.target))pm.style.display='none'});
  document.addEventListener('keydown',e=>{if(e.key=='Escape')pm.style.display='none'});
 })();
-function syncPN(){const e=document.getElementById('pn');if(e&&e.value!==PN)e.value=PN;document.title='工程表エディタ'+(PN?' - '+PN:'')}
-$('#pn').addEventListener('input',e=>{PN=e.target.value;document.title='工程表エディタ'+(PN?' - '+PN:'');persist()});
+function syncPN(){const e=document.getElementById('pn');if(e&&e.value!==PN)e.value=PN;document.title='MSM'+(PN?' - '+PN:'')}
+$('#pn').addEventListener('input',e=>{PN=e.target.value;document.title='MSM'+(PN?' - '+PN:'');persist()});
 function fname(ext){const n=new Date(),z=v=>String(v).padStart(2,'0'),pn=(PN||'').trim().replace(/[\\\/:*?"<>|\r\n\t]+/g,'_');
  return '工程表'+(pn?'_'+pn:'')+'_'+n.getFullYear()+z(n.getMonth()+1)+z(n.getDate())+'.'+ext}
 syncPN();
@@ -662,7 +680,7 @@ $('#tabs').onclick=e=>{const t=e.target;
  if(['tn','tc'].includes(t.id))hist();
  if(t.classList.contains('tb')){stash();setCur(+t.dataset.i)}
  else if(t.id=='tn'){stash();SH.push({name:'シート'+(SH.length+1),T:[K('',1)],vs:null,ve:null});setCur(SH.length-1)}
- else if(t.id=='tc'){stash();const c=SH[cur];SH.splice(cur+1,0,{name:c.name+'のコピー',T:clean(c.T),vs:c.vs,ve:c.ve,dc:{...(c.dc||{})}});setCur(cur+1)}
+ else if(t.id=='tc'){stash();const c=SH[cur];SH.splice(cur+1,0,{name:c.name+'のコピー',T:clean(c.T),vs:c.vs,ve:c.ve,dc:{...(c.dc||{})},ob:JSON.parse(JSON.stringify(c.ob||[])),nt:(c.nt||['','','']).slice()});setCur(cur+1)}
  else if(t.id=='tr'){const n=prompt('シート名',SH[cur].name);if(n&&n!==SH[cur].name){hist();SH[cur].name=n;tabs()}}
  else if(t.id=='tx'){if(SH.length<2){alert('最後のシートは削除できません');return}if(confirm(`「${SH[cur].name}」を削除しますか？`)){hist();SH.splice(cur,1);setCur(Math.min(cur,SH.length-1))}}};
 async function loadJ(f){try{const tx=await f.text();JSON.parse(tx);hist();unpack(JSON.parse(tx));sel=-1;syncView();build();tabs();msg(`JSONを読み込みました: ${f.name}(「戻る」で元に戻せます)`)}catch(x){err('JSONを読めません')}}
@@ -1253,7 +1271,7 @@ function frozen(src){
   if(o.parentNode&&o.parentNode.classList&&o.parentNode.classList.contains('r'))sp.style.borderRight='1px solid #e1e4ea';
   e.replaceWith(sp)});
  c.querySelectorAll('.au,.dd,#ymi,[hidden]').forEach(e=>e.remove());
- {const pl=c.querySelector('#pl'),ym=c.querySelector('#ym');if(pl){if(ym&&ym.children.length)pl.style.visibility='hidden';else pl.remove()}} // 山積みの上の「＋」は、行位置を保つため見えない空行として残す
+ {const pl=c.querySelector('#pl'),ym=c.querySelector('#ym');if(pl){pl.style.visibility='hidden'}} // 山積みの上の「＋」は、行位置を保つため見えない空行として残す
  c.querySelectorAll('.sel').forEach(e=>e.classList.remove('sel'));
  return c}
 function clip(host,node,x,y,w,h,ox,oy){
@@ -1269,7 +1287,7 @@ function build(){
  const vw=pw/z,vh=ph/z,per=Math.max(1,Math.floor((vh-TH-HH)/RH)),av=Math.max(100,vw-Lw);
  const nC=P.z==='fit'?1:Math.max(1,Math.ceil(Rw/av));
  const Lc=frozen(L),Rc=R.cloneNode(true);
- Rc.querySelectorAll('#ymi').forEach(e=>e.remove());
+ Rc.querySelectorAll('#ymi,.obtx').forEach(e=>e.remove());
  Lc.style.cssText='position:absolute;width:'+Lw+'px;left:0;top:0;border-right:2px solid #889';
  Rc.style.cssText='position:absolute;left:0;top:0;width:'+Rw+'px';
  const root=document.createElement('div');root.id='pprint';
@@ -1296,6 +1314,209 @@ $i('pok').onclick=()=>{P={p:$i('pp').value,o:$i('po').value,z:$i('pz').value};tr
  close();setPage();setTimeout(()=>window.print(),50)};
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$i('pdlg').classList.contains('on'))close()});
 setPage();
+})();
+</script>
+<script>
+// ---- 図形・雲マーク・テキストの挿入(「挿入」タブ) ----
+(function(){
+const NS='http://www.w3.org/2000/svg',$q=s=>document.querySelector(s),$i=id=>document.getElementById(id);
+const OBJ=()=>SH[cur].ob||(SH[cur].ob=[]);
+let selId=null,tool=null,DEFO={},ed=null,fresh=null,swallow=false,lastId=null,lastT=0;
+const TD={cloud:{sc:'#d9230f',sw:2,fc:'',ds:0},rect:{sc:'#333333',sw:1.5,fc:'',ds:0},ellipse:{sc:'#333333',sw:1.5,fc:'',ds:0},line:{sc:'#333333',sw:2,fc:'',ds:0},arrow:{sc:'#333333',sw:2,fc:'',ds:0},text:{sc:'',sw:1.5,fc:'',ds:0}};
+const NAME={cloud:'雲',rect:'四角',ellipse:'楕円',line:'線',arrow:'矢印',text:'テキスト'};
+const DSZ={cloud:[160,90],rect:[140,70],ellipse:[140,70],line:[140,0],arrow:[140,0],text:[160,28]};
+const isLn=o=>o.t==='line'||o.t==='arrow';
+// 日(小数可)⇔ 横位置(px)。月の折りたたみにも追従する
+const pxf=d=>{const n=DX.length-1,k=d-F0;if(k<=0)return k*W;if(k>=n)return DX[n]+(k-n)*W;const i=Math.floor(k);return DX[i]+(k-i)*(DX[i+1]-DX[i])};
+const dayf=x=>{const n=DX.length-1;if(x<=0)return F0+x/W;if(x>=DX[n])return F0+n+(x-DX[n])/W;let lo=0,hi=n-1;while(lo<hi){const m=(lo+hi+1)>>1;if(DX[m]<=x)lo=m;else hi=m-1}const w=DX[lo+1]-DX[lo];return F0+lo+(w>0?(x-DX[lo])/w:0)};
+const geom=o=>({l:pxf(o.x),r:pxf(o.x+o.w),t:o.y,b:o.y+o.h});
+const rd=v=>Math.round(v*1000)/1000;
+function setGeom(o,l,r,t,b){const x=dayf(l);o.x=rd(x);o.w=rd(dayf(r)-x);o.y=Math.round(t);o.h=Math.round(b-t)}
+const getO=id=>OBJ().find(o=>o.id===id),selO=()=>selId?getO(selId):null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const offs=()=>{const a=$q('#bd').getBoundingClientRect(),c=$q('#R').getBoundingClientRect();return{x:a.left-c.left,y:a.top-c.top}};
+const blurActive=()=>{const a=document.activeElement;if(a&&a!==document.body&&a.blur&&!(a.id&&a.id.indexOf('oc_')==0))a.blur()};
+
+function cloudPath(l,t,r,b){
+ const w=r-l,h=b-t,a=Math.max(10,Math.min(26,Math.min(w,h)/3)),nx=Math.max(1,Math.round(w/a)),ny=Math.max(1,Math.round(h/a)),sx=w/nx,sy=h/ny,rx=sx*.54,ry=sy*.54;
+ let d='M'+l+','+t;
+ for(let i=1;i<=nx;i++)d+='A'+rx+','+rx+' 0 0 1 '+(l+sx*i)+','+t;
+ for(let i=1;i<=ny;i++)d+='A'+ry+','+ry+' 0 0 1 '+r+','+(t+sy*i);
+ for(let i=1;i<=nx;i++)d+='A'+rx+','+rx+' 0 0 1 '+(r-sx*i)+','+b;
+ for(let i=1;i<=ny;i++)d+='A'+ry+','+ry+' 0 0 1 '+l+','+(b-sy*i);
+ return d+'Z'}
+
+function objSvg(o){
+ const g=geom(o),l=Math.min(g.l,g.r),r=Math.max(g.l,g.r),t=Math.min(g.t,g.b),b=Math.max(g.t,g.b),w=r-l,h=b-t;
+ const sc=isLn(o)?(o.sc||'#333333'):o.sc;
+ const st=sc?`stroke="${sc}" stroke-width="${o.sw}" stroke-linejoin="round"${o.ds?` stroke-dasharray="${o.sw*3+3} ${o.sw*2+3}"`:''}`:'stroke="none"';
+ const fl=o.fc?`fill="${o.fc}"`:'fill="none"';
+ const hs=`fill="none" stroke="transparent" stroke-width="${Math.max(12,o.sw+8)}" style="pointer-events:stroke"`;
+ let body='',hit='';
+ if(o.t==='cloud'){const d=cloudPath(l,t,r,b);body=`<path d="${d}" ${fl} ${st}/>`;hit=`<path d="${d}" ${hs}/>`}
+ else if(o.t==='rect'){const a=`x="${l}" y="${t}" width="${w}" height="${h}"`;body=`<rect ${a} ${fl} ${st}/>`;hit=`<rect ${a} ${hs}/>`}
+ else if(o.t==='ellipse'){const a=`cx="${(l+r)/2}" cy="${(t+b)/2}" rx="${w/2}" ry="${h/2}"`;body=`<ellipse ${a} ${fl} ${st}/>`;hit=`<ellipse ${a} ${hs}/>`}
+ else if(isLn(o)){let x2=g.r,y2=g.b,head='';
+  if(o.t==='arrow'){const a=Math.atan2(g.b-g.t,g.r-g.l),L=Math.max(10,o.sw*4.5),sp=.42;
+   head=`<polygon points="${g.r},${g.b} ${g.r-L*Math.cos(a-sp)},${g.b-L*Math.sin(a-sp)} ${g.r-L*Math.cos(a+sp)},${g.b-L*Math.sin(a+sp)}" fill="${sc}" stroke="none"/>`;x2=g.r-Math.cos(a)*L*.8;y2=g.b-Math.sin(a)*L*.8}
+  body=`<line x1="${g.l}" y1="${g.t}" x2="${x2}" y2="${y2}" ${st}/>${head}`;hit=`<line x1="${g.l}" y1="${g.t}" x2="${g.r}" y2="${g.b}" ${hs}/>`}
+ else{body=`<rect x="${l}" y="${t}" width="${w}" height="${h}" fill="${o.fc||'transparent'}" ${st}/>`}
+ let tx='';
+ if(o.tx&&!isLn(o)){const ls=String(o.tx).split('\n'),fs=o.fs||14,lh=fs*1.25,isT=o.t==='text',x=isT?l+4:(l+r)/2,y0=isT?t+4+fs*.85:(t+b)/2-(ls.length-1)*lh/2+fs*.35;
+  tx=`<text style="font:${fs}px 'Yu Gothic',Meiryo,sans-serif;white-space:pre" fill="${o.tc||'#222222'}" text-anchor="${isT?'start':'middle'}">`+ls.map((s,i)=>`<tspan x="${x}" y="${y0+i*lh}">${esc(s)||' '}</tspan>`).join('')+'</text>'}
+ return hit+body+tx}
+
+function handles(o){
+ const g=geom(o),hd=(x,y,h,c)=>`<rect class="hd obh" data-h="${h}" x="${x-4}" y="${y-4}" width="8" height="8" fill="#fff" stroke="#2f6fd6" stroke-width="1.5" style="pointer-events:all;cursor:${c}"/>`;
+ if(isLn(o))return hd(g.l,g.t,'p1','move')+hd(g.r,g.b,'p2','move');
+ const l=Math.min(g.l,g.r),r=Math.max(g.l,g.r),t=Math.min(g.t,g.b),b=Math.max(g.t,g.b),mx=(l+r)/2,my=(t+b)/2;
+ return `<rect class="obh" x="${l-2}" y="${t-2}" width="${r-l+4}" height="${b-t+4}" fill="none" stroke="#4c7bd9" stroke-dasharray="4 3" style="pointer-events:none"/>`+
+  hd(l,t,'nw','nwse-resize')+hd(mx,t,'n','ns-resize')+hd(r,t,'ne','nesw-resize')+hd(r,my,'e','ew-resize')+hd(r,b,'se','nwse-resize')+hd(mx,b,'s','ns-resize')+hd(l,b,'sw','nesw-resize')+hd(l,my,'w','ew-resize')}
+
+function renderOb(){
+ const R=$q('#R'),bd=$q('#bd');if(!R||!bd||typeof SH==='undefined')return;
+ let s=$q('#ob');if(!s){s=document.createElementNS(NS,'svg');s.id='ob';R.appendChild(s);bindOb(s)}
+ {const f=offs();s.style.left=f.x+'px';s.style.top=f.y+'px'}
+ const L=OBJ();let bot=+bd.getAttribute('height')||0;L.forEach(o=>{bot=Math.max(bot,Math.max(o.y,o.y+o.h)+12)});
+ s.setAttribute('width',+bd.getAttribute('width')||0);s.setAttribute('height',bot);
+ if(selId&&!L.some(o=>o.id===selId))selId=null;
+ let html='';L.forEach(o=>{html+=`<g class="o" data-id="${o.id}" style="cursor:move">${objSvg(o)}</g>`});
+ const so=selO();if(so)html+=handles(so);
+ s.innerHTML=html;syncCtl()}
+window.renderOb=renderOb;
+
+function mk(type){
+ const o={id:'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:type,x:0,w:0,y:0,h:0,tx:'',fs:14,tc:'#222222',...TD[type]};
+ ['tc','fs'].forEach(k=>{if(DEFO[k]!=null)o[k]=DEFO[k]});
+ if(type!=='text')['sc','sw','fc','ds'].forEach(k=>{if(DEFO[k]!=null)o[k]=DEFO[k]});
+ return o}
+function select(id){if(selId===id)return;selId=id;renderOb()}
+function persistOb(){try{persist()}catch(e){}}
+function fit(o){
+ if(o.t!=='text')return;
+ const ls=String(o.tx||'').split('\n'),fs=o.fs||14,lh=fs*1.25,tw=Math.max(0,...ls.map(s=>[...s].reduce((a,c)=>a+(c.charCodeAt(0)>255?fs:fs*.58),0)));
+ const g=geom(o),l=Math.min(g.l,g.r),t=Math.min(g.t,g.b),w=Math.abs(g.r-g.l),h=Math.abs(g.b-g.t),nw=Math.max(w,tw+12),nh=Math.max(h,ls.length*lh+8);
+ if(nw!==w||nh!==h)setGeom(o,l,l+nw,t,t+nh)}
+function delObj(id,rec){if(rec!==false)hist();const L=OBJ(),i=L.findIndex(o=>o.id===id);if(i>=0)L.splice(i,1);if(selId===id)selId=null;persistOb();renderOb()}
+
+// ---- 文字の編集(ダブルクリック / 「文字を編集」) ----
+function closeEd(){if(ed){const t=ed.ta;ed=null;t.onblur=null;t.remove()}}
+function startEdit(o){
+ if(isLn(o)){msg('線・矢印には文字を入れられません');return}
+ closeEd();const bd=$q('#bd'),R=$q('#R'),g=geom(o),l=Math.min(g.l,g.r),t=Math.min(g.t,g.b),fs=o.fs||14;
+ const w=Math.max(Math.abs(g.r-g.l),90),h=Math.max(Math.abs(g.b-g.t),fs*1.25+12);
+ const ta=document.createElement('textarea');ta.className='obtx';ta.value=o.tx||'';
+ const f=offs();ta.style.cssText=`left:${f.x+l}px;top:${f.y+t}px;width:${w}px;height:${h}px;font-size:${fs}px;color:${o.tc||'#222'};text-align:${o.t==='text'?'left':'center'}`;
+ ta.title='Enterで改行 / Ctrl+Enterまたは外をクリックで確定 / Escでキャンセル';
+ R.appendChild(ta);ed={o,ta};const isNew=fresh===o.id;let done=false;
+ const fin=ok=>{if(done)return;done=true;const v=ta.value;ed=null;ta.onblur=null;ta.remove();
+  if(fresh===o.id)fresh=null;
+  if(!ok){if(isNew&&o.t==='text')delObj(o.id,false);else renderOb();return}
+  if(o.t==='text'&&!v.trim()){delObj(o.id,!isNew);return}
+  if(v!==(o.tx||'')){if(!isNew)hist();o.tx=v;fit(o)}persistOb();renderOb()};
+ ta.onblur=()=>fin(true);
+ ta.onkeydown=ev=>{ev.stopPropagation();if(ev.key==='Escape'){ev.preventDefault();fin(false)}else if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault();fin(true)}};
+ setTimeout(()=>{ta.focus();ta.select()},0)}
+
+// ---- 選択・移動・サイズ変更 ----
+function bindOb(s){
+ s.addEventListener('mousedown',e=>{
+  if(e.button!==0||tool)return;
+  const hd=e.target.closest('.hd'),g=e.target.closest('.o');if(!hd&&!g)return;
+  const id=g?g.dataset.id:selId;blurActive();e.preventDefault();e.stopPropagation();
+  const o=getO(id);if(!o)return;
+  if(hd){startResize(e,o,hd.dataset.h);return}
+  const now=Date.now();
+  if(lastId===id&&now-lastT<400){lastT=0;select(id);startEdit(o);return}
+  lastId=id;lastT=now;select(id);startMove(e,o)}) }
+function track(mv,up){const f=ev=>mv(ev),u=ev=>{removeEventListener('mousemove',f);removeEventListener('mouseup',u);up(ev)};addEventListener('mousemove',f);addEventListener('mouseup',u)}
+function startMove(e,o){
+ const g0=geom(o),x0=e.clientX,y0=e.clientY;let on=false;
+ track(ev=>{const dx=ev.clientX-x0,dy=ev.clientY-y0;
+  if(!on){if(Math.abs(dx)+Math.abs(dy)<3)return;on=true;hist()}
+  o.x=rd(dayf(g0.l+dx));let ny=g0.t+dy;const top=Math.min(ny,ny+o.h);if(top<0)ny-=top;o.y=Math.round(ny);renderOb()},
+  ()=>{if(on){lastT=0;persistOb()}})}
+function startResize(e,o,h){
+ const bd=$q('#bd'),r0=bd.getBoundingClientRect(),g=geom(o);let on=false;
+ track(ev=>{const mx=ev.clientX-r0.left,my=Math.max(0,ev.clientY-r0.top);
+  if(!on){on=true;hist()}
+  if(isLn(o)){if(h==='p1')setGeom(o,mx,g.r,my,g.b);else setGeom(o,g.l,mx,g.t,my)}
+  else{const l=Math.min(g.l,g.r),r=Math.max(g.l,g.r),t=Math.min(g.t,g.b),b=Math.max(g.t,g.b);let L=l,Rr=r,Tt=t,Bb=b;
+   if(h.indexOf('w')>=0)L=Math.min(mx,r-6);if(h.indexOf('e')>=0)Rr=Math.max(mx,l+6);if(h.indexOf('n')>=0)Tt=Math.min(my,b-6);if(h.indexOf('s')>=0)Bb=Math.max(my,t+6);
+   setGeom(o,L,Rr,Tt,Bb)}
+  renderOb()},()=>{if(on)persistOb()})}
+
+// ---- 作図(ツールを選んでグラフ上をドラッグ) ----
+function setTool(t){tool=(tool===t)?null:t;document.body.classList.toggle('otool',!!tool);
+ document.querySelectorAll('[data-ot]').forEach(b=>b.classList.toggle('on',b.dataset.ot===tool));
+ if(tool)msg(`「${NAME[tool]}」を挿入: グラフ上をドラッグして描きます(クリックだけでも既定の大きさで置けます / Escで取消)`);}
+const R0=$q('#R');
+R0.addEventListener('mousedown',e=>{
+ if(!tool||e.button!==0)return;const bd=$q('#bd'),t=e.target;
+ if(!(t.closest&&(t.closest('#bd')||t.closest('#ob'))))return;
+ e.preventDefault();e.stopPropagation();blurActive();closeEd();
+ const r=bd.getBoundingClientRect(),sx=e.clientX-r.left,sy=Math.max(0,e.clientY-r.top),type=tool;let o=null,on=false;
+ const place=(mx,my)=>{if(isLn({t:type}))setGeom(o,sx,mx,sy,my);else setGeom(o,Math.min(sx,mx),Math.max(sx,mx),Math.min(sy,my),Math.max(sy,my))};
+ track(ev=>{const mx=ev.clientX-r.left,my=Math.max(0,ev.clientY-r.top);
+  if(!on){if(Math.hypot(mx-sx,my-sy)<4)return;on=true;hist();o=mk(type);OBJ().push(o);selId=o.id}
+  place(mx,my);renderOb()},
+  ()=>{swallow=true;setTimeout(()=>{swallow=false},60);
+   if(!on){hist();o=mk(type);OBJ().push(o);selId=o.id;const d=DSZ[type];setGeom(o,sx,sx+d[0],sy,sy+d[1]);}
+   setTool(null);persistOb();renderOb();
+   if(type==='text'){fresh=o.id;startEdit(o)}else msg(`「${NAME[type]}」を挿入しました(線をダブルクリック、またはEnterキーで文字入力 / 枠の■でサイズ変更 / Deleteで削除)`)})},true);
+R0.addEventListener('click',e=>{if(swallow){e.stopPropagation();e.preventDefault()}},true);
+document.addEventListener('mousedown',e=>{if(!selId)return;const t=e.target;if(t.closest&&(t.closest('#ob')||t.closest('#bar')||t.closest('.obtx')))return;selId=null;renderOb()},true);
+addEventListener('keydown',e=>{
+ const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;
+ if(e.key==='Escape'){if(tool){setTool(null);msg('図形の挿入をやめました')}else if(selId){selId=null;renderOb()}return}
+ if(selId&&(e.key==='Enter'||e.key==='F2')&&!$i('mdl')){const o=selO();if(o&&!isLn(o)){e.preventDefault();startEdit(o)}}
+ else if(selId&&(e.key==='Delete'||e.key==='Backspace')&&!$i('mdl')){e.preventDefault();delObj(selId)}
+ else if(selId&&/^Arrow/.test(e.key)&&!e.ctrlKey&&!e.metaKey&&!$i('mdl')){const o=selO();if(!o)return;e.preventDefault();hist();const st=e.shiftKey?10:2,g=geom(o);
+  if(e.key==='ArrowLeft')o.x=rd(dayf(g.l-st));else if(e.key==='ArrowRight')o.x=rd(dayf(g.l+st));else if(e.key==='ArrowUp')o.y=Math.max(0,o.y-st);else o.y+=st;persistOb();renderOb()}});
+
+// ---- リボン(挿入タブ)の操作 ----
+function syncCtl(){
+ if(!$i('oc_sc'))return;const o=selO(),d=o||{...TD.cloud,tc:'#222222',fs:14,...DEFO};
+ if(d.sc)$i('oc_sc').value=d.sc;$i('oc_scn').checked=!d.sc;
+ if(d.fc)$i('oc_fc').value=d.fc;$i('oc_fcn').checked=!d.fc;
+ $i('oc_sw').value=String(d.sw);$i('oc_ds').value=String(d.ds?1:0);$i('oc_tc').value=d.tc||'#222222';$i('oc_fs').value=String(d.fs||14);
+ ['oc_ed','oc_dup','oc_fr','oc_bk','oc_del'].forEach(id=>{$i(id).disabled=!o});if(o&&isLn(o))$i('oc_ed').disabled=true}
+function setProp(p){const o=selO();if(o){hist();Object.assign(o,p);if('fs' in p)fit(o);persistOb();renderOb()}else{Object.assign(DEFO,p);msg('次に挿入する図形の初期設定を変えました(挿入済みの図形は、先に選択してから変えます)')}}
+document.querySelectorAll('[data-ot]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.ot)));
+$i('oc_sc').onchange=()=>{$i('oc_scn').checked=false;setProp({sc:$i('oc_sc').value})};
+$i('oc_scn').onchange=()=>setProp({sc:$i('oc_scn').checked?'':$i('oc_sc').value});
+$i('oc_fc').onchange=()=>{$i('oc_fcn').checked=false;setProp({fc:$i('oc_fc').value})};
+$i('oc_fcn').onchange=()=>setProp({fc:$i('oc_fcn').checked?'':$i('oc_fc').value});
+$i('oc_sw').onchange=()=>setProp({sw:+$i('oc_sw').value});
+$i('oc_ds').onchange=()=>setProp({ds:+$i('oc_ds').value});
+$i('oc_tc').onchange=()=>setProp({tc:$i('oc_tc').value});
+$i('oc_fs').onchange=()=>setProp({fs:+$i('oc_fs').value});
+$i('oc_ed').onclick=()=>{const o=selO();if(o)startEdit(o)};
+$i('oc_del').onclick=()=>{if(selId)delObj(selId)};
+$i('oc_dup').onclick=()=>{const o=selO();if(!o)return;hist();const c=JSON.parse(JSON.stringify(o));c.id='o'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);c.x=rd(dayf(pxf(o.x)+20));c.y=o.y+20;OBJ().push(c);selId=c.id;persistOb();renderOb()};
+$i('oc_fr').onclick=()=>{const L=OBJ(),i=L.findIndex(o=>o.id===selId);if(i<0)return;hist();L.push(L.splice(i,1)[0]);persistOb();renderOb()};
+$i('oc_bk').onclick=()=>{const L=OBJ(),i=L.findIndex(o=>o.id===selId);if(i<0)return;hist();L.unshift(L.splice(i,1)[0]);persistOb();renderOb()};
+renderOb();
+})();
+</script>
+<script>
+// ---- 備考欄(「＋」の下): 最初は3行、Enterで行を追加 ----
+(function(){
+const box=document.getElementById('nt'),NT=()=>SH[cur].nt||(SH[cur].nt=['','','']),MIN=3;
+function render(){const a=NT();
+ box.innerHTML='<div class="nth">備考<small>Enterで行を追加 / 空の行でBackspaceで削除</small></div>'+a.map((s,i)=>`<div class="ntl"><input class="nl" data-n="${i}" autocomplete="off"></div>`).join('');
+ box.querySelectorAll('.nl').forEach((e,i)=>e.value=a[i])}
+window.syncNt=function(){const a=NT(),ins=box.querySelectorAll('.nl');if(ins.length!==a.length){render();return}ins.forEach((e,i)=>{if(e!==document.activeElement&&e.value!==a[i])e.value=a[i]})};
+const foc=(i,end)=>{const e=box.querySelector(`.nl[data-n="${i}"]`);if(e){e.focus();const p=end?e.value.length:0;try{e.setSelectionRange(p,p)}catch(x){}}};
+box.addEventListener('input',e=>{const t=e.target;if(!t.classList.contains('nl'))return;if(!t._h){hist();t._h=1}NT()[+t.dataset.n]=t.value;persist()});
+box.addEventListener('focusout',e=>{if(e.target._h)e.target._h=0});
+box.addEventListener('keydown',e=>{const t=e.target;if(!t.classList.contains('nl')||e.isComposing||e.keyCode===229)return;
+ const a=NT(),i=+t.dataset.n;
+ if(e.key==='Enter'){e.preventDefault();hist();const v=t.value,p=t.selectionStart==null?v.length:t.selectionStart;a[i]=v.slice(0,p);a.splice(i+1,0,v.slice(p));persist();render();foc(i+1,false)}
+ else if(e.key==='Backspace'&&t.value===''&&a.length>MIN){e.preventDefault();hist();a.splice(i,1);persist();render();foc(Math.max(0,i-1),true)}
+ else if(e.key==='ArrowUp'&&i>0){e.preventDefault();foc(i-1,true)}
+ else if(e.key==='ArrowDown'&&i<a.length-1){e.preventDefault();foc(i+1,true)}});
+render();draw();
 })();
 </script>
 </body></html>
