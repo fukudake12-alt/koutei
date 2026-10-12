@@ -145,6 +145,7 @@ body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
 <div id="pdlg"><div><h3>印刷設定</h3>
 <label>用紙<select id="pp"><option value="A4">A4</option><option value="A3">A3</option></select></label>
 <label>向き<select id="po"><option value="landscape">横</option><option value="portrait">縦</option></select></label>
+<label>余白<select id="pm"><option value="n">ごく狭い(2mm)</option><option value="s">狭い(4mm)</option><option value="m">標準(8mm)</option></select></label>
 <label>倍率<select id="pz"><option value="fit">横幅を1ページに収める</option><option value="1">100%(横は複数ページに分割)</option><option value="0.75">75%(横は複数ページに分割)</option><option value="0.5">50%(横は複数ページに分割)</option></select></label>
 <div class="pb"><button id="pok">印刷</button><button id="pcx">キャンセル</button></div>
 <div style="font-size:11px;color:#667;line-height:1.5">※表示中の期間・折りたたみ状態のまま印刷します。縦方向は行単位でページ分割し、各ページに見出し(日付)を付けます。印刷画面で「背景のグラフィック」をオンにしてください。</div></div></div>
@@ -333,6 +334,33 @@ async function exportXl(zip,T,o){
   `${segs.map((q,k)=>segXml(q,k,x,y,i,n,d)).join('')}</xdr:grpSp><xdr:clientData/></xdr:twoCellAnchor>`;
  }
  if(lvWarn)warn.push(`階層が5段目以降の${lvWarn}行は、4段目(F列)の位置に出力しました`);
+
+ { // 「挿入」タブの図形(雲・四角・楕円・線・矢印・テキスト)をExcelの図形として出力
+  const OB=Array.isArray(o.ob)?o.ob:[];let oid=6000,nSkip=0;
+  const X0=4010000+EXC+EXC_ADD,Y0=4169019+(R0-16)*RH;
+  const colPos=dy=>{if(!TEN)return dy-f0;let k=0;while(k+1<PS.length&&PS[k+1]<=dy)k++;const len=k+1<PS.length?PS[k+1]-PS[k]:10;return k+(dy-PS[k])/len};
+  const rowPos=y=>o.rowOf?o.rowOf(y):y/34;
+  const rgb=c=>{let m=String(c||'').trim().match(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i);if(!m)return null;m=m[1];if(m.length==3)m=m.replace(/./g,'$&$&');return m.toUpperCase()};
+  const anc=(cp,rp)=>{const fc=Math.floor(cp+1e-9),fr=Math.floor(rp+1e-9);return `<xdr:col>${C0+fc}</xdr:col><xdr:colOff>${Math.max(0,Math.min(CW-1,Math.round((cp-fc)*CW)))}</xdr:colOff><xdr:row>${R0-1+fr}</xdr:row><xdr:rowOff>${Math.max(0,Math.min(RH-1,Math.round((rp-fr)*RH)))}</xdr:rowOff>`};
+  OB.forEach((q,k)=>{
+   const line=q.t==='line'||q.t==='arrow',x1=colPos(+q.x||0),x2=colPos((+q.x||0)+(+q.w||0)),r1=rowPos(+q.y||0),r2=rowPos((+q.y||0)+(+q.h||0));
+   const xa=Math.min(x1,x2),xb=Math.max(x1,x2),ya=Math.max(0,Math.min(r1,r2)),yb=Math.max(0,Math.max(r1,r2));
+   if(xb<0||xa>N){nSkip++;return}
+   const ca=Math.max(0,xa),cb=Math.min(N,xb),id=++oid,nm=`oObj_${q.t}_${k+1}`;
+   const ex=Math.round(X0+ca*CW),ey=Math.round(Y0+ya*RH),ew=Math.round((cb-ca)*CW),eh=Math.round((yb-ya)*RH);
+   const xfm=fl=>`<a:xfrm${fl||''}><a:off x="${ex}" y="${ey}"/><a:ext cx="${ew}" cy="${eh}"/></a:xfrm>`;
+   const sc=rgb(q.sc)||(line?'333333':null),sw=Math.max(6350,Math.round((+q.sw||1.5)*9525));
+   const ln=sc?`<a:ln w="${sw}"><a:solidFill><a:srgbClr val="${sc}"/></a:solidFill><a:prstDash val="${q.ds?'dash':'solid'}"/><a:round/>${q.t==='arrow'?'<a:tailEnd type="triangle" w="med" len="med"/>':''}</a:ln>`:'<a:ln><a:noFill/></a:ln>';
+   const from=`<xdr:from>${anc(ca,ya)}</xdr:from><xdr:to>${anc(cb,yb)}</xdr:to>`;
+   if(line){
+    gs+=`<xdr:twoCellAnchor>${from}<xdr:cxnSp macro=""><xdr:nvCxnSpPr><xdr:cNvPr id="${id}" name="${nm}"/><xdr:cNvCxnSpPr/></xdr:nvCxnSpPr><xdr:spPr>${xfm((x1>x2?' flipH="1"':'')+(r1>r2?' flipV="1"':''))}<a:prstGeom prst="line"><a:avLst/></a:prstGeom>${ln}</xdr:spPr></xdr:cxnSp><xdr:clientData/></xdr:twoCellAnchor>`;return}
+   const isT=q.t==='text',geo=q.t==='cloud'?'cloud':q.t==='ellipse'?'ellipse':'rect',fcol=rgb(q.fc);
+   const fill=fcol?`<a:solidFill><a:srgbClr val="${fcol}"/></a:solidFill>`:'<a:noFill/>';
+   const sz=Math.max(600,Math.round((+q.fs||14)*60)),tc=rgb(q.tc)||'222222';
+   const paras=q.tx?String(q.tx).split('\n').map(l=>`<a:p><a:pPr algn="${isT?'l':'ctr'}"/>${l===''?`<a:endParaRPr lang="ja-JP" sz="${sz}"/>`:`<a:r><a:rPr kumimoji="1" lang="ja-JP" altLang="en-US" sz="${sz}"><a:solidFill><a:srgbClr val="${tc}"/></a:solidFill><a:latin typeface="Yu Gothic"/><a:ea typeface="Yu Gothic"/></a:rPr><a:t>${X(l)}</a:t></a:r>`}</a:p>`).join(''):'<a:p><a:endParaRPr lang="ja-JP"/></a:p>';
+   gs+=`<xdr:twoCellAnchor>${from}<xdr:sp macro="" textlink=""><xdr:nvSpPr><xdr:cNvPr id="${id}" name="${nm}"/><xdr:cNvSpPr${isT?' txBox="1"':''}/></xdr:nvSpPr><xdr:spPr>${xfm('')}<a:prstGeom prst="${geo}"><a:avLst/></a:prstGeom>${fill}${ln}</xdr:spPr><xdr:txBody><a:bodyPr vertOverflow="overflow" horzOverflow="overflow" wrap="${isT?'none':'square'}" lIns="36000" tIns="18000" rIns="36000" bIns="18000" rtlCol="0" anchor="${isT?'t':'ctr'}"><a:noAutofit/></a:bodyPr><a:lstStyle/>${paras}</xdr:txBody></xdr:sp><xdr:clientData/></xdr:twoCellAnchor>`});
+  if(nSkip)warn.push(`表示期間の外にある図形${nSkip}個は出力しませんでした`);
+ }
 
  // 山積み(施工会社別の人員)を工程の下に出力
  let ymN=0;
@@ -1116,7 +1144,7 @@ function openWk(i,fr){
  render();document.body.appendChild(m)}
 
 $('#fj').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)loadJ(f)};
-function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(45,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),ym:ymData()}}
+function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(45,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),ym:ymData(),ob:(SH[cur].ob||[]).map(q=>({...q})),rowOf:y=>{const v=y/H,i=Math.floor(v);if(v<0)return v;if(i<VI.length)return VI[i]+(v-i);return Math.max(T.length,MINR)+(v-VI.length)}}}
 async function doExport(){try{calc();const r=await exportXl(await JSZip.loadAsync(TPL,{base64:true}),T,exOpt());dl(r.blob,fname('xlsm'));msg(`「${SH[cur].name}」を${ZM==10?'10日単位(1・10・20日)で':''}出力しました。`+(r.warn.join(' / ')||'(マクロ・ボタンは元ファイルのまま。係数・人員は「係数・人員」「品目マスター」シートに出力)')+' ※ボタンが動かない場合は、保存したファイルを右クリック→プロパティ→「ブロックの解除」にチェックして開き直してください');if(r.warn.length)alert(r.warn.join('\n'))}catch(x){err('Excel出力できません: '+x.message)}}
 async function openX(f){
  try{const r=await importXl(await JSZip.loadAsync(await f.arrayBuffer()));BASE=r.base;
@@ -1254,11 +1282,12 @@ window.__qatReload=function(){let q=null;try{q=JSON.parse(UIM.wk_qat)}catch(e){}
 // ---- 印刷機能 ----
 (function(){
 const $i=id=>document.getElementById(id);
-const SZ={A4:[297,210],A3:[420,297]},MG=8,RH=34,HH=60,TH=22;
-let P={p:'A4',o:'landscape',z:'fit'};
+const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34,HH=60,TH=20;
+let P={p:'A4',o:'landscape',z:'fit',m:'s'};
 try{Object.assign(P,JSON.parse(localStorage.getItem('wk_print')||'{}'))}catch(e){}
 const st=document.createElement('style');st.id='pgst';document.head.appendChild(st);
-function setPage(){st.textContent='@page{size:'+P.p+' '+P.o+';margin:'+MG+'mm}'}
+const mgOf=()=>MGS[P.m]??4;
+function setPage(){st.textContent='@page{size:'+P.p+' '+P.o+';margin:'+mgOf()+'mm}'}
 function frozen(src){
  const c=src.cloneNode(true),a=src.querySelectorAll('input,select'),b=c.querySelectorAll('input,select');
  b.forEach((e,i)=>{const o=a[i];if(!o)return;
@@ -1280,7 +1309,7 @@ function clip(host,node,x,y,w,h,ox,oy){
 function build(){
  const old=$i('pprint');if(old)old.remove();
  const L=$i('L'),R=$i('R'),bd=$i('bd');
- const d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
+ const MG=mgOf(),d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
  const Lw=L.offsetWidth,Rw=+bd.getAttribute('width')||bd.getBoundingClientRect().width,bh=+bd.getAttribute('height')||bd.getBoundingClientRect().height;
  const nR=Math.max(1,Math.round(bh/RH));
  let z=P.z==='fit'?Math.min(1,pw/(Lw+Rw)):+P.z;
@@ -1306,11 +1335,11 @@ function build(){
 function clean(){const o=$i('pprint');if(o)o.remove()}
 addEventListener('beforeprint',()=>{setPage();build()});
 addEventListener('afterprint',clean);
-function open(){$i('pp').value=P.p;$i('po').value=P.o;$i('pz').value=P.z;$i('pdlg').classList.add('on')}
+function open(){$i('pp').value=P.p;$i('po').value=P.o;$i('pz').value=P.z;$i('pm').value=P.m||'s';$i('pdlg').classList.add('on')}
 function close(){$i('pdlg').classList.remove('on')}
 $i('bpr').onclick=open;$i('pcx').onclick=close;
 $i('pdlg').addEventListener('mousedown',e=>{if(e.target===$i('pdlg'))close()});
-$i('pok').onclick=()=>{P={p:$i('pp').value,o:$i('po').value,z:$i('pz').value};try{localStorage.setItem('wk_print',JSON.stringify(P))}catch(e){}
+$i('pok').onclick=()=>{P={p:$i('pp').value,o:$i('po').value,z:$i('pz').value,m:$i('pm').value};try{localStorage.setItem('wk_print',JSON.stringify(P))}catch(e){}
  close();setPage();setTimeout(()=>window.print(),50)};
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$i('pdlg').classList.contains('on'))close()});
 setPage();
