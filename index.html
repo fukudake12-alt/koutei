@@ -1132,7 +1132,7 @@ if(kv&&bkv){var syncKV=function(){var shown=kv.textContent!=='＋';bkv.classList
 <script>
 // 品目マスターの選択パネル: 名前セルの▼ / Alt+↓ で開く。左=大項目、右=その中の品目。文字入力中は一致する品目だけを出す
 (function(){
-var ALL='\u0001all',st=null,pk=null,tb=document.getElementById('tb');
+var lastG=null,lastT=0;var ALL='\u0001all',st=null,pk=null,tb=document.getElementById('tb');
 function groups(){var order=[],map=new Map();MS.forEach(function(x){if(!x.n)return;var g=x.g||'';if(!map.has(g)){map.set(g,[]);order.push(g)}map.get(g).push(x)});order.sort(function(a,b){return (a===''?1:0)-(b===''?1:0)});return{order:order,map:map}}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function isTop(e){var r=e.closest('.r'),q=r?T[+r.dataset.i]:null;return !!q&&q.l===0}
@@ -1144,8 +1144,13 @@ function render(){
   if(!pk){pk=el('div');pk.id='pk';document.body.appendChild(pk);
     pk.addEventListener('mousedown',function(e){e.preventDefault()});
     pk.addEventListener('click',function(e){var o=e.target.closest('.po');if(!o||!st)return;
-      if(o.dataset.g!=null){if(o.dataset.g!==ALL&&o.dataset.g!==''&&(o.classList.contains('dis')||(st.mode=='browse'&&st.pref==null&&isTop(st.el)))){chooseG(o.dataset.g);return}if(o.classList.contains('dis'))return;st.grp=o.dataset.g;st.act=-1;render();return}
+      if(o.dataset.g!=null){var gg=o.dataset.g,nw=Date.now();
+      // ダブルクリック判定(1回目のクリックで一覧を描き直すため、dblclickイベントに頼らず自前で判定)
+      if(gg!==ALL&&gg!==''&&lastG===gg&&nw-lastT<500){lastG=null;chooseG(gg);return}
+      lastG=gg;lastT=nw;if(o.classList.contains('dis'))return;st.grp=o.dataset.g;st.act=-1;render();return}
       if(o.dataset.i!=null){var x=st.items[+o.dataset.i];if(x)choose(x.n)}});
+    // 左の大項目をダブルクリック → タスク名に大項目名を入れ、その行を大項目(最上位の階層)にする
+    pk.addEventListener('dblclick',function(e){var o=e.target.closest('.pg .po');if(!o||!st||o.dataset.g==null)return;var g=o.dataset.g;if(g===ALL||g==='')return;e.preventDefault();chooseG(g)});
     pk.addEventListener('mouseover',function(e){var o=e.target.closest('.pi .po');if(!o||!st||o.dataset.i==null)return;st.act=+o.dataset.i;mark(false)})}
   pk.className=f?'f':'';pk.textContent='';
   var pg=el('div','pg'),pi=el('div','pi');pk.appendChild(pg);pk.appendChild(pi);
