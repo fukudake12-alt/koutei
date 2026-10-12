@@ -73,7 +73,7 @@ svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:
 #pdlg>div{background:#fff;padding:18px 24px;border-radius:8px;width:380px;line-height:2;box-shadow:0 4px 20px #0005}
 #pdlg h3{margin:0 0 6px;font-size:15px}#pdlg label{display:flex;justify-content:space-between;gap:16px;align-items:center}#pdlg select{height:26px;font:inherit}
 #pdlg .pb{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
-.ppg{position:relative;overflow:hidden;background:#fff;break-after:page;page-break-after:always}.ppg:last-child{break-after:auto;page-break-after:auto}
+.ppg{position:relative;overflow:hidden;contain:layout paint size;background:#fff;break-after:page;page-break-after:always}.ppg:last-child{break-after:auto;page-break-after:auto}
 .pps{position:absolute;left:0;top:0;transform-origin:0 0}
 .ptt{display:flex;justify-content:space-between;align-items:center;height:22px;font-size:14px;font-weight:700;border-bottom:1px solid #889}.ptt span{font-size:11px;font-weight:400;color:#556}
 .pcl{position:absolute;overflow:hidden}.pcl>*{position:absolute!important;margin:0!important}
@@ -109,7 +109,7 @@ body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
 #nt .ntl{height:34px;box-sizing:border-box;border-bottom:1px solid #e1e4ea;background:#fff}
 #nt .nl{display:block;width:100%;height:33px;box-sizing:border-box;border:0;padding:0 8px;font:inherit;font-size:13px;background:transparent}
 #nt .nl:focus{outline:2px solid #4c7bd9;outline-offset:-2px;background:#fff}
-</style></head><body>
+.opal{display:inline-flex;gap:3px;align-items:center;vertical-align:middle}.opal i{width:18px;height:18px;border:1px solid #8a93a6;border-radius:3px;cursor:pointer;display:inline-block;box-sizing:border-box}.opal i:hover{transform:scale(1.15)}.opal i.on{outline:2px solid #2f6fd6;outline-offset:1px}</style></head><body>
 <div id="bar">
 <div id="qat"><span id="brand">MSM</span><button id="bz" title="元に戻す(Ctrl+Z)">↶ 戻る</button><button id="by" title="やり直し(Ctrl+Y)">↷ 進む</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button><span class="pnw"><label for="pn">工事名称</label><input id="pn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"></span></div>
 <div id="rbh">
@@ -130,7 +130,7 @@ body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
 <div class="rbg" id="zmw"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を隠す</button></div><div class="rbl">列</div></div>
 </div>
-<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_sc" value="#d9230f" title="線の色"><label><input type="checkbox" id="oc_scn">なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">線</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_fc" value="#ffffff" title="塗りつぶしの色"><label><input type="checkbox" id="oc_fcn" checked>なし</label></div><div class="rbl">塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="color" id="oc_tc" value="#222222" title="文字の色"><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">文字を編集</button></div><div class="rbl">文字</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ">前面へ</button><button id="oc_bk" title="最背面へ">背面へ</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">操作</div></div></div>
+<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)／挿入後は図形をクリックで選択→色などを変更</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_sc" value="#d9230f"><span class="opal" data-for="oc_sc" data-p="line" title="線の色"></span><label><input type="checkbox" id="oc_scn">なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">線</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_fc" value="#ffffff"><span class="opal" data-for="oc_fc" data-p="fill" title="塗りつぶしの色"></span><label><input type="checkbox" id="oc_fcn" checked>なし</label></div><div class="rbl">塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_tc" value="#222222"><span class="opal" data-for="oc_tc" data-p="text" title="文字の色"></span><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">文字を編集</button></div><div class="rbl">文字</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ">前面へ</button><button id="oc_bk" title="最背面へ">背面へ</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">操作</div></div></div>
 <div class="rbp" data-p="data" role="tabpanel">
 <div class="rbg"><div class="rbc"><button id="bx0" title="既存の工程表Excelから工程を読み込みます">Excel読込(.xlsm)</button><button id="bx" title="内蔵の工程表Excelに書き込んで出力します(日付・行数は自動調整)">Excel出力</button><span id="tgt"></span></div><div class="rbl">Excel</div></div>
 <div class="rbg"><div class="rbc"><button id="bo">JSON読込</button><button id="bs">JSON保存</button></div><div class="rbl">JSON</div></div>
@@ -146,7 +146,7 @@ body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
 <label>用紙<select id="pp"><option value="A4">A4</option><option value="A3">A3</option></select></label>
 <label>向き<select id="po"><option value="landscape">横</option><option value="portrait">縦</option></select></label>
 <label>余白<select id="pm"><option value="n">ごく狭い(2mm)</option><option value="s">狭い(4mm)</option><option value="m">標準(8mm)</option></select></label>
-<label>倍率<select id="pz"><option value="fit">横幅を1ページに収める</option><option value="1">100%(横は複数ページに分割)</option><option value="0.75">75%(横は複数ページに分割)</option><option value="0.5">50%(横は複数ページに分割)</option></select></label>
+<label>倍率<select id="pz"><option value="fit">横幅を1ページに収める(小さくなります)</option><option value="w2">横2ページに分けて大きく印刷</option><option value="w3">横3ページに分けて大きく印刷</option><option value="w4">横4ページに分けて大きく印刷</option><option value="1">100%(横は複数ページに分割)</option><option value="0.75">75%(横は複数ページに分割)</option><option value="0.5">50%(横は複数ページに分割)</option></select></label>
 <div class="pb"><button id="pok">印刷</button><button id="pcx">キャンセル</button></div>
 <div style="font-size:11px;color:#667;line-height:1.5">※表示中の期間・折りたたみ状態のまま印刷します。縦方向は行単位でページ分割し、各ページに見出し(日付)を付けます。印刷画面で「背景のグラフィック」をオンにしてください。</div></div></div>
 <div id="main"><div class="wrap"><div id="L">
@@ -1283,7 +1283,7 @@ window.__qatReload=function(){let q=null;try{q=JSON.parse(UIM.wk_qat)}catch(e){}
 (function(){
 const $i=id=>document.getElementById(id);
 const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34,HH=60,TH=20;
-let P={p:'A4',o:'landscape',z:'fit',m:'s'};
+let P={p:'A4',o:'landscape',z:'w2',m:'s'};
 try{Object.assign(P,JSON.parse(localStorage.getItem('wk_print')||'{}'))}catch(e){}
 const st=document.createElement('style');st.id='pgst';document.head.appendChild(st);
 const mgOf=()=>MGS[P.m]??4;
@@ -1312,7 +1312,8 @@ function build(){
  const MG=mgOf(),d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
  const Lw=L.offsetWidth,Rw=+bd.getAttribute('width')||bd.getBoundingClientRect().width,bh=+bd.getAttribute('height')||bd.getBoundingClientRect().height;
  const nR=Math.max(1,Math.round(bh/RH));
- let z=P.z==='fit'?Math.min(1,pw/(Lw+Rw)):+P.z;
+ const WN=(/^w(\d)$/.exec(P.z)||[])[1]|0; // 「横N ページ」: 左の表は各ページに付け、日付の部分をN枚に分けて大きく印刷
+  let z=WN?Math.min(1.5,pw/(Lw+Math.ceil(Rw/WN)+1)):P.z==='fit'?Math.min(1,pw/(Lw+Rw)):+P.z;
  const vw=pw/z,vh=ph/z,per=Math.max(1,Math.floor((vh-TH-HH)/RH)),av=Math.max(100,vw-Lw);
  const nC=P.z==='fit'?1:Math.max(1,Math.ceil(Rw/av));
  const Lc=frozen(L),Rc=R.cloneNode(true);
@@ -1509,17 +1510,26 @@ function syncCtl(){
  if(d.sc)$i('oc_sc').value=d.sc;$i('oc_scn').checked=!d.sc;
  if(d.fc)$i('oc_fc').value=d.fc;$i('oc_fcn').checked=!d.fc;
  $i('oc_sw').value=String(d.sw);$i('oc_ds').value=String(d.ds?1:0);$i('oc_tc').value=d.tc||'#222222';$i('oc_fs').value=String(d.fs||14);
- ['oc_ed','oc_dup','oc_fr','oc_bk','oc_del'].forEach(id=>{$i(id).disabled=!o});if(o&&isLn(o))$i('oc_ed').disabled=true}
+ ['oc_ed','oc_dup','oc_fr','oc_bk','oc_del'].forEach(id=>{$i(id).disabled=!o});if(o&&isLn(o))$i('oc_ed').disabled=true;if(typeof swSync==='function')swSync()}
 function setProp(p){const o=selO();if(o){hist();Object.assign(o,p);if('fs' in p)fit(o);persistOb();renderOb()}else{Object.assign(DEFO,p);msg('次に挿入する図形の初期設定を変えました(挿入済みの図形は、先に選択してから変えます)')}}
 document.querySelectorAll('[data-ot]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.ot)));
 $i('oc_sc').onchange=()=>{$i('oc_scn').checked=false;setProp({sc:$i('oc_sc').value})};
-$i('oc_scn').onchange=()=>setProp({sc:$i('oc_scn').checked?'':$i('oc_sc').value});
+$i('oc_scn').onchange=()=>{setProp({sc:$i('oc_scn').checked?'':$i('oc_sc').value});swSync()};
 $i('oc_fc').onchange=()=>{$i('oc_fcn').checked=false;setProp({fc:$i('oc_fc').value})};
-$i('oc_fcn').onchange=()=>setProp({fc:$i('oc_fcn').checked?'':$i('oc_fc').value});
+$i('oc_fcn').onchange=()=>{setProp({fc:$i('oc_fcn').checked?'':$i('oc_fc').value});swSync()};
 $i('oc_sw').onchange=()=>setProp({sw:+$i('oc_sw').value});
 $i('oc_ds').onchange=()=>setProp({ds:+$i('oc_ds').value});
 $i('oc_tc').onchange=()=>setProp({tc:$i('oc_tc').value});
 $i('oc_fs').onchange=()=>setProp({fs:+$i('oc_fs').value});
+const PAL={line:[['赤','#d9230f'],['橙','#f08a00'],['緑','#1e8e3e'],['青','#1f5fbf'],['黒','#222222'],['灰','#888888']],
+ fill:[['白','#ffffff'],['淡黄','#fff2a8'],['淡赤','#ffd6d6'],['淡青','#d6e6ff'],['淡緑','#d9f2d9'],['淡灰','#e5e5e5']],
+ text:[['黒','#222222'],['赤','#d9230f'],['青','#1f5fbf'],['緑','#1e8e3e'],['白','#ffffff']]};
+document.querySelectorAll('.opal').forEach(w=>{w.innerHTML=PAL[w.dataset.p].map(c=>`<i data-c="${c[1]}" title="${c[0]}" style="background:${c[1]}"></i>`).join('');
+ w.addEventListener('mousedown',e=>e.preventDefault());
+ w.addEventListener('click',e=>{const b=e.target.closest('i');if(!b)return;const h=$i(w.dataset.for);h.value=b.dataset.c;h.dispatchEvent(new Event('change'));swSync()})});
+function swSync(){document.querySelectorAll('.opal').forEach(w=>{const h=$i(w.dataset.for),none=(w.dataset.for==='oc_sc'&&$i('oc_scn').checked)||(w.dataset.for==='oc_fc'&&$i('oc_fcn').checked);
+ w.querySelectorAll('i').forEach(b=>b.classList.toggle('on',!none&&b.dataset.c.toLowerCase()===String(h.value).toLowerCase()))})}
+swSync();
 $i('oc_ed').onclick=()=>{const o=selO();if(o)startEdit(o)};
 $i('oc_del').onclick=()=>{if(selId)delObj(selId)};
 $i('oc_dup').onclick=()=>{const o=selO();if(!o)return;hist();const c=JSON.parse(JSON.stringify(o));c.id='o'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);c.x=rd(dayf(pxf(o.x)+20));c.y=o.y+20;OBJ().push(c);selId=c.id;persistOb();renderOb()};
