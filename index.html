@@ -57,7 +57,7 @@ button{padding:4px 9px;border:1px solid #99a;background:#fff;border-radius:3px;c
 .r input:focus{outline:2px solid #4c7bd9;outline-offset:-2px;background:#fff}.r input.chg{background:#ffd27a}.r>input{border-right:1px solid #e1e4ea}.r.sel .no{cursor:var(--ar)}body.rs,body.rs *{cursor:col-resize!important;user-select:none!important}body.bdm,body.bdm *{cursor:grabbing!important;user-select:none!important}body.bde,body.bde *{cursor:ew-resize!important;user-select:none!important}#so{position:absolute;left:0;right:0;border:2px solid #2f6fd6;box-sizing:border-box;pointer-events:none;z-index:5;display:none}#gh{position:absolute;left:0;right:0;border:2px dashed #2f6fd6;background:rgba(76,123,217,.12);box-sizing:border-box;pointer-events:none;z-index:7;display:none}body.edge,body.edge *{cursor:move!important}.r.mvs{opacity:.45}.dragging *{user-select:none!important}.dragging.mv *{cursor:move!important}#di{position:absolute;left:0;right:0;height:5px;background:#e8590c;border-radius:3px;box-shadow:0 0 0 1px #fff;pointer-events:none;z-index:6;display:none}#mdl table{border-collapse:collapse;margin:8px 0}#mdl td{padding:4px 8px;border-bottom:1px solid #e1e4ea}
 #hd{position:sticky;top:0;z-index:2;background:#e9edf3;display:block}#bd{display:block}
 svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:#777}.mo{font-weight:700;fill:#234}
-.ml{stroke:#445;stroke-width:1.6}.wl{stroke:#c3c9d6}.we{fill:#f0f2f6}.gl{stroke:#e6e8ee}.bd2{stroke:#3b78d8;stroke-width:3;stroke-dasharray:5 3;fill:none}.bar{fill:#3b78d8}.sm{fill:#222}.ar{fill:none;stroke:#555}
+.ml{stroke:#445;stroke-width:1.6}.wl{stroke:#c3c9d6}.we{fill:#f0f2f6}.gl{stroke:#e6e8ee}.bd2{stroke:#3b78d8;stroke-width:3;stroke-dasharray:5 7;fill:none}.bar{fill:#3b78d8}.sm{fill:#222}.ar{fill:none;stroke:#555}
 .nm input[data-f=n]{padding-right:20px}.dd{display:none;position:absolute;right:0;top:0;width:20px;height:33px;line-height:33px;text-align:center;font-size:10px;font-style:normal;color:#667;cursor:pointer;z-index:1}.nm:hover .dd,.nm:focus-within .dd{display:block}.dd:hover{color:#06f;background:#e8eefc}
 #pk{position:fixed;z-index:100;display:flex;width:440px;height:198px;background:#fff;border:1px solid #889;border-radius:4px;box-shadow:0 4px 14px #0004;font-size:12px;overflow:hidden}
 #pk.f{height:auto;max-height:198px;width:340px}#pk.f .pg{display:none}
@@ -1032,17 +1032,20 @@ function openWk(i,fr){
  const idx=(i!=null?[i]:hvTargets()).filter(k=>T[k]&&T[k]._hv&&!(T[k+1]&&T[k+1].l>T[k].l));
  if(!idx.length){msg('重機・車両の行ではありません(名前に「重機」「車両」を含む大項目の配下が、自動で重機・車両モードになります)');return}
  let rows=idx.filter(k=>T[k].cs!=null&&T[k].ce!=null);
- const newMode=!rows.length; // 期間(開始日・必要日数)が未設定の行: 稼働日を選ぶと、開始日と期間も決まる
- if(newMode)rows=idx;
+ const hadP=rows.length>0,rows0=rows.slice(),newMode=true; // 期間が設定済みの行も、稼働日を選び直すと開始日・期間が変わる(最初の稼働日=開始日、最後の稼働日=終了日)
+ const p0=hadP?Math.min(...rows0.map(k=>T[k].cs)):null,p1=hadP?Math.max(...rows0.map(k=>T[k].ce)):null;
+ rows=idx;
  let a,b;
  if(newMode){
   const own=rows.map(k=>T[k].cs!=null?T[k].cs:T[k].s).filter(x=>x!=null),all=T.map(x=>x.cs).filter(x=>x!=null),nw=new Date(),today=dayOf(nw.getFullYear(),nw.getMonth()+1,nw.getDate());
   const anc=own.length?Math.min(...own):all.length?Math.min(...all):(VS!=null?VS:today),da=dt(anc),e1=new Date(Date.UTC(da.getUTCFullYear(),da.getUTCMonth()+12,0));
-  a=dayOf(da.getUTCFullYear(),da.getUTCMonth()+1,1);b=dayOf(e1.getUTCFullYear(),e1.getUTCMonth()+1,e1.getUTCDate())}
+  a=dayOf(da.getUTCFullYear(),da.getUTCMonth()+1,1);b=dayOf(e1.getUTCFullYear(),e1.getUTCMonth()+1,e1.getUTCDate());
+  if(VS!=null){a=VS;if(VE==null){const d0=dt(VS);b=dayOf(d0.getUTCFullYear(),d0.getUTCMonth()+13,0)}}if(VE!=null){b=VE;if(VS==null){const d1=dt(VE);a=dayOf(d1.getUTCFullYear(),d1.getUTCMonth()-10,1)}} // 選べる範囲は、画面上部の「表示期間」に合わせる(片方だけ設定のときは12か月分)
+  if(b<a)b=a+30}
  else{a=Math.min(...rows.map(k=>T[k].cs));b=Math.max(...rows.map(k=>T[k].ce))}
  const inRow=(k,d)=>newMode?(d>=a&&d<=b):(d>=T[k].cs&&d<=T[k].ce),cover=d=>newMode?(d>=a&&d<=b):rows.some(k=>inRow(k,d));
  const on=new Set();let total=0;
- for(let d=a;d<=b;d++){if(!cover(d))continue;total++;if(!newMode&&rows.every(k=>!inRow(k,d)||!isDash(T[k],d)))on.add(d)}
+ for(let d=a;d<=b;d++){if(!cover(d))continue;total++;if(hadP&&d>=p0&&d<=p1&&rows0.some(k=>d>=T[k].cs&&d<=T[k].ce)&&rows0.every(k=>d<T[k].cs||d>T[k].ce||!isDash(T[k],d)))on.add(d)}
  const wdOf=d=>dt(d).getUTCDay();let last=null,drag=null;const frow=fr!=null?fr:rows[0];
  const old=document.getElementById('mdl');if(old)return;
  const m=document.createElement('div');m.id='mdl';m.className='on';const box=document.createElement('div');box.className='wkb';m.appendChild(box);
@@ -1052,15 +1055,15 @@ function openWk(i,fr){
  const nm0=T[rows[0]].n||'(名称なし)',multi=rows.length>1;
  const cnt=()=>{const s=box.querySelector('.wks');if(!s)return;if(newMode){const ds=[...on];s.textContent=ds.length?`稼働 ${ds.length}日 / ${fmt(Math.min(...ds))} 〜 ${fmt(Math.max(...ds))}`:'稼働日を選んでください'}else s.textContent=`稼働 ${on.size}日 / 期間 ${total}日`};
  const setDay=(dn,v)=>{v?on.add(dn):on.delete(dn);const el=box.querySelector(`.wkd[data-d="${dn}"]`);if(el)el.classList.toggle('on',v)};
- const each=fn=>{for(let d=a;d<=b;d++)if(cover(d))fn(d)};
+ const each=fn=>{const lo=a,hi=b;for(let d=lo;d<=hi;d++)if(cover(d))fn(d)};
  const render=()=>{const sc=box.querySelector('.wkc'),st=sc?sc.scrollTop:0;
-  const hint=newMode?`期間が未設定です。稼働する日をクリック、またはドラッグでなぞって選びます(青=稼働)。最初の稼働日が開始日、最後の稼働日が終了日になり、途中の休みは破線になります。Shift+クリックで範囲指定。`:`${fmt(a)} 〜 ${fmt(b)}(${multi?'各行の期間は変わりません。同じ稼働日を全行に設定します':'この期間は変わりません'})${idx.length>rows.length?`<br>※期間が未設定の${idx.length-rows.length}行は対象外です(その行の開始日をクリックして、先に期間を決めてください)`:''}<br>日付をクリック、またはドラッグでなぞって 稼働(青)/休み(白) を切替。Shift+クリックで範囲指定。曜日の見出しクリックで、その曜日をまとめて切替。`;
-  const tools=newMode?`<button data-a="none">選択をクリア</button>`:`<button data-a="all">全日 稼働</button><button data-a="none">全日 休み</button><button data-a="sun" title="日曜を休みにします">日曜休み</button><button data-a="wkend" title="土曜・日曜を休みにします">土日休み</button><button data-a="off" title="土日と祝日を休みにします">土日祝休み</button><button data-a="inv" title="稼働と休みを入れ替えます">反転</button>`;
+  const hint=hadP?`選べる範囲は表示期間 ${fmt(a)} 〜 ${fmt(b)}。現在の期間は ${fmt(p0)} 〜 ${fmt(p1)}。稼働日を選び直すと期間も変わります(最初の稼働日=開始日、最後の稼働日=終了日、途中の休みは破線)。<br>日付をクリック、またはドラッグでなぞって 稼働(青)/休み(白) を切替。Shift+クリックで範囲指定。曜日の見出しクリックや上のボタンは、表示期間内の全日に効きます。`:newMode?`期間が未設定です。稼働する日をクリック、またはドラッグでなぞって選びます(青=稼働)。最初の稼働日が開始日、最後の稼働日が終了日になり、途中の休みは破線になります。Shift+クリックで範囲指定。`:`${fmt(a)} 〜 ${fmt(b)}(${multi?'各行の期間は変わりません。同じ稼働日を全行に設定します':'この期間は変わりません'})${idx.length>rows.length?`<br>※期間が未設定の${idx.length-rows.length}行は対象外です(その行の開始日をクリックして、先に期間を決めてください)`:''}<br>日付をクリック、またはドラッグでなぞって 稼働(青)/休み(白) を切替。Shift+クリックで範囲指定。曜日の見出しクリックで、その曜日をまとめて切替。`;
+  const tools=(newMode&&!hadP)?`<button data-a="none">選択をクリア</button>`:`<button data-a="all">全日 稼働</button><button data-a="none">全日 休み</button><button data-a="sun" title="日曜を休みにします">日曜休み</button><button data-a="wkend" title="土曜・日曜を休みにします">土日休み</button><button data-a="off" title="土日と祝日を休みにします">土日祝休み</button><button data-a="inv" title="稼働と休みを入れ替えます">反転</button>`;
   let h=`<b>${X(nm0)}${multi?` ほか${rows.length-1}行(${rows.length}行まとめて)`:''} の稼働日</b><div class="wkh">${hint}</div><div class="wkt">${tools}<span class="wks"></span></div><div class="wkc">`;
   const da=dt(a),db=dt(b);let y=da.getUTCFullYear(),mo=da.getUTCMonth();
   while(y<db.getUTCFullYear()||(y==db.getUTCFullYear()&&mo<=db.getUTCMonth())){
    const first=dayOf(y,mo+1,1),dim=new Date(Date.UTC(y,mo+1,0)).getUTCDate(),lead=wdOf(first);
-   h+=`<div class="wkm1"><div class="wkmt">${y}年${mo+1}月</div><div class="wkg">`+[0,1,2,3,4,5,6].map(w=>`<i class="wkw${w==0?' su':w==6?' sa':''}" data-w="${w}"${newMode?'':' title="この曜日をまとめて切替"'}>${'日月火水木金土'[w]}</i>`).join('')+'<i></i>'.repeat(lead);
+   h+=`<div class="wkm1"><div class="wkmt">${y}年${mo+1}月</div><div class="wkg">`+[0,1,2,3,4,5,6].map(w=>`<i class="wkw${w==0?' su':w==6?' sa':''}" data-w="${w}"${(newMode&&!hadP)?'':' title="この曜日をまとめて切替"'}>${'日月火水木金土'[w]}</i>`).join('')+'<i></i>'.repeat(lead);
    for(let d=1;d<=dim;d++){const dn=first+d-1,inr=dn>=a&&dn<=b&&cover(dn);
     h+=inr?`<button class="wkd${on.has(dn)?' on':''}${wdOf(dn)==0||isHol(dn)?' su':wdOf(dn)==6?' sa':''}" data-d="${dn}">${d}</button>`:`<span class="wkx">${d}</span>`}
    h+='</div></div>';mo++;if(mo>11){mo=0;y++}}
@@ -1074,7 +1077,7 @@ function openWk(i,fr){
   const lo=Math.min(drag.last,dn),hi=Math.max(drag.last,dn);for(let d=lo;d<=hi;d++)if(cover(d))setDay(d,drag.nw);drag.last=dn;last=dn;cnt()});
  m.onclick=e=>{if(e.target===m){close();return}
   const w=e.target.closest('.wkw');
-  if(w){if(newMode)return;const ww=+w.dataset.w,ds=[];each(d=>{if(wdOf(d)==ww)ds.push(d)});if(!ds.length)return;const all=ds.every(d=>on.has(d));ds.forEach(d=>all?on.delete(d):on.add(d));render();return}
+  if(w){if(newMode&&!hadP)return;const ww=+w.dataset.w,ds=[];each(d=>{if(wdOf(d)==ww)ds.push(d)});if(!ds.length)return;const all=ds.every(d=>on.has(d));ds.forEach(d=>all?on.delete(d):on.add(d));render();return}
   const bt=e.target.closest('button');if(!bt)return;const ac=bt.dataset.a;
   if(bt.dataset.d){if(e.detail!==0)return;const dn=+bt.dataset.d;setDay(dn,!on.has(dn));last=dn;cnt();return} // マウス操作はmousedownで処理済み(Enter/Spaceのみここ)
   if(ac=='all'){each(d=>on.add(d));render()}
@@ -1132,6 +1135,7 @@ if(kv&&bkv){var syncKV=function(){var shown=kv.textContent!=='＋';bkv.classList
 var ALL='\u0001all',st=null,pk=null,tb=document.getElementById('tb');
 function groups(){var order=[],map=new Map();MS.forEach(function(x){if(!x.n)return;var g=x.g||'';if(!map.has(g)){map.set(g,[]);order.push(g)}map.get(g).push(x)});order.sort(function(a,b){return (a===''?1:0)-(b===''?1:0)});return{order:order,map:map}}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function isTop(e){var r=e.closest('.r'),q=r?T[+r.dataset.i]:null;return !!q&&q.l===0}
 function close(){if(pk){pk.remove();pk=null}st=null}
 function itemsOf(G){if(st.grp===ALL){var a=[];G.order.forEach(function(g){a=a.concat(G.map.get(g))});return a}return G.map.get(st.grp)||[]}
 function render(){
@@ -1140,7 +1144,7 @@ function render(){
   if(!pk){pk=el('div');pk.id='pk';document.body.appendChild(pk);
     pk.addEventListener('mousedown',function(e){e.preventDefault()});
     pk.addEventListener('click',function(e){var o=e.target.closest('.po');if(!o||!st)return;
-      if(o.dataset.g!=null){if(o.classList.contains('dis'))return;st.grp=o.dataset.g;st.act=-1;render();return}
+      if(o.dataset.g!=null){if(o.dataset.g!==ALL&&o.dataset.g!==''&&(o.classList.contains('dis')||(st.mode=='browse'&&st.pref==null&&isTop(st.el)))){chooseG(o.dataset.g);return}if(o.classList.contains('dis'))return;st.grp=o.dataset.g;st.act=-1;render();return}
       if(o.dataset.i!=null){var x=st.items[+o.dataset.i];if(x)choose(x.n)}});
     pk.addEventListener('mouseover',function(e){var o=e.target.closest('.pi .po');if(!o||!st||o.dataset.i==null)return;st.act=+o.dataset.i;mark(false)})}
   pk.className=f?'f':'';pk.textContent='';
@@ -1158,6 +1162,9 @@ function render(){
 }
 function mark(scroll){if(!pk)return;pk.querySelectorAll('.pi .po').forEach(function(o){var on=+o.dataset.i===st.act;o.classList.toggle('on',on);if(on&&scroll)o.scrollIntoView({block:'nearest'})})}
 function place(){var r=st.el.getBoundingClientRect(),w=pk.offsetWidth,h=pk.offsetHeight,l=Math.max(4,Math.min(r.left,innerWidth-w-8)),t=r.bottom+2;if(t+h>innerHeight-4)t=Math.max(4,r.top-h-2);pk.style.left=l+'px';pk.style.top=t+'px'}
+function chooseG(name){var e=st.el,r=e.closest('.r'),i=r?+r.dataset.i:-1;choose(name);
+  // 大項目を選んだときは、その行の階層も「大項目(最上位)」にする(配下の行は一緒に動く)
+  if(i>=0&&T[i]&&T[i].l>0){var dl=-T[i].l,b=i,base=T[i].l;while(T[b+1]&&T[b+1].l>base)b++;hist();for(var k=i;k<=b;k++)T[k].l+=dl;refresh(true)}}
 function choose(name){var e=st.el;close();e.value=name;e.dispatchEvent(new Event('change',{bubbles:true}));e.focus();try{e.setSelectionRange(e.value.length,e.value.length)}catch(x){}}
 // 親(上の階層)の行名と同じ大項目があれば、その大項目を既定にして他はグレーアウト
 function prefGrp(e,G){var r=e.closest('.r'),i=r?+r.dataset.i:-1,q=T[i];if(!q)return null;var lv=q.l;
@@ -1186,7 +1193,7 @@ addEventListener('keydown',function(e){var t=e.target,k=e.key;
   if(k=='ArrowDown'||k=='ArrowUp'){if(!st.items.length)return;e.preventDefault();e.stopPropagation();var n=st.items.length;st.act=k=='ArrowDown'?(st.act+1)%n:(st.act<=0?n-1:st.act-1);mark(true);return}
   if(st.mode=='browse'&&!e.altKey&&(k=='ArrowLeft'||k=='ArrowRight')){e.preventDefault();e.stopPropagation();
     var G=groups(),keys=[ALL].concat(G.order),i=keys.indexOf(st.grp);i=Math.max(0,Math.min(keys.length-1,i+(k=='ArrowRight'?1:-1)));st.grp=keys[i];st.act=-1;render();return}
-  if(k=='Enter'){if(st.act>=0&&st.items[st.act]){e.preventDefault();e.stopPropagation();choose(st.items[st.act].n)}else close();return}
+  if(k=='Enter'){if(st.act>=0&&st.items[st.act]){e.preventDefault();e.stopPropagation();choose(st.items[st.act].n)}else if(st.mode=='browse'&&st.pref==null&&st.grp!==ALL&&st.grp!==''&&isTop(st.el)){e.preventDefault();e.stopPropagation();chooseG(st.grp)}else close();return}
   if(k=='Tab')close()},true);
 document.getElementById('main').addEventListener('scroll',close);addEventListener('resize',close);
 })();
