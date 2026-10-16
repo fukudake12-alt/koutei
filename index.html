@@ -787,9 +787,9 @@ function ymEdit(e){if(!YMI)return false;const bd=$('#bd'),r=bd.getBoundingClient
  setTimeout(()=>{ip.focus();ip.select()},0);return true}
 function ymData(){const names=[];T.forEach(t=>{if(t._hv)return;const c=(t.co||'').trim();if(c&&!names.includes(c))names.push(c)});
  const ord=CORD.filter(c=>names.includes(c));names.forEach(c=>{if(!ord.includes(c))ord.push(c)});CORD=ord;
- // 重機・車両(稼働日モード)の山積み: 機械(行名)ごとの稼働台数。台数は人員欄の数字(空欄は1台)。破線の日は数えない
+ // 重機・車両(稼働日モード)の山積み: 機械(行名)ごとの稼働台数。期間(開始日・終了日)が入っている行は、下に空行などの配下があっても数える。台数は人員欄の数字(空欄は1台)。破線の日は数えない
  const hn=[],hb={},ht={},hd={};
- T.forEach((t,i)=>{if(!t._hv||t.cs==null||t.ce==null)return;if(T[i+1]&&T[i+1].l>t.l)return;const nm0=(t.n||'').trim()||(t.co||'').trim()||'(名称未入力)',nm=nz(nm0),m=numOf(t.m),c=m>0?m:1;if(!hb[nm]){hb[nm]={};hn.push(nm);hd[nm]=nm0}
+ T.forEach((t,i)=>{if(!t._hv||t.cs==null||t.ce==null)return;const nm0=(t.n||'').trim()||(t.co||'').trim()||'(名称未入力)',nm=nz(nm0),m=numOf(t.m),c=m>0?m:1;if(!hb[nm]){hb[nm]={};hn.push(nm);hd[nm]=nm0}
   for(let d=t.cs;d<=t.ce;d++)if(!isDash(t,d)){hb[nm][d]=(hb[nm][d]||0)+c;ht[d]=(ht[d]||0)+c}});
  const hv={rows:hn.map(k=>({c:hd[k],by:hb[k]})),tot:ht};
  if(!ord.length&&!hv.rows.length)return null;
