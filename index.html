@@ -134,7 +134,7 @@ body.otool #R,body.otool #bd,body.otool #ob{cursor:crosshair!important}
 <div class="rbg"><div class="rbc"><button id="bo">JSON読み込み</button><button id="bs">JSON保存</button></div><div class="rbl">JSON</div></div>
 <div class="rbg"><div class="rbc"><button id="bk" title="自動バックアップから復元">自動バックアップから復元</button></div><div class="rbl">自動バックアップ</div></div>
 <div class="rbg"><div class="rbc"><button id="bms" title="タスク名と係数の対応表(タスク名を選ぶと係数が自動で入ります)">品目マスター</button></div><div class="rbl">マスター</div></div>
-<div class="rbg"><div class="rbc"><button id="bpr" title="工程表を印刷します">印刷</button></div><div class="rbl">印刷</div></div><div class="rbg"><div class="rbc"><button id="bnw" title="いまの工程表を破棄して、新しく始めます(実行前に自動バックアップします)">新規作成</button></div><div class="rbl">配布版</div></div>
+<div class="rbg"><div class="rbc"><button id="bpr" title="工程表を印刷します">印刷</button></div><div class="rbl">印刷</div></div><div class="rbg"><div class="rbc"><button id="bnw" title="いまの工程表を破棄して、新しく始めます(実行前に自動バックアップします)">新規作成</button></div><div class="rbl">&nbsp;</div></div>
 </div>
 </div>
 <input type="file" id="fx" accept=".xlsm,.xlsx" hidden><input type="file" id="fj" accept=".json" hidden>
@@ -1817,7 +1817,7 @@ function frozen(src){
   if(o.className)sp.className=o.className.replace('chg','');
   if(o.parentNode&&o.parentNode.classList&&o.parentNode.classList.contains('r'))sp.style.borderRight='1px solid #e1e4ea';
   e.replaceWith(sp)});
- c.querySelectorAll('.au,.dd,#ymi,[hidden]').forEach(e=>e.remove());
+ c.querySelectorAll('.au,.dd,.tg,#ymi,[hidden]').forEach(e=>e.remove());
  {const pl=c.querySelector('#pl'),ym=c.querySelector('#ym');if(pl){pl.style.visibility='hidden'}} // 山積みの上の「＋」は、行位置を保つため見えない空行として残す
  c.querySelectorAll('.sel').forEach(e=>e.classList.remove('sel'));
  return c}
