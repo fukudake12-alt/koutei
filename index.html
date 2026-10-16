@@ -1441,7 +1441,7 @@ $('#bd').addEventListener('mousedown',e=>{if(e.button!==0)return;if(e.altKey){co
   if(g.on){if(g.hist){const t=T[g.i];if(t.s===g.s0&&t.d===g.d0){t.mf=g.mf0;if(UN.length>g.ul){UN.pop();updUR()}}refresh(true);chgMark(g.old,null)}setTimeout(()=>{barDragged=false},0)}};
  addEventListener('mousemove',mv);addEventListener('mouseup',up)});
 $('#bd').onclick=e=>{if(barDragged){barDragged=false;return}if(ymEdit(e))return;if(!e.altKey)return;const q=barHit(e);if(q)toggleSeg(q.i,q.dn)};
-let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:center;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(4500,String(m).length*120))}
+let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:left;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(4500,String(m).length*120))}
 $('#bd').ondblclick=e=>{if(e.altKey||!barHit(e))return;{const q=barHit(e);if(T[q.i]._hv){openWk();return}}wkToast('【破線にする方法】\nAltキーを押しながら、変更したい日の線をクリック\n(もう一度Alt+クリックで元の実線に戻ります)')};
 $('#bd').onmousemove=e=>{if(document.body.classList.contains('bdm')||document.body.classList.contains('bde'))return;const q=barZone(e);$('#bd').style.cursor=!q?'default':q.z=='m'?'grab':'ew-resize'};
 $('#bo').onclick=()=>$('#fj').click();
@@ -1648,7 +1648,7 @@ async function autoLayout(zip,shPath,o){
   xs.c=c;
   return{o:Object.assign({},o,{xs}),note:'日付の列が設定('+colN(cd.c)+'列)と違い'+colN(d0)+'列から始まるため、位置を自動で合わせ'}
  }catch(e){return{o}}}
-async function doExport(ov){try{calc();CT=ov!==undefined?ov:await(window.__tplCur?window.__tplCur():null);tgtUpd();let r=null;if(CT){try{r=await exportXl(await JSZip.loadAsync(CT.buf),T,exOpt())}catch(e){r=null;var why=e.message}
+async function doExport(ov){try{calc();CT=(ov!==undefined&&!(ov instanceof Event))?ov:await(window.__tplCur?window.__tplCur():null);tgtUpd();let r=null;if(CT){try{r=await exportXl(await JSZip.loadAsync(CT.buf),T,exOpt())}catch(e){r=null;var why=e.message}
  if(!r){ // 従来の配置ではないひな形: 「入出力設定」で指定したセル位置へ、そのひな形の工程表シートに値を書き込む(書式・マクロはそのまま)
   try{const zip=await JSZip.loadAsync(CT.buf),shs=await tplSheets(zip),sh=shs.find(x=>x.nm==(CT.sh||'工程表'))||shs.find(x=>x.nm=='工程表')||shs[0],mac=/\.xlsm$/i.test(CT.name);
    if(sh){const o0=exOpt(),al=await autoLayout(zip,sh.path,o0),blob=await exportToTemplate(zip,T,al.o,sh.path,mac);dl(blob,fname(mac?'xlsm':'xlsx'));msg(`ひな形「${CT.name}」の「${sh.nm}」シートに、`+(al.note?al.note+'で':'「入出力設定」で指定した位置どおりに')+`書き込みました(値・工程バー・図形。書式・マクロはそのまま)。`+(exportToTemplate.warn||[]).join(' / ')+` Excelで開いて、位置・日付の並びを確認してください`);return}}
@@ -1662,7 +1662,7 @@ async function openXold(f){
 
 $('#bx0').onclick=()=>{const d=$('#xdlg');if(d.classList.contains('on')){if(window.__xiSave&&!window.__xiSave())return;d.classList.remove('on')}$('#fx').click()};
 $('#fx').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)openX(f)};
-$('#bx').onclick=doExport;
+$('#bx').onclick=()=>doExport();
 const hasF=e=>!!(e.dataTransfer&&[...(e.dataTransfer.types||[])].includes('Files'));
 addEventListener('dragover',e=>{if(!hasF(e))return;e.preventDefault();document.body.classList.add('dg')});
 addEventListener('dragenter',e=>{if(hasF(e)){e.preventDefault();document.body.classList.add('dg')}});
