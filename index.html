@@ -934,7 +934,7 @@ function ymData(){const names=[];T.forEach(t=>{if(t._hv)return;const c=(t.co||''
 const ntRows=()=>((SH[cur]&&SH[cur].nt)||['備考','','','']).length; /* 備考欄: 1行目が「備考」、2行目から記入 */
 function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
- const f0=VS??mn-3,n=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
+ const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),n=Math.max(n0,(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
  const SG=[];{let st=0;for(let k=1;k<=n;k++){if(k==n||dt(f0+k).getUTCDate()==1){const ky=mkey(f0+st);SG.push({st,en:k,key:ky,col:CM.has(ky)});st=k}}}
  DX=[0];SG.forEach(g=>{const pw=g.col?MCW/(g.en-g.st):W;for(let k=g.st;k<g.en;k++)DX.push(DX[k]+pw)});
  const w=DX[n],CD=k=>CM.has(mkey(f0+k));
@@ -1978,12 +1978,12 @@ window.__qatReload=function(){let q=null;try{q=JSON.parse(UIM.wk_qat)}catch(e){}
 // ---- 印刷機能 ----
 (function(){
 const $i=id=>document.getElementById(id);
-const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34,HH=60,TH=20;
-let P={p:'A4',o:'landscape',z:'w2',m:'s'};
-try{Object.assign(P,JSON.parse(localStorage.getItem('wk_print')||'{}'))}catch(e){}
+const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34,HH=60;let TH=20;
+let P={p:'A4',o:'landscape',z:'fit',m:'s'};
+try{Object.assign(P,JSON.parse(localStorage.getItem('wk_print2')||'{}'))}catch(e){}
 const st=document.createElement('style');st.id='pgst';document.head.appendChild(st);
 const mgOf=()=>MGS[P.m]??4;
-function setPage(){st.textContent='@page{size:'+P.p+' '+P.o+';margin:'+mgOf()+'mm}'}
+function setPage(){const d=SZ[P.p]||SZ.A4,w=P.o==='landscape'?d[0]:d[1],h=P.o==='landscape'?d[1]:d[0];st.textContent='@page{size:'+w+'mm '+h+'mm;margin:'+mgOf()+'mm}'}
 function frozen(src){
  const c=src.cloneNode(true),a=src.querySelectorAll('input,select'),b=c.querySelectorAll('input,select');
  b.forEach((e,i)=>{const o=a[i];if(!o)return;
@@ -2007,9 +2007,10 @@ function build(){
  const L=$i('L'),R=$i('R'),bd=$i('bd');
  const MG=mgOf(),d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
  const Lw=L.offsetWidth,Rw=+bd.getAttribute('width')||bd.getBoundingClientRect().width,bh=+bd.getAttribute('height')||bd.getBoundingClientRect().height;
- const nR=Math.max(1,Math.round(bh/RH));
+ let nR=Math.max(1,Math.round(bh/RH));try{const ob=$i('ob');if(ob){const obh=(+ob.getAttribute('height')||0)-12;if(obh>bh)nR=Math.max(nR,Math.ceil(obh/RH))}}catch(e){}
  const WN=(/^w(\d)$/.exec(P.z)||[])[1]|0; // 「横N ページ」: 左の表は各ページに付け、日付の部分をN枚に分けて大きく印刷
   let z=WN?Math.min(1.5,pw/(Lw+Math.ceil(Rw/WN)+1)):P.z==='fit'?Math.min(1,pw/(Lw+Rw)):+P.z;
+ TH=Math.ceil(30/z); // 見出しは倍率に関係なく用紙上で一定の大きさにする
  const vw=pw/z,vh=ph/z,per=Math.max(1,Math.floor((vh-TH-HH)/RH)),av=Math.max(100,vw-Lw);
  const nC=P.z==='fit'?1:Math.max(1,Math.ceil(Rw/av));
  window.__obSX=0;try{window.renderOb&&window.renderOb()}catch(e){} // 図形は横スクロール量0の状態で複製する(左の表の上の図形がずれないように)
@@ -2020,12 +2021,12 @@ function build(){
  Lc.style.cssText='position:absolute;width:'+Lw+'px;left:0;top:0;border-right:2px solid #889';
  Rc.style.cssText='position:absolute;left:0;top:0;width:'+Rw+'px';
  const root=document.createElement('div');root.id='pprint';
- const nP=Math.ceil(nR/per),tot=nP*nC,name=[$i('cn').value,$i('pn').value].filter(Boolean).join(' ')||'工程表',dstr='出力日: '+new Date().toLocaleDateString('ja-JP');
+ const nP=Math.ceil(nR/per),tot=nP*nC,name=[$i('cn').value,$i('pn').value].filter(Boolean).join(' '),dstr='出力日: '+new Date().toLocaleDateString('ja-JP');
  let pg=0;
  for(let p=0;p<nP;p++){for(let c=0;c<nC;c++){pg++;
   const r0=p*per,n=Math.min(per,nR-r0),page=document.createElement('div');page.className='ppg';page.style.cssText='width:'+pw+'px;height:'+ph+'px';
   const sc=document.createElement('div');sc.className='pps';sc.style.cssText='width:'+vw+'px;height:'+vh+'px;transform:scale('+z+')';
-  const t=document.createElement('div');t.className='ptt';t.style.width=vw+'px';t.innerHTML='<b></b><span></span>';t.firstChild.textContent=name;t.lastChild.textContent=dstr+'   '+pg+' / '+tot;
+  const t=document.createElement('div');t.className='ptt';t.style.width=vw+'px';t.innerHTML='<b></b><span></span>';t.style.height=TH+'px';t.style.fontSize=(16/z)+'px';t.style.paddingBottom=(4/z)+'px';t.style.boxSizing='border-box';t.firstChild.textContent='工程表';if(name){const em=document.createElement('em');em.textContent='　'+name;em.style.cssText='font-style:normal;font-weight:400;font-size:'+(11/z)+'px;color:#556';t.firstChild.appendChild(em)}t.lastChild.style.fontSize=(11/z)+'px';t.lastChild.textContent=dstr+'   '+pg+' / '+tot;
   sc.appendChild(t);
   const colW=nC===1?Rw:Math.min(av,Rw-c*av),ox=c*av;
   clip(sc,Lc,0,TH,Lw,HH,0,0);clip(sc,Lc,0,TH+HH,Lw,n*RH,0,HH+r0*RH);
@@ -2036,11 +2037,11 @@ function build(){
 function clean(){const o=$i('pprint');if(o)o.remove()}
 addEventListener('beforeprint',()=>{setPage();build()});
 addEventListener('afterprint',clean);
-function open(){$i('pp').value=P.p;$i('po').value=P.o;$i('pz').value=P.z;$i('pm').value=P.m||'s';$i('pdlg').classList.add('on')}
+function open(){$i('pp').value=P.p;$i('po').value=P.o;$i('pz').value=P.z;$i('pm').value=P.m||'s';$i('pdlg').classList.add('on');setPage()}
 function close(){$i('pdlg').classList.remove('on')}
 $i('bpr').onclick=open;$i('pcx').onclick=close;
 $i('pdlg').addEventListener('mousedown',e=>{if(e.target===$i('pdlg'))close()});
-$i('pok').onclick=()=>{P={p:$i('pp').value,o:$i('po').value,z:$i('pz').value,m:$i('pm').value};try{localStorage.setItem('wk_print',JSON.stringify(P))}catch(e){}
+$i('pok').onclick=()=>{P={p:$i('pp').value,o:$i('po').value,z:$i('pz').value,m:$i('pm').value};try{localStorage.setItem('wk_print2',JSON.stringify(P))}catch(e){}
  close();setPage();setTimeout(()=>window.print(),50)};
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$i('pdlg').classList.contains('on'))close()});
 setPage();
