@@ -51,7 +51,7 @@ button{padding:4px 9px;border:1px solid #99a;background:#fff;border-radius:3px;c
 .nm{position:relative}.tg{position:absolute;top:0;width:14px;height:33px;line-height:33px;text-align:center;font-style:normal;font-size:10px;cursor:pointer;color:#345}.tg:hover{color:#06f}
 .lv{display:flex;align-items:center;justify-content:center;gap:2px}.lv i{font-style:normal;cursor:pointer;width:21px;height:20px;line-height:18px;text-align:center;border:1px solid #bbc;border-radius:3px;background:#fff;font-size:10px;color:#345}.lv i:hover{background:#cfe0ff}
 .ymr{display:grid;grid-template-columns:var(--gc,34px 52px 64px 64px 224px 72px 100px 52px 52px 64px 84px 84px);height:34px;border-bottom:1px solid #e1e4ea;background:#fff8e1;line-height:33px;font-size:13px}.ymh{background:#fff3cd;font-weight:600}.ymr>span{padding:0 4px;white-space:nowrap;overflow:hidden}.ymb{grid-column:1/5;text-align:right}.ymb i{cursor:pointer;color:#2f6fd6;font-style:normal;padding:0 7px}.ymb i:hover{background:#2f6fd6;color:#fff}.ymn{grid-column:5/6}.ymh .ymn{grid-column:1/8}.ymt{grid-column:9/10;text-align:right}#L.hk .ymt{display:none}.ymtot{font-weight:700;background:#ffe8cc}.ymr.hv{background:#eef6fd}.ymh.hv{background:#d6e9f9}.ymtot.hv{background:#cfe3f5}
-#R{position:relative}#ymi{position:absolute;z-index:5;text-align:center;font:inherit;font-weight:700;border:2px solid #d9480f;background:#fff;padding:0;box-sizing:border-box}
+#R{position:relative}body.lgm #bd{cursor:crosshair}#tb .r.lgdone{opacity:.42;filter:grayscale(1)}body.lgpick #L,body.lgpick #bd{filter:grayscale(1) opacity(.35);pointer-events:none;transition:filter .2s}body.lgpick #hd{cursor:pointer}#lgp{display:none;position:sticky;top:68px;left:744px;width:0;height:0;z-index:4;pointer-events:none}body.lgpick #lgp{display:block}#lgp div{position:absolute;left:0;top:0;white-space:nowrap;background:#fff4e6;border:2px solid #e8590c;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;color:#c2410c;box-shadow:0 2px 8px rgba(0,0,0,.25)}#lgi{position:absolute;z-index:6;text-align:center;font:inherit;font-weight:700;border:2px solid #e8590c;border-radius:3px;box-sizing:border-box;background:#fff}#lgw{position:absolute;z-index:7;background:#fff4e5;color:#c2410c;border:2px solid #e8590c;border-radius:3px;padding:3px 8px;font-weight:700;font-size:12px;line-height:18px;white-space:nowrap;pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,.2)}#ymi{position:absolute;z-index:5;text-align:center;font:inherit;font-weight:700;border:2px solid #d9480f;background:#fff;padding:0;box-sizing:border-box}
 #pl{height:34px;line-height:32px;text-align:center;font-size:20px;color:#3b78d8;cursor:pointer;border-bottom:1px solid #e1e4ea}#pl:hover{background:#eaf1ff}
 .r input{width:100%;height:33px;border:0;padding:0 4px;background:transparent;font:inherit}
 .r{position:relative}.r input.lk{background:#e3f4e8}.r input.nm0{background:#ffd6d6}.au{display:none;position:absolute;right:2px;top:9px;width:15px;height:15px;line-height:13px;text-align:center;border:1px solid #6b8fd6;border-radius:50%;background:#fff;color:#2f6fd6;font-size:11px;font-style:normal;cursor:pointer;z-index:2;grid-row:1}.au:hover{background:#2f6fd6;color:#fff}.au[data-au=k]{grid-column:8/9}.au[data-au=d]{grid-column:10/11}.au[data-au=s]{grid-column:11/12}.au[data-au=e]{grid-column:12/13}#L.hk .au[data-au=d]{display:none!important}#L.hk .au[data-au=s]{grid-column:8/9}#L.hk .au[data-au=e]{grid-column:9/10}.r.as .au[data-au=s],.r.ad .au[data-au=d],.r.ad .au[data-au=e],.r.ak .au[data-au=k]{display:block}#L.hk .au[data-au=k]{display:none!important}
@@ -171,7 +171,7 @@ body.obcp,body.obcp *{cursor:copy!important}body.osel #R,body.osel #bd,body.osel
 body{font:13px/1.2 "Yu Gothic UI","Meiryo UI","Meiryo",sans-serif;color:#000}
 .h{background:#e6e6e6;border-bottom:1px solid #ababab}
 .h b{font-weight:400;justify-content:center;align-items:center;padding:0 2px;border-right:1px solid #ababab;color:#222;background:#e6e6e6}
-.h .pj{background:#f3f3f3;border-bottom:1px solid #ababab}
+.h .pj{background:#f3f3f3;border-bottom:1px solid #ababab}.h .pj .pjd{width:128px;padding:0 2px}.h .pj .pjb{height:20px;padding:0 8px;border:1px solid #ababab;background:#fff;font:inherit;cursor:pointer}.h .pj .pjs{width:10px;flex:none}
 .h .pj input{border:1px solid #ababab;border-radius:0}
 .h .pj input:focus{outline:0;border-color:#217346}
 #hd{background:#e6e6e6}
@@ -227,31 +227,32 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 </style>
 </head><body>
 <div id="bar">
-<div id="qat"><span id="brand">MSM</span><span id="ver" style="font-size:11px;color:#667;margin:0 8px 0 -4px">v1.1</span><button id="bz" title="元に戻す(Ctrl+Z)">↶ 戻る</button><button id="by" title="やり直し(Ctrl+Y)">↷ 進む</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button></div>
+<div id="qat"><span id="brand">MSM</span><span id="ver" style="font-size:11px;color:#667;margin:0 8px 0 -4px">v1.1</span><button id="bz" title="元に戻す(Ctrl+Z)">↶ 元に戻す</button><button id="by" title="やり直し(Ctrl+Y)">↷ やり直し</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button></div>
 <div id="rbh">
-<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">編集</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="ins" role="tab">挿入</button><button class="rbt" data-t="data" role="tab">データ</button></div>
-<span id="warn"></span><span id="msg" title="各行の「階層 ◀ ▶」で字下げを変更(◀=左へ/▶=右へ)。複数行は「No」をShift+クリックで選んでから。「No」や行を右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)。">各行の「階層 ◀ ▶」で字下げを変更。複数行は「No」をShift+クリックで選択。「No」や行を右クリックで行メニュー。</span>
+<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">ホーム</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="ins" role="tab">挿入</button><button class="rbt" data-t="data" role="tab">データ</button></div>
+<span id="warn"></span><span id="msg" title="「インデントを減らす◀／増やす▶」で階層を変更(◀=左へ/▶=右へ)。複数行は「No」をShift+クリックで選んでから。「No」や行を右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)。">「インデントを減らす◀／増やす▶」で階層を変更。複数行は「No」をShift+クリックで選択。「No」や行を右クリックで行メニュー。</span>
 </div>
 <div id="rbb">
 <div class="rbp" data-p="edit" role="tabpanel">
-<div class="rbg"><div class="rbc"><button id="ba">＋ 行追加</button><button id="bd1" title="選択行を削除します(Delete)">－ 行削除</button></div><div class="rbl">行</div></div>
-<div class="rbg"><div class="rbc"><button id="bl" title="選択行の階層(字下げ)を1つ上げます">◀ 階層を上げる</button><button id="br" title="選択行の階層(字下げ)を1つ下げます">▶ 階層を下げる</button></div><div class="rbl">階層</div></div>
-<div class="rbg"><div class="rbc"><button id="bc">▷ 全て折りたたむ</button><button id="be">◢ 全て展開</button></div><div class="rbl">折りたたみ</div></div>
-<div class="rbg"><div class="rbc"><button id="bb" title="太字(Ctrl+B)" style="font-weight:700">B 太字</button><button id="bu" title="下線(Ctrl+U)" style="text-decoration:underline">U 下線</button></div><div class="rbl">文字書式</div></div>
+<div class="rbg"><div class="rbc"><button id="ba">＋ 行の挿入</button><button id="bd1" title="選択行を削除します(Delete)">－ 行の削除</button></div><div class="rbl">セル</div></div>
+<div class="rbg"><div class="rbc"><button id="bl" title="選択行のインデントを減らします(階層を1つ上げます)">◀ インデントを減らす</button><button id="br" title="選択行のインデントを増やします(階層を1つ下げます)">▶ インデントを増やす</button></div><div class="rbl">配置</div></div>
+<div class="rbg"><div class="rbc"><button id="bc">▷ すべて折りたたむ</button><button id="be">◢ すべて展開</button></div><div class="rbl">アウトライン</div></div>
+<div class="rbg"><div class="rbc"><button id="bb" title="太字(Ctrl+B)" style="font-weight:700">B 太字</button><button id="bu" title="下線(Ctrl+U)" style="text-decoration:underline">U 下線</button></div><div class="rbl">フォント</div></div>
 
 
 </div>
 <div class="rbp" data-p="view" role="tabpanel">
-<div class="rbg" id="vw"><div class="rbc"><input type="date" id="vs"><span class="rbs">〜</span><input type="date" id="ve"><button id="va" title="表示期間を工程に合わせて自動設定します">自動</button></div><div class="rbl">表示期間</div></div>
+
 <div class="rbg"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
-<div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を隠す</button></div><div class="rbl">列</div></div>
+<div class="rbg"><div class="rbc"><button id="blg" title="稲妻線モード: 記入日(初期値=今日)の線を、Enterで予定の線を上から順に(またはクリックで1本ずつ)進捗%を入力して引きます。記入日は変更でき、引き忘れ・修正ができます">稲妻線</button><label for="lgd" style="font-size:12px;margin-left:6px">記入日</label><button id="lgb" title="前日にする">◀</button><input type="date" id="lgd" title="空欄=今日。引き忘れ・間違いの修正は日付を選んで記入します" style="margin:0 2px"><button id="lgf" title="翌日にする">▶</button><button id="lgt" title="記入日を今日に戻します">今日</button><button id="lgc" title="この記入日の線を消します(他の日の線は残ります。Ctrl+Zで戻せます)">この日の線を消す</button><label style="font-size:12px;margin-left:6px"><input type="checkbox" id="lgh" checked>過去の線も表示</label></div><div class="rbl">実績管理</div></div>
+<div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を非表示</button></div><div class="rbl">列</div></div>
 <div class="rbg"><div class="rbc"><button id="brule" title="日数・開始日・終了日・係数などを変えたとき、何が固定され、何が自動で動くかを表で確認します">入力ルール早見表</button></div><div class="rbl">ヘルプ</div></div>
 </div>
-<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button><button id="oc_sel" title="グラフの空きスペースをドラッグすると囲んだ図形を選択できます。このボタンONの間は左の表の上でもドラッグ選択できます(Escで解除)。Ctrl/Shift+クリックでも追加・解除できます">⬚ オブジェクトの選択</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)／挿入後は図形をクリックで選択→色などを変更</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_sc" value="#d9230f"><span class="opal" data-for="oc_sc" data-p="line" title="線の色"></span><label><input type="checkbox" id="oc_scn">なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">線</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_fc" value="#ffffff"><span class="opal" data-for="oc_fc" data-p="fill" title="塗りつぶしの色"></span><label><input type="checkbox" id="oc_fcn" checked>なし</label></div><div class="rbl">塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_tc" value="#222222"><span class="opal" data-for="oc_tc" data-p="text" title="文字の色"></span><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">文字を編集</button></div><div class="rbl">文字</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ">前面へ</button><button id="oc_bk" title="最背面へ">背面へ</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">操作</div></div></div>
+<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button><button id="oc_sel" title="グラフの空きスペースをドラッグすると囲んだ図形を選択できます。このボタンONの間は左の表の上でもドラッグ選択できます(Escで解除)。Ctrl/Shift+クリックでも追加・解除できます">⬚ オブジェクトの選択</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)／挿入後は図形をクリックで選択→色などを変更</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_sc" value="#d9230f"><span class="opal" data-for="oc_sc" data-p="line" title="線の色"></span><label><input type="checkbox" id="oc_scn">枠線なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">図形の枠線</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_fc" value="#ffffff"><span class="opal" data-for="oc_fc" data-p="fill" title="塗りつぶしの色"></span><label><input type="checkbox" id="oc_fcn" checked>塗りつぶしなし</label></div><div class="rbl">図形の塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_tc" value="#222222"><span class="opal" data-for="oc_tc" data-p="text" title="文字の色"></span><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">テキストの編集</button></div><div class="rbl">フォント</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ移動">前面へ移動</button><button id="oc_bk" title="最背面へ移動">背面へ移動</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">配置</div></div></div>
 <div class="rbp" data-p="data" role="tabpanel">
 <div class="rbg"><div class="rbc"><button id="bx" title="「入出力設定」の出力タブで選ばれている客先のひな形(Excel)に書き込んで出力します(日付・行数は自動調整)。ひな形が無ければ白紙のExcelに出力します">Excel出力</button><button id="bxs" title="Excel読み込み(入力)と、Excel出力(貼り付け用シート・ひな形)の設定">入出力設定</button><span id="tgt"></span></div><div class="rbl">Excel</div></div>
-<div class="rbg"><div class="rbc"><button id="bo" title="JSONを読み込みます(Ctrl+O)">JSON読み込み</button><button id="bs" title="JSONで保存します(Ctrl+S)">JSON保存</button></div><div class="rbl">JSON</div></div>
-<div class="rbg"><div class="rbc"><button id="bk" title="自動バックアップから復元">自動バックアップから復元</button></div><div class="rbl">自動バックアップ</div></div>
+<div class="rbg"><div class="rbc"><button id="bo" title="JSONを読み込みます(Ctrl+O)">開く (JSON)</button><button id="bs" title="JSONで保存します(Ctrl+S)">上書き保存 (JSON)</button></div><div class="rbl">JSON</div></div>
+<div class="rbg"><div class="rbc"><button id="bk" title="自動回復データを復元">自動回復データを復元</button></div><div class="rbl">自動回復</div></div>
 <div class="rbg"><div class="rbc"><button id="bms" title="タスク名と係数の対応表(タスク名を選ぶと係数が自動で入ります)">品目マスター</button></div><div class="rbl">マスター</div></div>
 <div class="rbg"><div class="rbc"><button id="bpr" title="工程表を印刷します(Ctrl+P)">印刷</button></div><div class="rbl">印刷</div></div><div class="rbg"><div class="rbc"><button id="bnw" title="いまの工程表を破棄して、新しく始めます(実行前に自動バックアップします)">新規作成</button></div><div class="rbl">&nbsp;</div></div>
 </div>
@@ -259,11 +260,11 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 <input type="file" id="fx" accept=".xlsm,.xlsx" hidden><input type="file" id="fj" accept=".json" hidden>
 </div>
 
-<div id="pdlg"><div><h3>印刷設定</h3>
-<label>用紙<select id="pp"><option value="A4">A4</option><option value="A3">A3</option></select></label>
+<div id="pdlg"><div><h3>ページ設定</h3>
+<label>用紙サイズ<select id="pp"><option value="A4">A4</option><option value="A3">A3</option></select></label>
 <label>向き<select id="po"><option value="landscape">横</option><option value="portrait">縦</option></select></label>
 <label>余白<select id="pm"><option value="n">ごく狭い(2mm)</option><option value="s">狭い(4mm)</option><option value="m">標準(8mm)</option></select></label>
-<label>倍率<select id="pz"><option value="fit">横幅を1ページに収める(小さくなります)</option><option value="w2">横2ページに分けて大きく印刷</option><option value="w3">横3ページに分けて大きく印刷</option><option value="w4">横4ページに分けて大きく印刷</option><option value="1">100%(横は複数ページに分割)</option><option value="0.75">75%(横は複数ページに分割)</option><option value="0.5">50%(横は複数ページに分割)</option></select></label>
+<label>拡大縮小<select id="pz"><option value="fit">すべての列を1ページに印刷</option><option value="w2">横2ページに分けて大きく印刷</option><option value="w3">横3ページに分けて大きく印刷</option><option value="w4">横4ページに分けて大きく印刷</option><option value="1">100%(横は複数ページに分割)</option><option value="0.75">75%(横は複数ページに分割)</option><option value="0.5">50%(横は複数ページに分割)</option></select></label>
 <div class="pb"><button id="pok">印刷</button><button id="pcx">キャンセル</button></div>
 <div style="font-size:11px;color:#667;line-height:1.5">※表示中の期間・折りたたみ状態のまま印刷します。縦方向は行単位でページ分割し、各ページに見出し(日付)を付けます。印刷画面で「背景のグラフィック」をオンにしてください。</div></div></div>
 <div id="xdlg"><div><h3>入出力設定</h3>
@@ -300,7 +301,7 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 <div class="pb"><button id="bx0" type="button" title="Excelの工程表から、タスク名・日付・工程バー(塗りつぶし・図形)を読み込みます。「入出力設定」で出力したExcelを読み戻せます(.xlsx / .xlsm)">Excel読み込み</button><button id="xgo" title="リボンの「Excel出力」と同じ出力です。指定書式(ひな形)を選んでいればその書式で、無ければこのソフトの書式で出力します">Excel出力</button><button id="xok">保存</button><button id="xcx">キャンセル</button></div>
 </div></div>
 <div id="main"><div class="wrap"><div id="L">
-<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
+<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="date" id="vs" class="pjd"><span class="pjt">〜</span><input type="date" id="ve" class="pjd"><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
 <div id="R"><svg id="hd"></svg><svg id="bd"></svg></div></div></div>
 <div id="hs"><div id="hsp"></div><div id="hsc"><div id="hsi"></div></div></div>
 <div id="tabs"></div>
@@ -497,7 +498,7 @@ async function addShapes(zip,shPath,xml,T,o,G){
  // 「挿入」タブの図形(雲・四角・楕円・線・矢印・テキスト)
  {const OB=Array.isArray(o.ob)?o.ob:[];let oid=Math.max(6000,gid+10),nSkip=0;
   const colPos=dy=>{if(!TEN)return dy-f0;let k=0;while(k+1<PS.length&&PS[k+1]<=dy)k++;const len=k+1<PS.length?PS[k+1]-PS[k]:10;return k+(dy-PS[k])/len};
-  const rowPos=y=>o.rowOf?o.rowOf(y):y/34;
+  const rowPos=y=>o.rowOf?o.rowOf(y):y/34,HDR=G.hr!=null?G.hr-r0:null; // HDR=日の行から最初のタスク行までの行数(稲妻線を日付の所まで伸ばす用)
   // 左の表の上の位置(0未満)は「左の表の幅に対する割合」として -1000〜-999 に置き換えて扱う(Excelの左側の列に比例配分)
   const LW=+o.lw||724,keyX=u=>u<0?-1000+Math.max(0,Math.min(1,1+u/LW)):colPos(u),TBK=-500;
   let LEFTW=0;for(let c=1;c<dc;c++)LEFTW+=colE(c);
@@ -507,8 +508,9 @@ async function addShapes(zip,shPath,xml,T,o,G){
    const fc=Math.floor(cp+1e-9),c0=dc-1+fc,cwE=colE(c0+1);return `<xdr:col>${c0}</xdr:col><xdr:colOff>${Math.max(0,Math.min(cwE-1,Math.round((cp-fc)*cwE)))}</xdr:colOff>`+ro};
   const pe1=c=>c<TBK?Math.round((c+1000-1)*LEFTW):Math.round(c*CWl);
   OB.forEach((q,k)=>{
-   const line=q.t==='line'||q.t==='arrow',x1=keyX(+q.x||0),x2=keyX((+q.x||0)+(+q.w||0)),r1=rowPos(+q.y||0),r2=rowPos((+q.y||0)+(+q.h||0));
-   const xa=Math.min(x1,x2),xb=Math.max(x1,x2),ya=Math.max(0,Math.min(r1,r2)),yb=Math.max(0,Math.max(r1,r2));
+   const line=q.t==='line'||q.t==='arrow',x1=keyX(+q.x||0),x2=keyX((+q.x||0)+(+q.w||0)),r1=q.hdr?(HDR==null?0:HDR):rowPos(+q.y||0),r2=q.hdr?0:rowPos((+q.y||0)+(+q.h||0));
+   if(q.hdr&&HDR==null)return;
+   const xa=Math.min(x1,x2),xb=Math.max(x1,x2),ya=q.hdr?Math.min(r1,r2):Math.max(0,Math.min(r1,r2)),yb=Math.max(0,Math.max(r1,r2));
    if((xb<0&&xb>TBK)||xa>N){nSkip++;return}
    const ca=xa<TBK?xa:Math.max(0,xa),cb=Math.min(N,xb),id=++oid,nm=`oObj_${q.t}_${k+1}`;
    const ex=pe1(ca),ey=Math.round(ya*RHl),ew=pe1(cb)-pe1(ca),eh=Math.round((yb-ya)*RHl);
@@ -637,7 +639,7 @@ async function exportToTemplate(zip,T,o,shPath,isM){
  xml=putCells(xml,cells,ovr);exportToTemplate.warn=[];if(unm)exportToTemplate.warn.push(`結合セル${unm}件を解除して書き込みました`);
  const tr=(pa(C.n)||pa(C.cs)||pa(C.ce)||pa(C.co)||{}).r;
  if(!hd.length||!tr)exportToTemplate.warn.push('図形(工程バー)は、「入出力設定」の日付の見出しとタスク名のセル位置が未設定のため出力しませんでした');
- else{const sh=await addShapes(zip,shPath,xml,T,o,{dc,N,PS,TEN,f0,r0:tr});xml=sh.xml;exportToTemplate.warn.push(...sh.warn)}
+ else{const sh=await addShapes(zip,shPath,xml,T,o,{dc,N,PS,TEN,f0,r0:tr,hr:(pa(C.dy)||{}).r});xml=sh.xml;exportToTemplate.warn.push(...sh.warn)}
  zip.file(shPath,xml,{createFolders:false});
  if(ovr.size)zip.file('xl/styles.xml',kit.out(),{createFolders:false});
  // 値を入れ替えるので、古い計算順テーブルは捨て、開いたときに再計算させる(Excelが自動で作り直す)
@@ -733,14 +735,15 @@ async function exportXl(zip,T,o){
   const OB=Array.isArray(o.ob)?o.ob:[];let oid=6000,nSkip=0;
   const X0=4010000+EXC+EXC_ADD,Y0=4169019+(R0-16)*RH;
   const colPos=dy=>{if(!TEN)return dy-f0;let k=0;while(k+1<PS.length&&PS[k+1]<=dy)k++;const len=k+1<PS.length?PS[k+1]-PS[k]:10;return k+(dy-PS[k])/len};
-  const rowPos=y=>o.rowOf?o.rowOf(y):y/34;
+  const rowPos=y=>o.rowOf?o.rowOf(y):y/34,HDR=(()=>{const m=/^[A-Za-z]{1,3}(\d{1,7})$/.exec(String((o.xs&&o.xs.c&&o.xs.c.dy)||'').trim());return m?+m[1]-R0:null})();
   // 左の表の上の位置(0未満)は、左側全体(X0)に対する割合として扱う(絶対位置で出力)
   const LW=+o.lw||724,keyX=u=>u<0?-1000+Math.max(0,Math.min(1,1+u/LW)):colPos(u),TBK=-500,pe2=c=>c<TBK?Math.round((c+1000)*X0):Math.round(X0+c*CW);
   const rgb=c=>{let m=String(c||'').trim().match(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i);if(!m)return null;m=m[1];if(m.length==3)m=m.replace(/./g,'$&$&');return m.toUpperCase()};
   const anc=(cp,rp)=>{const fc=Math.floor(cp+1e-9),fr=Math.floor(rp+1e-9);return `<xdr:col>${C0+fc}</xdr:col><xdr:colOff>${Math.max(0,Math.min(CW-1,Math.round((cp-fc)*CW)))}</xdr:colOff><xdr:row>${R0-1+fr}</xdr:row><xdr:rowOff>${Math.max(0,Math.min(RH-1,Math.round((rp-fr)*RH)))}</xdr:rowOff>`};
   OB.forEach((q,k)=>{
-   const line=q.t==='line'||q.t==='arrow',x1=keyX(+q.x||0),x2=keyX((+q.x||0)+(+q.w||0)),r1=rowPos(+q.y||0),r2=rowPos((+q.y||0)+(+q.h||0));
-   const xa=Math.min(x1,x2),xb=Math.max(x1,x2),ya=Math.max(0,Math.min(r1,r2)),yb=Math.max(0,Math.max(r1,r2));
+   const line=q.t==='line'||q.t==='arrow',x1=keyX(+q.x||0),x2=keyX((+q.x||0)+(+q.w||0)),r1=q.hdr?(HDR==null?0:HDR):rowPos(+q.y||0),r2=q.hdr?0:rowPos((+q.y||0)+(+q.h||0));
+   if(q.hdr&&HDR==null)return;
+   const xa=Math.min(x1,x2),xb=Math.max(x1,x2),ya=q.hdr?Math.min(r1,r2):Math.max(0,Math.min(r1,r2)),yb=Math.max(0,Math.max(r1,r2));
    if((xb<0&&xb>TBK)||xa>N){nSkip++;return}
    const ca=xa<TBK?xa:Math.max(0,xa),cb=Math.min(N,xb),id=++oid,nm=`oObj_${q.t}_${k+1}`;
    const ex=pe2(ca),ey=Math.round(Y0+ya*RH),ew=pe2(cb)-pe2(ca),eh=Math.round((yb-ya)*RH);
@@ -860,11 +863,12 @@ const inR=i=>sel>=0&&i>=Math.min(sel,sel2)&&i<=Math.max(sel,sel2);
 const isH=t=>t.d==null&&t.s==null&&!t.p;
 const MSDEF=[{"g":"重機車両","n":"13t","k":"","r":""},{"g":"重機車両","n":"25t","k":"","r":""},{"g":"重機車両","n":"50t","k":"","r":""},{"g":"事前作業","n":"工場製作","k":"","r":""},{"g":"事前作業","n":"工場試験","k":"","r":""},{"g":"事前作業","n":"洗浄・処理","k":"","r":""},{"g":"足場工事","n":"足場材搬入","k":"","r":""},{"g":"足場工事","n":"組足場架設","k":"","r":""},{"g":"足場工事","n":"組足場解体","k":"","r":""},{"g":"足場工事","n":"吊り足場架設","k":"","r":""},{"g":"足場工事","n":"吊り足場解体","k":"","r":""},{"g":"足場工事","n":"親綱設置","k":"","r":""},{"g":"足場工事","n":"親綱撤去","k":"","r":""},{"g":"足場工事","n":"櫓設置","k":"","r":""},{"g":"足場工事","n":"櫓解体","k":"","r":""},{"g":"足場工事","n":"敷板","k":"","r":""},{"g":"現地工事","n":"既設撤去","k":"","r":""},{"g":"現地工事","n":"切断・開先加工","k":"","r":""},{"g":"現地工事","n":"取付","k":"","r":""},{"g":"現地工事","n":"機器・計器取付","k":"","r":""},{"g":"現地工事","n":"支持材取付","k":"","r":""}];
 let T=[K('準備工事',0),K('着工',1,1,(()=>{const n=new Date();return dayOf(n.getFullYear(),n.getMonth()+1,n.getDate())})()),K('資機材搬入',1,3,null,'2'),K('本工事',0),K('下地・墨出し',1,2,null,'3'),K('施工',1,5,null,'5'),K('検査・試験',1,2,null,'6')],VS=null,VE=null,sel=-1,sel2=-1,ZB=null,ZN='',BASE=null,SH,cur=0,pend=0,MIG=0,MIGRDY=0,MIGPEND=0,MS=MSDEF.map(x=>({...x})),PN='',CUS='',XS=xsDef();
-const clean=a=>a.map(({n,l,d,s,p,q,co,k,m,mf,c,b,u,dd,bg,hv,wk,hid})=>({...(hid?{hid:true}:{}),n,l,d,s,p,co:co||'',bg:bg&&typeof bg=='object'&&Object.keys(bg).length?{...bg}:null,q:q||'',k:k||'',m:m||'',mf:mf||'',c:!!c,b:b==null?null:!!b,u:!!u,dd:Array.isArray(dd)?dd.slice():[],hv:hv==null?null:!!hv,wk:Array.isArray(wk)?wk.slice():null}));
+let LGON=false,LGD=null,LGH=true,LGPICK=false; // 稲妻線モード(実績管理): LGON=表示中 / LGD=基準日(null=今日)
+const clean=a=>a.map(({n,l,d,s,p,q,co,k,m,mf,c,b,u,dd,bg,hv,wk,hid,lgm})=>({...(hid?{hid:true}:{}),...(()=>{const o={};if(lgm&&typeof lgm=='object')for(const k in lgm){const v=lgm[k];if(isFinite(+k)&&(v==='b'||isFinite(+v)))o[k]=v==='b'?'b':+v}return Object.keys(o).length?{lgm:o}:{}})(),n,l,d,s,p,co:co||'',bg:bg&&typeof bg=='object'&&Object.keys(bg).length?{...bg}:null,q:q||'',k:k||'',m:m||'',mf:mf||'',c:!!c,b:b==null?null:!!b,u:!!u,dd:Array.isArray(dd)?dd.slice():[],hv:hv==null?null:!!hv,wk:Array.isArray(wk)?wk.slice():null}));
 function vis(){let h=null;return T.map((t,i)=>{if(h!=null){if(t.l>h)return false;h=null}if(t.c&&T[i+1]&&T[i+1].l>t.l)h=t.l;return !t.hid})}
 function stash(){SH[cur]={...SH[cur],T,vs:VS,ve:VE}}
-function pack(){stash();return{v:2,wd:1,pn:PN,cn:CUS,xs:XS,cord:CORD.slice(),po:JSON.parse(JSON.stringify(PO)),MS:MS.map(x=>({g:x.g||'',n:x.n,k:x.k,r:x.r||''})),msd:1,cur,SH:SH.map(x=>({name:x.name,vs:x.vs,ve:x.ve,dc:x.dc||{},ob:Array.isArray(x.ob)?JSON.parse(JSON.stringify(x.ob)):[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['備考','','',''],T:clean(x.T)}))}}
-function unpack(j){PO=j.po&&typeof j.po=='object'?JSON.parse(JSON.stringify(j.po)):{};CORD=Array.isArray(j.cord)?j.cord.map(String):[];if(Array.isArray(j))j={SH:[{name:'シート1',T:j}],cur:0};if(j.pn!=null){PN=String(j.pn);syncPN()}if(j.cn!=null){CUS=String(j.cn);syncPN()}if(j.xs!=null){XS=xsNorm(j.xs);if(xsIsOldDef(XS))XS=xsDef()}SH=j.SH.map(x=>({name:x.name,T:x.T,vs:x.vs??null,ve:x.ve??null,dc:x.dc||{},ob:Array.isArray(x.ob)?x.ob:[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['備考','','','']}));cur=Math.min(j.cur||0,SH.length-1);if(Array.isArray(j.MS))MS=j.MS.map(x=>({g:String(x.g||''),n:String(x.n||''),k:String(x.k??''),r:String(x.r||'')}));if(j.msd!==1)MSDEF.forEach(d=>{if(!MS.some(x=>x.g===d.g&&x.n===d.n))MS.push({...d})});T=SH[cur].T;VS=SH[cur].vs;VE=SH[cur].ve;if(!j.wd){if(MIGRDY)migrate();else MIGPEND=1}}
+function pack(){stash();return{v:2,wd:1,lg:{on:LGON,d:LGD,h:LGH},pn:PN,cn:CUS,xs:XS,cord:CORD.slice(),po:JSON.parse(JSON.stringify(PO)),MS:MS.map(x=>({g:x.g||'',n:x.n,k:x.k,r:x.r||''})),msd:1,cur,SH:SH.map(x=>({name:x.name,vs:x.vs,ve:x.ve,dc:x.dc||{},ob:Array.isArray(x.ob)?JSON.parse(JSON.stringify(x.ob)):[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['備考','','',''],T:clean(x.T)}))}}
+function unpack(j){LGON=!!(j&&j.lg&&j.lg.on);LGD=(j&&j.lg&&j.lg.d)||null;LGH=!(j&&j.lg&&j.lg.h===false);PO=j.po&&typeof j.po=='object'?JSON.parse(JSON.stringify(j.po)):{};CORD=Array.isArray(j.cord)?j.cord.map(String):[];if(Array.isArray(j))j={SH:[{name:'シート1',T:j}],cur:0};if(j.pn!=null){PN=String(j.pn);syncPN()}if(j.cn!=null){CUS=String(j.cn);syncPN()}if(j.xs!=null){XS=xsNorm(j.xs);if(xsIsOldDef(XS))XS=xsDef()}SH=j.SH.map(x=>({name:x.name,T:x.T,vs:x.vs??null,ve:x.ve??null,dc:x.dc||{},ob:Array.isArray(x.ob)?x.ob:[],nt:Array.isArray(x.nt)&&x.nt.length?x.nt.map(String):['備考','','','']}));cur=Math.min(j.cur||0,SH.length-1);if(Array.isArray(j.MS))MS=j.MS.map(x=>({g:String(x.g||''),n:String(x.n||''),k:String(x.k??''),r:String(x.r||'')}));if(j.msd!==1)MSDEF.forEach(d=>{if(!MS.some(x=>x.g===d.g&&x.n===d.n))MS.push({...d})});T=SH[cur].T;VS=SH[cur].vs;VE=SH[cur].ve;if(!j.wd){if(MIGRDY)migrate();else MIGPEND=1}}
 SH=[{name:'シート1',T,vs:null,ve:null}];
 let idb=null,ready=false,BKC=null,lsErr=null,LS_T=0,LS_RAW=null;
 try{LS_T=+localStorage.getItem('koutei_t')||0;LS_RAW=localStorage.getItem('koutei')}catch(e){lsErr=e}
@@ -932,6 +936,31 @@ function ymData(){const names=[];T.forEach(t=>{if(t._hv)return;const c=(t.co||''
   rows.forEach(r=>{for(const d in r.by)tot[d]=(tot[d]||0)+r.by[d]})}
  return{rows,tot,hv}}
 const ntRows=()=>((SH[cur]&&SH[cur].nt)||['備考','','','']).length; /* 備考欄: 1行目が「備考」、2行目から記入 */
+// ---- 稲妻線(実績管理): 基準日ごとに1本。基準日の列を選び、予定の線を上から順にクリックして点を打つ。過去の日の線は薄く残る ----
+function lgBase(){const d=LGD?day(LGD):null;if(d!=null)return d;const n=new Date();return dayOf(n.getFullYear(),n.getMonth()+1,n.getDate())}
+const lgX=d=>{const k=Math.floor(d);return px(k)+(d-k)*(px(k+1)-px(k))};
+// 稲妻線の色(基準日の曜日): 日=オレンジ 月=紫 火=赤 水=水色 木=緑 金=黄 土=青
+const LGWC=['#f76707','#9c36b5','#e03131','#22b8e0','#2f9e44','#f0b400','#1c64f2'];
+// Excel出力用: 稲妻線モードのときだけ、稲妻線(縦の軸+〈 〉)を線の図形に直して渡す(通常モードでは何も足さない)
+function lgObs(){const o=[];try{if(!LGON)return o;const d0=lgBase(),M={};
+ VI.forEach((i,r)=>{const t=T[i];if(!t||t._hv||t.lgm==null||t.cs==null||t.ce==null||HIDB(t))return;for(const k in t.lgm)(M[k]||(M[k]=[])).push({r,v:t.lgm[k]})});
+ const ds=new Set([d0]);if(LGH)Object.keys(M).forEach(k=>ds.add(+k));const hR=VI.length*H;
+ ds.forEach(d=>{const x0=d+1,col=LGWC[dt(d).getUTCDay()],P=(M[d]||[]).sort((a,b)=>a.r-b.r);let cx=x0,cy=0;o.push({t:'line',x:x0,y:0,w:0,h:0,sc:col,sw:d===d0?2:1.5,fc:'',ds:0,hdr:1}); // 日付(日の行)から最初の行までの縦線(Excel側で見出し行の位置に直す)
+  const seg=(x,y)=>{if(Math.abs(x-cx)<1e-6&&Math.abs(y-cy)<1e-6)return;o.push({t:'line',x:cx,y:cy,w:x-cx,h:y-cy,sc:col,sw:d===d0?2:1.5,fc:'',ds:0});cx=x;cy=y};
+  P.forEach(p=>{const top=p.r*H,bot=top+H;seg(x0,top);seg(p.v==='b'?x0:p.v,top+BY);seg(x0,bot)});seg(x0,hR)})}catch(e){}return o}
+function lgLayer(ry,V,vc,h){if(!LGON)return{s:'',hd:''};
+ const d0=lgBase(),n=DX.length-1,hR=vc*H,M={};let gy='';T.forEach((t,i)=>{if(0&&V[i]&&!t._hv&&lgIsDone(t,d0))gy+=`<rect class="lgg" x="0" y="${ry[i]*H}" width="${DX[n]}" height="${H}" fill="#fff" fill-opacity=".62" style="pointer-events:none"/>`});
+ T.forEach((t,i)=>{if(!V[i]||t._hv||!t.lgm||t.cs==null||t.ce==null||HIDB(t))return;for(const k in t.lgm)(M[k]||(M[k]=[])).push({r:ry[i],v:t.lgm[k]})});
+ const line=(d,cur)=>{if(d<F0||d>=F0+n)return['',''];
+  // その日の縦線(基準線)を軸に、各予定線で点まで出て必ず軸へ戻る〈 〉の形
+  const x0=px(d+1),P=(M[d]||[]).sort((a,b)=>a.r-b.r).map(p=>({r:p.r,x:p.v==='b'?x0:lgX(p.v)})),q=[[x0,0]],dd=dt(d),lab=(dd.getUTCMonth()+1)+'/'+(dd.getUTCDate());
+  P.forEach(p=>{const top=p.r*H,bot=top+H;q.push([x0,top]);q.push([p.x,top+BY]);q.push([x0,bot])});q.push([x0,hR]);
+  const col=LGWC[dd.getUTCDay()],op=cur?1:.6,sw=cur?2:1.5;let o=cur?`<rect class="lgcol" x="${px(d)}" y="0" width="${x0-px(d)}" height="${h}" fill="${col}" fill-opacity=".16" style="pointer-events:none;mix-blend-mode:multiply"/>`:''; // 記入日の列全体を曜日色で薄く塗る
+  o+=`<polyline points="${q.map(p=>p[0]+','+p[1]).join(' ')}" fill="none" stroke="${col}" stroke-opacity="${op}" stroke-width="${sw}" stroke-linejoin="round" style="pointer-events:none"/>`;
+  P.forEach(p=>{if(Math.abs(p.x-x0)>1.5)o+=`<circle cx="${p.x}" cy="${p.r*H+BY}" r="${cur?3:2}" fill="${col}" fill-opacity="${op}" style="pointer-events:none"/>`});
+  return[o,(cur?`<rect x="${px(d)}" y="24" width="${x0-px(d)}" height="36" fill="${col}" fill-opacity=".4" style="pointer-events:none"/><rect x="${px(d)}" y="57" width="${x0-px(d)}" height="3" fill="${col}" style="pointer-events:none"/>`:'')+`<line x1="${x0}" x2="${x0}" y1="25" y2="60" stroke="${col}" stroke-opacity="${op}" stroke-width="${sw}" style="pointer-events:none"/>`]};
+ let s='',hs='';if(LGH)Object.keys(M).map(Number).filter(d=>d!=d0).sort((a,b)=>a-b).forEach(d=>{const r=line(d,false);s+=r[0];hs+=r[1]});
+ const c=line(d0,true);return{s:gy+s+c[0],hd:hs+c[1]}}
 function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
  const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),n=Math.max(n0,(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
@@ -966,6 +995,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
   for(const q of t.pp){const u=T[q.i];if(u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
    const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(t.cs)+1,y2=y+BY,m=(y1+y2)/2;
    s+=`<polyline class="ar" marker-end="url(#ah)" points="${x1},${y1} ${x1+6},${y1} ${x2>=x1+8?`${x1+6},${y2}`:`${x1+6},${m} ${x2-6},${m} ${x2-6},${y2}`} ${x2},${y2}"/>`;}});
+ {const LGL=lgLayer(ry,V,vc,h);s+=LGL.s;hd=LGL.hd+hd;{const d0=lgBase();document.querySelectorAll('#tb .r').forEach(r=>{const t=T[+r.dataset.i];r.classList.remove('lgdone')})}}
  {const E=$('#ym'),sm=r=>Object.values(r).reduce((a,b)=>a+b,0);
   if(!YM)E.innerHTML='';else{
    const row=(b,nm,t,c)=>`<div class="ymr${c||''}"><span class="ymb">${b}</span><span class="ymn" title="${X(nm)}">${X(nm)}</span><span class="ymt" title="人日の合計">${t}</span></div>`;
@@ -1233,7 +1263,8 @@ const dl=(b,n)=>{const a=document.createElement('a');a.href=URL.createObjectURL(
 $('#bs').onclick=()=>dl(new Blob([JSON.stringify(pack())],{type:'application/json'}),fname('json'));
 const err=t=>{msg(t);wkToast(t,'sticky')};
 const iso=n=>n==null?'':dt(n).toISOString().slice(0,10),day=v=>v?Math.round(Date.parse(v+'T00:00:00Z')/864e5):null;
-function syncView(){$('#vs').value=iso(VS);$('#ve').value=iso(VE)}
+function syncLG(){document.body.classList.toggle('lgm',LGON);document.body.classList.toggle('lgpick',LGON&&LGPICK);const b=$('#blg');if(b)b.classList.toggle('on',LGON);const d=$('#lgd');if(d)d.value=LGD||iso(lgBase());const hh=$('#lgh');if(hh)hh.checked=LGH}
+function syncView(){$('#vs').value=iso(VS);$('#ve').value=iso(VE);syncLG()}
 $('#vs').onchange=$('#ve').onchange=()=>{hist();VS=day($('#vs').value);VE=day($('#ve').value);if(VS!=null&&VE!=null&&VE<VS){wkToast('表示終了日は開始日より後にしてください');VE=null;syncView()}refresh()};
 $('#va').onclick=()=>{if(VS!=null||VE!=null)hist();VS=VE=null;syncView();refresh()};
 function tabs(){stash();const bx=$('#tabs');let ad=bx.querySelector('#tn');
@@ -1264,7 +1295,7 @@ function shRename(i){const e=$('#tabs').querySelectorAll('.tb')[i];if(!e||e.clas
  ip.onblur=()=>fin(true);ip.onmousedown=ip.onclick=ip.ondblclick=ev=>ev.stopPropagation();
  setTimeout(()=>{ip.focus();ip.select()},0)}
 function shMenu(x,y,i){cmClose();const m=document.createElement('div'),n=SH.length;m.id='cm';
- m.innerHTML=`<div data-a="ins">＋ 挿入(このシートの左に新規)<i>Shift+F11</i></div><div data-a="del"${n<2?' class="dis"':''}>✕ 削除</div><div data-a="ren">✎ 名前の変更<i>ダブルクリック</i></div><div data-a="cp">⧉ コピーを作成</div><hr><div data-a="l"${i>0?'':' class="dis"'}>◀ 左へ移動</div><div data-a="r"${i<n-1?'':' class="dis"'}>▶ 右へ移動</div>`;
+ m.innerHTML=`<div data-a="ins">挿入<i>Shift+F11</i></div><div data-a="del"${n<2?' class="dis"':''}>削除</div><div data-a="ren">名前の変更<i>ダブルクリック</i></div><div data-a="cp">⧉ コピーを作成</div><hr><div data-a="l"${i>0?'':' class="dis"'}>◀ 左へ移動</div><div data-a="r"${i<n-1?'':' class="dis"'}>▶ 右へ移動</div>`;
  m.style.left=Math.max(4,Math.min(x,innerWidth-250))+'px';m.style.top='0px';document.body.appendChild(m);m.style.top=Math.max(4,y-m.offsetHeight-4)+'px';
  m.onclick=ev=>{const el=ev.target.closest('[data-a]');if(!el||el.classList.contains('dis'))return;cmClose();const a=el.dataset.a;
   if(a==='ins')shAdd(i);else if(a==='del')shDel(i);else if(a==='ren')shRename(i);else if(a==='cp')shCopy(i);else if(a==='l')shMove(i,i-1);else if(a==='r')shMove(i,i+1)}}
@@ -1318,7 +1349,7 @@ async function initStore(){
   BKC=[...m.values()].sort((x,y)=>y.t-x.t).slice(0,5);ready=true;try{restoreUI(await idbGet('wk_ui'))}catch(e){}
   try{if(src)addBk(src)}catch(e){}
  }catch(e){ready=true}
- persist();bkSave(bkGet());if(lsErr&&!idb)$('#warn').textContent='⚠ このブラウザでは自動保存できません。こまめに「JSON保存」してください。'}
+ persist();bkSave(bkGet());if(lsErr&&!idb)$('#warn').textContent='⚠ このブラウザでは自動保存できません。こまめに「上書き保存 (JSON)」してください。'}
 function bkGet(){if(BKC)return BKC;try{return JSON.parse(localStorage.getItem('koutei_bk'))||[]}catch(e){return[]}}
 function addBk(j,force){const a=bkGet().slice();if(!force&&a[0]&&a[0].j===j)return true;a.unshift({t:Date.now(),j});while(a.length>5)a.pop();BKC=a;return bkSave(a)}
 setInterval(()=>{try{addBk(JSON.stringify(pack()))}catch(e){}},15*60*1000);
@@ -1338,10 +1369,10 @@ function msShow(){let W=MS.map(x=>({...x}));const m=document.createElement('div'
  if(sortOn)sortW();
  const body=()=>{const gs=[],cnt={},fi={},la={};W.forEach((x,i)=>{const g=gOf(x);if(!gs.includes(g)){gs.push(g);fi[g]=i}la[g]=i;cnt[g]=(cnt[g]||0)+1});let prev=null;const re={};{let st=0;W.forEach((x,i)=>{if(i>0&&gOf(x)!==gOf(W[i-1]))st=i;re[st]=i})}
    return W.map((x,i)=>{const g=gOf(x),c=gs.indexOf(g)%PAL.length;let h='';
-    if(prev===null||g!==prev){h=`<tr class="msh" data-g="${qa(g)}" data-end="${re[i]}" draggable="true" title="つまんで上下にドラッグすると大項目ごと移動できます / クリックで開閉" style="cursor:pointer"><td colspan="6" style="background:${PALH[c]};padding:3px 6px;font-weight:700;user-select:none;position:sticky;top:0"><span style="display:inline-block;width:18px;text-align:center;cursor:grab;color:#556">⠿</span><span style="display:inline-block;width:20px;text-align:center">${CG.has(g)?'＋':'－'}</span> ${qa(g)||'(大項目なし)'} <span style="font-weight:400;color:#556;font-size:11px">${cnt[g]}件</span><button data-a="gadd" title="この大項目の一番下に品目を1行追加" style="float:right;padding:1px 8px;font-weight:400">＋ 行追加</button></td></tr>`;prev=g}
+    if(prev===null||g!==prev){h=`<tr class="msh" data-g="${qa(g)}" data-end="${re[i]}" draggable="true" title="つまんで上下にドラッグすると大項目ごと移動できます / クリックで開閉" style="cursor:pointer"><td colspan="6" style="background:${PALH[c]};padding:3px 6px;font-weight:700;user-select:none;position:sticky;top:0"><span style="display:inline-block;width:18px;text-align:center;cursor:grab;color:#556">⠿</span><span style="display:inline-block;width:20px;text-align:center">${CG.has(g)?'＋':'－'}</span> ${qa(g)||'(大項目なし)'} <span style="font-weight:400;color:#556;font-size:11px">${cnt[g]}件</span><button data-a="gadd" title="この大項目の一番下に品目を1行追加" style="float:right;padding:1px 8px;font-weight:400">＋ 行の挿入</button></td></tr>`;prev=g}
     if(CG.has(g))return h;
     return h+`<tr data-i="${i}" style="background:${PAL[c]}"><td><input data-c="g" list="dlG" value="${qa(x.g||'')}" style="width:110px" placeholder="大項目"></td><td><input data-c="n" value="${qa(x.n)}" style="width:200px"></td><td><input data-c="k" value="${qa(x.k)}" style="width:70px"></td><td><input data-c="r" value="${qa(x.r)}" style="width:130px"></td><td><button data-a="del" title="この行を削除">✕</button></td><td style="white-space:nowrap"><button data-a="up" title="この品目を上へ移動" style="padding:2px 6px"${i===fi[g]?' disabled':''}>▲</button><button data-a="dn" title="この品目を下へ移動" style="padding:2px 6px"${i===la[g]?' disabled':''}>▼</button></td></tr>`}).join('')};
- m.innerHTML=`<div style="max-width:780px;width:94vw"><b>品目マスター</b><p>大項目・品目(タスク名)・係数を登録します。タスク名の ▼ から、大項目ごとに選べます。工程表のタスク名を選ぶ(または同じ名前を入力する)と、係数が自動で入ります。単位などの文字は計算では無視されます。</p><p style="margin:0 0 8px;font-size:12px"><label title="大項目の入力が終わったとき(品目名順の場合は品目名も)に自動で並べ替えます"><input type="checkbox" id="msSo"${sortOn?' checked':''}> 自動ソート</label> <select id="msSm"><option value="g"${sortMode==='g'?' selected':''}>大項目ごとにまとめる</option><option value="n"${sortMode==='n'?' selected':''}>大項目 ＋ 品目名順(五十音)</option></select> <button data-a="sort">今すぐ並べ替え</button> <button data-a="cl" title="大項目をすべて折りたたむ">すべて －</button> <button data-a="op" title="大項目をすべて開く">すべて ＋</button></p><div style="max-height:46vh;overflow:auto"><table><thead><tr><th align="left">大項目</th><th align="left">品目(タスク名)</th><th align="left">係数</th><th align="left">備考</th><th></th><th></th></tr></thead><tbody id="msB">${body()}</tbody></table></div><datalist id="dlG"></datalist><p style="margin:10px 0 0"><button data-a="gnew" title="新しい大項目を作り、その下に最初の品目行を1行置きます(品目は各大項目の「＋ 行追加」で増やせます)">＋ 大項目を追加</button> <button data-a="imp" title="いまの工程表にあるタスク名のうち未登録のものを追加します">工程表のタスク名を取り込む</button> <span style=\"color:#667;font-size:11px\">※入力は自動で保存されます</span></p><p style="text-align:right;margin:12px 0 0"><button data-a="ok" style="font-weight:700">適用して閉じる</button> <button data-a="x" title="入力内容は自動で保存されています">閉じる</button></p></div>`;
+ m.innerHTML=`<div style="max-width:780px;width:94vw"><b>品目マスター</b><p>大項目・品目(タスク名)・係数を登録します。タスク名の ▼ から、大項目ごとに選べます。工程表のタスク名を選ぶ(または同じ名前を入力する)と、係数が自動で入ります。単位などの文字は計算では無視されます。</p><p style="margin:0 0 8px;font-size:12px"><label title="大項目の入力が終わったとき(品目名順の場合は品目名も)に自動で並べ替えます"><input type="checkbox" id="msSo"${sortOn?' checked':''}> 自動ソート</label> <select id="msSm"><option value="g"${sortMode==='g'?' selected':''}>大項目ごとにまとめる</option><option value="n"${sortMode==='n'?' selected':''}>大項目 ＋ 品目名順(五十音)</option></select> <button data-a="sort">今すぐ並べ替え</button> <button data-a="cl" title="大項目をすべて折りたたむ">すべて －</button> <button data-a="op" title="大項目をすべて開く">すべて ＋</button></p><div style="max-height:46vh;overflow:auto"><table><thead><tr><th align="left">大項目</th><th align="left">品目(タスク名)</th><th align="left">係数</th><th align="left">備考</th><th></th><th></th></tr></thead><tbody id="msB">${body()}</tbody></table></div><datalist id="dlG"></datalist><p style="margin:10px 0 0"><button data-a="gnew" title="新しい大項目を作り、その下に最初の品目行を1行置きます(品目は各大項目の「＋ 行の挿入」で増やせます)">＋ 大項目を追加</button> <button data-a="imp" title="いまの工程表にあるタスク名のうち未登録のものを追加します">工程表のタスク名を取り込む</button> <span style=\"color:#667;font-size:11px\">※入力は自動で保存されます</span></p><p style="text-align:right;margin:12px 0 0"><button data-a="ok" style="font-weight:700">適用して閉じる</button> <button data-a="x" title="入力内容は自動で保存されています">閉じる</button></p></div>`;
  const gl=()=>{const d=$('#dlG');if(d)d.innerHTML=[...new Set(W.map(x=>(x.g||'').trim()).filter(Boolean))].map(g=>`<option value="${qa(g)}"></option>`).join('')};
  const redraw=()=>{$('#msB').innerHTML=body();gl()};
   const redrawKeep=t=>{let keep=null;if(t&&t.closest&&t.dataset&&t.dataset.c){const tr=t.closest('#msB tr[data-i]');if(tr)keep={o:W[+tr.dataset.i],c:t.dataset.c}}
@@ -1485,7 +1516,7 @@ function insRows(where){if(sel<0)return;hist();const a=Math.min(sel,sel2);let b=
 $('#tb').addEventListener('contextmenu',e=>{const r=e.target.closest('.r');if(!r)return;const i=+r.dataset.i,cf=e.target.dataset&&e.target.dataset.f,canCol=['n','q','co','m'].includes(cf);
  e.preventDefault();cmClose();if(!inR(i)){sel=sel2=i;hl()}
  const n=Math.abs(sel-sel2)+1,m=document.createElement('div');m.id='cm';
- m.innerHTML=`<div data-a="cut">✂ 切り取り<i>Ctrl+X</i></div><div data-a="copy">⧉ コピー<i>Ctrl+C</i></div><div data-a="paste"${CB?'':' class="dis"'}>📋 貼り付け<i>Ctrl+V</i></div><hr><div data-a="up">行を挿入</div><hr><div data-a="del">✕ 行を削除</div><hr><div data-a="hv">🚜 重機・車両モード ON/OFF</div>`+(canCol?'<hr><div data-a="color">🎨 セルの色を付ける</div>':'');
+ m.innerHTML=`<div data-a="cut">切り取り<i>Ctrl+X</i></div><div data-a="copy">コピー<i>Ctrl+C</i></div><div data-a="paste"${CB?'':' class="dis"'}>貼り付け<i>Ctrl+V</i></div><hr><div data-a="up">挿入</div><hr><div data-a="del">削除</div><hr><div data-a="hv">🚜 重機・車両モード ON/OFF</div>`+(canCol?'<hr><div data-a="color">塗りつぶしの色</div>':'');
  m.style.left=Math.min(e.clientX,innerWidth-210)+'px';m.style.top=Math.min(e.clientY,innerHeight-380)+'px';
  m.onclick=ev=>{const el=ev.target.closest('[data-a]'),k=el&&el.dataset.a;if(!k||el.classList.contains('dis'))return;cmClose();
   if(k=='color'){window.__cpopOpen&&window.__cpopOpen(cf,i,e.clientX,e.clientY);return}
@@ -1578,6 +1609,7 @@ $('#main').addEventListener('scroll',()=>{const m=$('#main'),h=$('#hsc');if(h.sc
 $('#main').addEventListener('wheel',e=>{const dx=e.shiftKey&&!e.deltaX?e.deltaY:e.deltaX;if(dx&&(e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))){e.preventDefault();$('#main').scrollLeft+=dx}},{passive:false});
 if(window.ResizeObserver){const ro=new ResizeObserver(syncHS);ro.observe($('#main'));ro.observe($('#L'));ro.observe($('.wrap'))}
 addEventListener('resize',syncHS);
+$('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{LGD=$('#lgd').value||null;syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
 $('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
 // ---- バーのドラッグ操作: 中央=移動 / 左端=開始日変更 / 右端=終了日変更(いずれも実働日数・先行タスクと連動) ----
 let barDragged=false;
@@ -1603,9 +1635,78 @@ $('#bd').addEventListener('mousedown',e=>{if(e.button!==0)return;if(e.altKey){co
   if(g.on){if(g.hist){const t=T[g.i];if(t.s===g.s0&&t.d===g.d0){t.mf=g.mf0;if(UN.length>g.ul){UN.pop();updUR()}}refresh(true);chgMark(g.old,null)}setTimeout(()=>{barDragged=false},0)}};
  addEventListener('mousemove',mv);addEventListener('mouseup',up)});
 $('#bd').onclick=e=>{if(barDragged){barDragged=false;return}if(ymEdit(e))return;if(!e.altKey)return;const q=barHit(e);if(q)toggleSeg(q.i,q.dn)};
+// 稲妻線モード中: バーのドラッグ・選択は止めて、予定の線のクリックで点を打つ(予定の線以外は何も起きない)
+const lgHit=e=>{const[x,y]=pt($('#bd'),e),r=Math.floor(y/H),i=VI[r];if(i==null||x<0)return null;const t=T[i];
+ if(t.cs==null||t.ce==null||t._hv||HIDB(t))return null;if(Math.abs(y-(r*H+BY))>9)return null;
+ if(x<px(t.cs)-3||x>px(t.ce+1)+3)return null;return{i,x,r}};
+$('#bd').addEventListener('mousedown',e=>{if(LGON&&e.button===0){e.stopImmediatePropagation();e.preventDefault()}},true);
+// 稲妻線: 予定の線をクリック → その場に「進捗%」入力欄 → Enterで、その%に相当する位置(稼働日ベース)に点を打つ
+function lgDays(t){const L=[];for(let d=t.cs;d<=t.ce;d++)if(!isDash(t,d))L.push(d);if(!L.length)for(let d=t.cs;d<=t.ce;d++)L.push(d);return L}
+function lgPct2v(t,p){const L=lgDays(t);if(p>=100)return L[L.length-1]+1;const x=p/100*L.length,k=Math.floor(x);return L[k]+(x-k)}
+function lgV2pct(t,v){const L=lgDays(t);let s=0;L.forEach(d=>{s+=Math.max(0,Math.min(1,v-d))});return Math.round(s/L.length*100)}
+// 記入日d0の前後で最も近い日の進捗%(前回=lo / 次回=hi)。進捗は日が進むほど減らない
+function lgNb(t,d0){let lo=null,hi=null;for(const k in (t.lgm||{})){const n=+k;if(n===d0)continue;const v=t.lgm[k],pc=lgV2pct(t,v==='b'?n+1:v);if(n<d0){if(!lo||n>lo.n)lo={n,pc}}else{if(!hi||n<hi.n)hi={n,pc}}}return{lo,hi}}
+// 基準日d0以前の最新の入力が100%なら完了(その行は薄くグレー表示・Enter連続入力ではスキップ)
+function lgIsDone(t,d0){if(!t||!t.lgm||t.cs==null||t.ce==null)return false;let bk=null;for(const k in t.lgm){const n=+k;if(n<=d0&&(bk==null||n>bk))bk=n}if(bk==null)return false;const v=t.lgm[bk];return lgV2pct(t,v==='b'?bk+1:v)>=100}
+let lgIn=null,lgSeq=false,lgRowI=-1; // lgRowI=進捗入力欄を開いている行(画面上の行番号)。その行を曜日色で塗る
+function lgClose(){lgRowI=-1;lgHover(-1);const w=document.getElementById('lgw');if(w)w.remove();if(lgIn){const q=lgIn;lgIn=null;q.remove()}}
+function lgEnd(){lgSeq=false;lgClose()}
+const lgRows=()=>VI.filter(i=>{const t=T[i];return t.cs!=null&&t.ce!=null&&!t._hv&&!HIDB(t)});
+// 進捗%の入力欄を開く(i=タスク番号, left/top=#R内の座標, seq=Enterでの連続入力中か)
+function lgOpen(i,left,top,seq){lgClose();lgSeq=!!seq;
+ const d0=lgBase(),t=T[i],R=$('#R'),cur=t.lgm&&t.lgm[d0];
+ const inp=document.createElement('input');inp.id='lgi';inp.type='text';inp.setAttribute('inputmode','numeric');inp.autocomplete='off';const nb=lgNb(t,d0);inp.placeholder=nb.lo?`前回 ${nb.lo.pc}%`:'進捗 %';inp.title='進捗率(0〜100)を入力してEnter / Escで取消';
+ inp.style.cssText=`left:${left}px;top:${top}px;width:96px;height:26px`;
+  // 入力欄のすぐ横に出す警告(上のメッセージ欄は遠くて気づきにくいため)
+  const warn=t=>{let w=document.getElementById('lgw');if(!w){w=document.createElement('div');w.id='lgw';R.appendChild(w)}w.textContent=t;w.style.left=(left+96+6)+'px';w.style.top=(top+3)+'px';const rc=w.getBoundingClientRect();if(rc.right>window.innerWidth-8){const lx=left-6-w.offsetWidth;if(lx>=0)w.style.left=lx+'px';else{w.style.left=left+'px';w.style.top=(top+30)+'px'}}msg('稲妻線: '+t);inp.select()};
+  inp.addEventListener('input',()=>{const w=document.getElementById('lgw');if(w)w.remove()});
+ if(cur!=null)inp.value=lgV2pct(t,cur==='b'?d0+1:cur)+'%';
+ const go=dir=>{const L=lgRows(),dd=lgBase();let k=L.indexOf(i)+dir;while(L[k]!=null&&lgIsDone(T[L[k]],dd))k+=dir;const n=L[k];if(n==null){lgEnd();msg(dir>0?'稲妻線: 最後の予定線まで入力しました':'稲妻線: 先頭の予定線です');return}lgOpenAt(n,true)};
+ const ok=()=>{const q=inp.value.replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).replace(/[%％\s]/g,'');
+  let p,same=false;if(q===''){if(nb.lo){p=nb.lo.pc;same=true}else{if(lgSeq)go(1);else lgEnd();return}}else p=Number(q); // 空欄のままEnter=前回の進捗%に合わせる(前回が無ければ従来どおりスキップ)
+   if(!isFinite(p)||p<0||p>100){warn('進捗は0〜100の数字で入力してください');return}
+  if(nb.lo&&p<nb.lo.pc){warn(`${fmt(nb.lo.n)}に${nb.lo.pc}%を入力済みのため、${nb.lo.pc}%未満にはできません(進捗は戻せません)`);return}
+  if(nb.hi&&p>nb.hi.pc){warn(`${fmt(nb.hi.n)}に${nb.hi.pc}%を入力済みのため、${nb.hi.pc}%を超える値にはできません`);return}
+  const v=lgPct2v(t,p);
+  const sq=lgSeq;lgClose();hist();(t.lgm||(t.lgm={}))[d0]=v;draw();persist();msg(`稲妻線(${fmt(d0)}): ${t.n||'タスク'} 進捗${p}%${same?'(前回に合わせました)':''} の位置に点を打ちました`+(sq?'':'(もう一度クリックで修正／右クリックでこの点を消す)'));
+  if(sq)go(1)};
+ inp.addEventListener('keydown',ev=>{ev.stopPropagation();if(ev.key==='Enter'){ev.preventDefault();if(ev.shiftKey&&lgSeq)go(-1);else ok()}else if(ev.key==='Escape'){ev.preventDefault();lgEnd()}else if(lgSeq&&ev.key==='ArrowDown'){ev.preventDefault();go(1)}else if(lgSeq&&ev.key==='ArrowUp'){ev.preventDefault();go(-1)}});
+ inp.addEventListener('mousedown',ev=>ev.stopPropagation());inp.addEventListener('click',ev=>ev.stopPropagation());
+ inp.addEventListener('blur',()=>{if(lgIn===inp)lgEnd()});
+ R.appendChild(inp);lgIn=inp;inp.focus({preventScroll:true});inp.select();try{inp.scrollIntoView({block:'center',inline:'nearest'})}catch(e){}
+ lgRowI=VI.indexOf(i);lgHover(lgRowI);
+  const L=lgRows().filter(j=>!lgIsDone(T[j],d0));msg(seq?`稲妻線: ${t.n||'タスク'} の進捗率(%)を入力してEnter(${L.indexOf(i)+1}/${L.length})  ※Enter=次の予定線へ(空欄=前回の%に合わせる・前回が無ければスキップ・100%の線は自動スキップ) / Shift+Enter・↑=前へ / ↓=スキップ / Esc=終了`:`稲妻線: ${t.n||'タスク'} の進捗率(%)を入力してEnter(0%=開始位置、100%=終了位置)`)}
+// Enterでの連続入力: 予定の線の行に入力欄を出す(基準日の線の右隣)
+function lgOpenAt(i,seq){const R=$('#R'),rr=R.getBoundingClientRect(),br=$('#bd').getBoundingClientRect(),d0=lgBase(),r=VI.indexOf(i),t=T[i],cv=t.lgm&&t.lgm[d0],vx=cv==null?px(d0+1):(cv==='b'?px(d0+1):lgX(cv));
+ lgOpen(i,br.left-rr.left+vx+10,br.top-rr.top+r*H+BY-13,seq)}
+$('#bd').addEventListener('click',e=>{if(!LGON)return;e.stopImmediatePropagation();lgEnd();if(LGPICK){msg('稲妻線: 先に上の日付をクリックして基準日を選んでください');return}const h=lgHit(e);if(!h)return;
+ const rr=$('#R').getBoundingClientRect();lgOpen(h.i,e.clientX-rr.left+8,e.clientY-rr.top-13,false)},true);
+// 基準日を選んだあと Enter: 上の予定線から順に進捗%を入力(未入力の最初の線から開始)
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!LGON||LGPICK||lgIn||e.isComposing)return;const a=e.target,tg=a&&a.tagName;
+ if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT'||(a&&a.isContentEditable))return;if(tg==='BUTTON'&&!/^(blg|lgb|lgf|lgt)$/.test(a.id))return;
+ const d0=lgBase(),L=lgRows().filter(j=>!lgIsDone(T[j],d0));if(!lgRows().length)return;e.preventDefault();e.stopPropagation();if(a&&a.blur)a.blur();if(!L.length){msg('稲妻線: すべての予定線が100%です(修正はマウスで線をクリック)');return}
+ lgOpenAt(L.find(i=>!(T[i].lgm&&T[i].lgm[d0]!=null))??L[0],true)},true);
+$('#hd').addEventListener('click',e=>{if(!LGON)return;if(e.target.closest&&e.target.closest('.mt'))return;const[x,y]=pt($('#hd'),e);if(y<24||x<0)return;e.stopImmediatePropagation();const d=dayAt(x);LGD=iso(d);syncLG();draw();persist();msg('稲妻線: 記入日を '+fmt(d)+' にしました')},true);
+$('#bd').addEventListener('contextmenu',e=>{if(!LGON)return;const h=lgHit(e),d0=lgBase();if(h&&T[h.i].lgm&&T[h.i].lgm[d0]!=null){e.preventDefault();e.stopImmediatePropagation();hist();const t=T[h.i];delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm;draw();persist();msg('稲妻線: 点を消しました')}},true);
 let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:left;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(4500,String(m).length*120))}
 $('#bd').ondblclick=e=>{if(e.altKey||!barHit(e))return;{const q=barHit(e);if(T[q.i]._hv){openWk();return}}wkToast('【破線にする方法】\nAltキーを押しながら、変更したい日の線をクリック\n(もう一度Alt+クリックで元の実線に戻ります)')};
-$('#bd').onmousemove=e=>{if(document.body.classList.contains('bdm')||document.body.classList.contains('bde'))return;const q=barZone(e);$('#bd').style.cursor=!q?'default':q.z=='m'?'grab':'ew-resize'};
+// 稲妻線モード: 予定の線にカーソルを当てている間、その行を記入日の曜日色で薄く塗る
+function lgHover(r){for(const id of['lgrow','lgrowL','lgrowS']){const o=document.getElementById(id);if(o)o.remove()}
+ if(r<0||!LGON)return;
+ const bd=$('#bd'),c=LGWC[dt(lgBase()).getUTCDay()];
+ // 右(日付側): SVGの中に行の帯を入れる(土日のグレーの上にも乗せ、バーや線は乗算で濃いまま見せる)
+ const w=DX[DX.length-1],rc=document.createElementNS('http://www.w3.org/2000/svg','rect');rc.id='lgrowS';rc.setAttribute('x',0);rc.setAttribute('y',r*H);rc.setAttribute('width',w);rc.setAttribute('height',H);rc.setAttribute('fill',c);rc.setAttribute('fill-opacity','.16');rc.style.pointerEvents='none';rc.style.mixBlendMode='multiply';bd.appendChild(rc);
+ // 左の表のその行も同じ色で塗る(行全体)
+ const row=$('#tb').children[VI[r]];if(row){const l=document.createElement('div');l.id='lgrowL';l.style.cssText=`position:absolute;left:0;top:0;right:0;bottom:0;z-index:5;pointer-events:none;background:${c};opacity:.16;mix-blend-mode:multiply`;row.appendChild(l)}}
+$('#bd').addEventListener('mouseleave',()=>lgHover(lgIn?lgRowI:-1));
+// 稲妻線(縦の軸+〈 〉のギザギザ)の近くにカーソルがあるか(人差し指カーソル用)
+function lgNear(e){try{const[x,y]=pt($('#bd'),e),d0=lgBase(),hR=VI.length*H;if(x<0||y<0||y>hR)return false;const R=6,ds=new Set([d0]);
+ if(LGH)T.forEach(t=>{if(t.lgm&&!t._hv)for(const k in t.lgm)ds.add(+k)});
+ const r=Math.floor(y/H),t=T[VI[r]],sg=(px0,py0,px1,py1)=>{const dx=px1-px0,dy=py1-py0,L=dx*dx+dy*dy,u=L?Math.max(0,Math.min(1,((x-px0)*dx+(y-py0)*dy)/L)):0;return Math.hypot(x-(px0+u*dx),y-(py0+u*dy))};
+ for(const d of ds){const x0=px(d+1);if(Math.abs(x-x0)<=R)return true;
+  if(t&&!t._hv&&t.lgm&&t.lgm[d]!=null&&!HIDB(t)){const v=t.lgm[d],pxv=v==='b'?x0:lgX(v),top=r*H,bot=top+H;if(sg(x0,top,pxv,top+BY)<=R||sg(pxv,top+BY,x0,bot)<=R)return true}}
+ return false}catch(err){return false}}
+$('#bd').onmousemove=e=>{if(document.body.classList.contains('bdm')||document.body.classList.contains('bde'))return;if(LGON){const h=!LGPICK&&lgHit(e);$('#bd').style.cursor=(h||(!LGPICK&&lgNear(e)))?'pointer':'default';lgHover(h?h.r:(lgIn?lgRowI:-1));return}lgHover(-1);const q=barZone(e);$('#bd').style.cursor=!q?'default':q.z=='m'?'grab':'ew-resize'};
 $('#bo').onclick=()=>$('#fj').click();
 // ---- 重機・車両モード: 親行を選んで切替 / 稼働日はカレンダーで選ぶ(期間の端は動かさない) ----
 // 大元の行(モードの起点)を探す: 配下の行から辿って、解除すべき行を見つける
@@ -1710,7 +1811,7 @@ function openWk(i,fr){
  render();document.body.appendChild(m)}
 
 $('#fj').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)loadJ(f)};
-function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(45,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),cn:($('#cn').value||'').trim(),xs:XS,ym:ymData(),nt:(SH[cur].nt||['備考','','','']).slice(),ob:(SH[cur].ob||[]).map(q=>({...q})),lw:$('#L').offsetWidth,rowOf:y=>{const v=y/H,i=Math.floor(v);if(v<0)return v;if(i<VI.length)return VI[i]+(v-i);return Math.max(T.length,MINR)+(v-VI.length)}}}
+function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(45,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),cn:($('#cn').value||'').trim(),xs:XS,ym:ymData(),nt:(SH[cur].nt||['備考','','','']).slice(),ob:(SH[cur].ob||[]).map(q=>({...q})).concat(lgObs()),lw:$('#L').offsetWidth,rowOf:y=>{const v=y/H,i=Math.floor(v);if(v<0)return v;if(i<VI.length)return VI[i]+(v-i);return Math.max(T.length,MINR)+(v-VI.length)}}}
 
 // ---- 白紙から新規作成(ひな形に依存しない出力): 工程表シートを一から作る。バーはセルの塗りつぶし ----
 async function exportBlank(T,o,tz){
@@ -1785,7 +1886,7 @@ async function exportBlank(T,o,tz){
   rl=rl.replace('</Relationships>',`<Relationship Id="rId${ri}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${n}.xml"/></Relationships>`);
   ct=ct.replace('</Types>',`<Override PartName="/xl/worksheets/sheet${n}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>`);
   z.file('xl/workbook.xml',wb);z.file('xl/_rels/workbook.xml.rels',rl);z.file('[Content_Types].xml',ct);z.file('xl/styles.xml',sx);z.file(`xl/worksheets/sheet${n}.xml`,sheet);
-  {const shp=`xl/worksheets/sheet${n}.xml`,sh=await addShapes(z,shp,sheet,T,o,{dc:C1,N:cols.length,PS:cols.map(c=>c[0]),TEN,f0:o.f0,r0:R0b,ly:215000});z.file(shp,sh.xml);warn.push(...sh.warn)}
+  {const shp=`xl/worksheets/sheet${n}.xml`,sh=await addShapes(z,shp,sheet,T,o,{dc:C1,N:cols.length,PS:cols.map(c=>c[0]),TEN,f0:o.f0,r0:R0b,hr:H1,ly:215000});z.file(shp,sh.xml);warn.push(...sh.warn)}
   const mac=/macroEnabled/.test(ct);warn.push(`ひな形のExcelに、シート「${nm}」を追加しました`);
   return{blob:await z.generateAsync({type:'blob',mimeType:mac?'application/vnd.ms-excel.sheet.macroEnabled.12':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),warn,ext:mac?'xlsm':'xlsx',added:nm}}
  const z=new JSZip(),H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
@@ -1794,7 +1895,7 @@ async function exportBlank(T,o,tz){
  z.file('xl/workbook.xml',H+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="工程表" sheetId="1" r:id="rId1"/></sheets></workbook>');
  z.file('xl/_rels/workbook.xml.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
  z.file('xl/styles.xml',styles);z.file('xl/worksheets/sheet1.xml',sheet);
- {const sh=await addShapes(z,'xl/worksheets/sheet1.xml',sheet,T,o,{dc:C1,N:cols.length,PS:cols.map(c=>c[0]),TEN,f0:o.f0,r0:R0b,ly:215000});z.file('xl/worksheets/sheet1.xml',sh.xml);warn.push(...sh.warn)}
+ {const sh=await addShapes(z,'xl/worksheets/sheet1.xml',sheet,T,o,{dc:C1,N:cols.length,PS:cols.map(c=>c[0]),TEN,f0:o.f0,r0:R0b,hr:H1,ly:215000});z.file('xl/worksheets/sheet1.xml',sh.xml);warn.push(...sh.warn)}
  return{blob:await z.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),warn}}
 // ひな形の日付の列が「入出力設定」と合っていないとき(例: 日付がL列でなくO列から)は、ひな形の見出し行から日付の先頭列を探して、書き込み位置を自動で合わせる
 async function autoLayout(zip,shPath,o){
@@ -1851,7 +1952,7 @@ tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)
 var t0='edit';try{t0=localStorage.getItem('kouteihyo_bartab')||t0}catch(e){}
 if(!tabs.some(function(b){return b.dataset.t==t0}))t0='edit';show(t0);
 var kv=document.getElementById('kvt'),bkv=document.getElementById('bkv');
-if(kv&&bkv){var syncKV=function(){var shown=kv.textContent!=='＋';bkv.classList.toggle('on',!shown);bkv.textContent=shown?'係数・人員・必要日数を隠す':'係数・人員・必要日数を表示'};bkv.addEventListener('click',function(){kv.click();syncKV()});kv.addEventListener('click',function(){setTimeout(syncKV,0)});syncKV()}
+if(kv&&bkv){var syncKV=function(){var shown=kv.textContent!=='＋';bkv.classList.toggle('on',!shown);bkv.textContent=shown?'係数・人員・必要日数を非表示':'係数・人員・必要日数を再表示'};bkv.addEventListener('click',function(){kv.click();syncKV()});kv.addEventListener('click',function(){setTimeout(syncKV,0)});syncKV()}
 ['msg','warn'].forEach(function(id){var el=document.getElementById(id);if(el)new MutationObserver(function(){el.title=el.textContent}).observe(el,{childList:true,characterData:true,subtree:true})});
 })();
 </script>
@@ -1948,7 +2049,7 @@ document.getElementById('main').addEventListener('scroll',close);addEventListene
 <script>
 // ---- クイックアクセスツールバー(Excel風): 好きなボタンを最上段に置ける。リボンのボタンを右クリック、または右端の▾から追加/削除 ----
 (function(){
-const LB={ba:'＋ 行追加',bd1:'－ 行削除',bl:'◀ 階層を上げる',br:'▶ 階層を下げる',bc:'▷ 全て折りたたむ',be:'◢ 全て展開',bb:'B 太字',bu:'U 下線',va:'表示期間:自動',zm1:'1日表示',zm10:'10日表示',bkv:'係数・人員の列を隠す/表示',bx0:'Excel読み込み',bx:'Excel出力',bxs:'入出力設定',bo:'JSON読み込み',bs:'JSON保存',bk:'自動バックアップから復元',bms:'品目マスター',bpr:'印刷'};
+const LB={ba:'＋ 行の挿入',bd1:'－ 行の削除',bl:'◀ インデントを減らす',br:'▶ インデントを増やす',bc:'▷ すべて折りたたむ',be:'◢ すべて展開',bb:'B 太字',bu:'U 下線',va:'表示期間:自動',zm1:'1日表示',zm10:'10日表示',bkv:'係数・人員の列を隠す/表示',bx0:'Excel読み込み',bx:'Excel出力',bxs:'入出力設定',bo:'開く (JSON)',bs:'上書き保存 (JSON)',bk:'自動回復データを復元',bms:'品目マスター',bpr:'印刷'};
 const DEF=['bs','bx'],$i=id=>document.getElementById(id);
 let Q=null;try{Q=JSON.parse(localStorage.getItem('wk_qat'))}catch(e){}
 if(!Array.isArray(Q))Q=DEF.slice();Q=Q.filter(id=>LB[id]&&$i(id));
@@ -1993,9 +2094,11 @@ function frozen(src){
   sp.style.fontWeight=cs.fontWeight;sp.style.textDecoration=cs.textDecorationLine;sp.style.textAlign=cs.textAlign;sp.style.color=cs.color;
   if(!o.classList.contains('chg')&&cs.backgroundColor!=='rgba(0, 0, 0, 0)')sp.style.background=cs.backgroundColor;
   if(o.className)sp.className=o.className.replace('chg','');
+  if(o.closest('.pj')){sp.style.height='20px';sp.style.lineHeight='18px';sp.style.border='1px solid #ababab';sp.style.background='#fff';sp.style.flex='none'} // 客先名・工事名称・表示期間の欄
   if(o.parentNode&&o.parentNode.classList&&o.parentNode.classList.contains('r'))sp.style.borderRight='1px solid #e1e4ea';
   e.replaceWith(sp)});
- c.querySelectorAll('.au,.dd,.tg,#ymi,[hidden]').forEach(e=>e.remove());
+ c.querySelectorAll('.au,.dd,.tg,#ymi,[hidden],.pjb').forEach(e=>e.remove());
+ {const d=[...c.querySelectorAll('.pjd')];if(d.length&&!d.some(x=>x.textContent.trim())){d.forEach(x=>x.remove());c.querySelectorAll('.pjt,.pjs,label[for="vs"]').forEach(x=>x.remove())}} // 表示期間が未設定なら印刷しない
  {const pl=c.querySelector('#pl'),ym=c.querySelector('#ym');if(pl){pl.style.visibility='hidden'}} // 山積みの上の「＋」は、行位置を保つため見えない空行として残す
  c.querySelectorAll('.sel').forEach(e=>e.classList.remove('sel'));
  return c}
@@ -2015,6 +2118,7 @@ function build(){
  const nC=P.z==='fit'?1:Math.max(1,Math.ceil(Rw/av));
  window.__obSX=0;try{window.renderOb&&window.renderOb()}catch(e){} // 図形は横スクロール量0の状態で複製する(左の表の上の図形がずれないように)
  const Lc=frozen(L),Rc=R.cloneNode(true);
+ Lc.querySelectorAll('.lgdone').forEach(e=>e.classList.remove('lgdone'));Rc.querySelectorAll('.lgg').forEach(e=>e.remove()); // 稲妻線モードの印刷: 完了行のグレーアウトはしない(稲妻線は印刷する)
  window.__obSX=null;try{window.renderOb&&window.renderOb()}catch(e){}
  Rc.querySelectorAll('#ymi,.obtx').forEach(e=>e.remove());
  {const ob=Rc.querySelector('#ob');if(ob){ob.style.clipPath='none';ob.innerHTML=ob.innerHTML.replace(/obclip/g,'obclipP')}}
@@ -2148,7 +2252,7 @@ function fit(o){
 function delObj(id,rec){if(rec!==false)hist();const L=OBJ(),i=L.findIndex(o=>o.id===id);if(i>=0)L.splice(i,1);if(S.has(id)){S.delete(id);selId=S.size?[...S].pop():null}persistOb();renderOb()}
 function delSel(){const ids=new Set(S);if(!ids.size)return;hist();const L=OBJ();for(let i=L.length-1;i>=0;i--)if(ids.has(L[i].id))L.splice(i,1);setSel([]);persistOb();renderOb()}
 
-// ---- 文字の編集(ダブルクリック / 「文字を編集」) ----
+// ---- 文字の編集(ダブルクリック / 「テキストの編集」) ----
 function closeEd(){if(ed){const t=ed.ta;ed=null;t.onblur=null;t.remove()}}
 function startEdit(o){
  if(isLn(o)){msg('線・矢印には文字を入れられません');return}
@@ -2377,12 +2481,12 @@ const sample=()=>{const n=new Date(),d0=dayOf(n.getFullYear(),n.getMonth()+1,n.g
 async function setRows(rows,m){if(!(await uiConfirm('いまのシート「'+SH[cur].name+'」の内容を置き換えます。よろしいですか?\n(「戻る」ボタンで元に戻せます)')))return;
  hist();T.splice(0,T.length,...rows);sel=sel2=-1;build();msg(m)}
 function newAll(){if($i('mdl'))return;const m=document.createElement('div');m.id='mdl';m.className='on';
- m.innerHTML='<div style="max-width:480px"><b>新規作成</b><p>いまの工程表を破棄して、新しく始めます。</p><p><label><input type="radio" name="nwk" value="s" checked> サンプル工程から始める</label><br><label><input type="radio" name="nwk" value="b"> 白紙から始める</label></p><p style="font-size:12px;color:#556;line-height:1.6">初期化: 全シート(1シートに戻す)・客先名・工事名称・備考・図形・表示期間<br>残るもの: 品目マスター(係数)・入出力設定・客先プリセット(出力ひな形を含む)・画面の設定<br>実行前に自動バックアップを取ります(「データ」タブの「自動バックアップから復元」から復元できます)。</p><p style="text-align:right;margin:8px 0 0"><button data-a="ok" style="font-weight:700">新規作成</button> <button data-a="x">キャンセル</button></p></div>';
+ m.innerHTML='<div style="max-width:480px"><b>新規作成</b><p>いまの工程表を破棄して、新しく始めます。</p><p><label><input type="radio" name="nwk" value="s" checked> サンプル工程から始める</label><br><label><input type="radio" name="nwk" value="b"> 白紙から始める</label></p><p style="font-size:12px;color:#556;line-height:1.6">初期化: 全シート(1シートに戻す)・客先名・工事名称・備考・図形・表示期間<br>残るもの: 品目マスター(係数)・入出力設定・客先プリセット(出力ひな形を含む)・画面の設定<br>実行前に自動バックアップを取ります(「データ」タブの「自動回復データを復元」から復元できます)。</p><p style="text-align:right;margin:8px 0 0"><button data-a="ok" style="font-weight:700">新規作成</button> <button data-a="x">キャンセル</button></p></div>';
  m.onclick=e=>{const a=e.target.dataset&&e.target.dataset.a;if(e.target===m||a==='x'){m.remove();return}if(a!=='ok')return;
   const blank=m.querySelector('input[name=nwk]:checked').value==='b',rows=blank?[K('',1)]:sample();m.remove();
   try{addBk(JSON.stringify(pack()),true)}catch(x){}
   hist();CUS='';PN='';syncPN();SH=[{name:'シート1',T:rows,vs:null,ve:null,dc:{},ob:[],nt:['備考','','','']}];cur=0;T=SH[0].T;VS=null;VE=null;sel=sel2=-1;PO={};CORD=[];
-  syncView();build();tabs();persist();msg('新規作成しました(前の状態は「自動バックアップから復元」から戻せます)')};
+  syncView();build();tabs();persist();msg('新規作成しました(前の状態は「自動回復データを復元」から戻せます)')};
  document.body.appendChild(m)}
 $i('bnw').onclick=newAll;
 })();
@@ -2528,7 +2632,7 @@ addEventListener('keydown',function(e){
  const k=e.key,mod=e.ctrlKey||e.metaKey,el=document.activeElement;
  // Shift+F11=新しいシートを挿入(現在のシートの左)
  if(k==='F11'&&e.shiftKey&&!mod&&!e.altKey){e.preventDefault();if(!busy())shAdd(cur);return}
- // Ctrl+S=JSON保存 / Ctrl+O=JSON読み込み / Ctrl+P=印刷
+ // Ctrl+S=上書き保存 (JSON) / Ctrl+O=開く (JSON) / Ctrl+P=印刷
  if(mod&&!e.altKey&&!e.shiftKey&&/^[sop]$/i.test(k)){
   e.preventDefault();if(busy())return;
   const b=g({s:'bs',o:'bo',p:'bpr'}[k.toLowerCase()]);if(!b||b.disabled)return;
@@ -2684,8 +2788,8 @@ function menu(x,y){cmClose();
  const lab=n>1?`選択した${n}列`:n==1?`「${NAMES[t[0]]}」`:'';
  const canHide=t.some(i=>i>0)&&(()=>{const left=[...Array(NC).keys()].filter(i=>vis(i)&&!(t.includes(i)&&i>0));return left.length>1})();
  const it=[
-  {k:'fit',t:'列幅の自動調整',h:'境界をダブルクリック',dis:!n},
-  {k:'set',t:'列幅の指定…',dis:!n},
+  {k:'fit',t:'列の幅の自動調整',h:'境界をダブルクリック',dis:!n},
+  {k:'set',t:'列の幅…',dis:!n},
   {k:'same',t:'選択した列を同じ幅にそろえる',dis:n<2},
   {k:'def',t:'列幅を初期値に戻す',dis:!n},
   '-',
@@ -2783,8 +2887,8 @@ document.getElementById('brule').onclick=open;
  Q('#tb').addEventListener('contextmenu',()=>{
   const m=document.getElementById('cm');if(!m||m.__hid)return;m.__hid=1;
   const anyH=T.some(t=>t.hid);let hasAdj=false;if(sel>=0){const[lo,hi]=adj();for(let i=lo;i<=hi;i++)if(T[i]&&T[i].hid)hasAdj=true}
-  const add='<hr><div data-a="hideRow">🙈 行を非表示<i>Ctrl+9</i></div>'+(hasAdj?'<div data-a="unhideRow">👁 行を再表示<i>Ctrl+Shift+9</i></div>':'')+(anyH?'<div data-a="unhideAll">👁 すべての非表示行を再表示</div>':'');
-  m.innerHTML=m.innerHTML.replace('✕ 行を削除</div>','✕ 行を削除</div>'+add);
+  const add='<hr><div data-a="hideRow">非表示<i>Ctrl+9</i></div>'+(hasAdj?'<div data-a="unhideRow">再表示<i>Ctrl+Shift+9</i></div>':'')+(anyH?'<div data-a="unhideAll">すべて再表示</div>':'');
+  m.innerHTML=m.innerHTML.replace('削除</div>','削除</div>'+add);
   m.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]'),k=el&&el.dataset.a;if(k!=='hideRow'&&k!=='unhideRow'&&k!=='unhideAll')return;
    ev.stopPropagation();cmClose();if(k==='hideRow')hideRows();else unhideRows(k==='unhideAll')},true);
   m.style.top=Math.max(4,Math.min(parseFloat(m.style.top)||0,innerHeight-m.offsetHeight-8))+'px'});
