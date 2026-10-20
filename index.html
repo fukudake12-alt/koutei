@@ -224,12 +224,13 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 #rlb .nt{color:#444;font-size:12px;line-height:1.6;margin:6px 0 0}
 #rlb .ft{padding:8px 14px;text-align:right;border-top:1px solid #ccc}
 #rlb .ft button{min-width:80px;padding:3px 12px}
+button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[data-t="shp"].on:hover{color:#c55a11;font-weight:700}
 </style>
 </head><body>
 <div id="bar">
 <div id="qat"><span id="brand">MSM</span><span id="ver" style="font-size:11px;color:#667;margin:0 8px 0 -4px">v1.1</span><button id="bz" title="元に戻す(Ctrl+Z)">↶ 元に戻す</button><button id="by" title="やり直し(Ctrl+Y)">↷ やり直し</button><span class="qsep"></span><span id="qcu"></span><button id="qmn" title="クイックアクセスツールバーのユーザー設定(リボンのボタンを右クリックしても追加できます)">▾</button></div>
 <div id="rbh">
-<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">ホーム</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="ins" role="tab">挿入</button><button class="rbt" data-t="data" role="tab">データ</button></div>
+<div class="rbts" role="tablist"><button class="rbt" data-t="edit" role="tab">ホーム</button><button class="rbt" data-t="view" role="tab">表示</button><button class="rbt" data-t="ins" role="tab">挿入</button><button class="rbt" data-t="data" role="tab">データ</button><button class="rbt" data-t="shp" role="tab" hidden>図形の書式</button></div>
 <span id="warn"></span><span id="msg" title="「インデントを減らす◀／増やす▶」で階層を変更(◀=左へ/▶=右へ)。複数行は「No」をShift+クリックで選んでから。「No」や行を右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)。">「インデントを減らす◀／増やす▶」で階層を変更。複数行は「No」をShift+クリックで選択。「No」や行を右クリックで行メニュー。</span>
 </div>
 <div id="rbb">
@@ -238,8 +239,6 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 <div class="rbg"><div class="rbc"><button id="bl" title="選択行のインデントを減らします(階層を1つ上げます)">◀ インデントを減らす</button><button id="br" title="選択行のインデントを増やします(階層を1つ下げます)">▶ インデントを増やす</button></div><div class="rbl">配置</div></div>
 <div class="rbg"><div class="rbc"><button id="bc">▷ すべて折りたたむ</button><button id="be">◢ すべて展開</button></div><div class="rbl">アウトライン</div></div>
 <div class="rbg"><div class="rbc"><button id="bb" title="太字(Ctrl+B)" style="font-weight:700">B 太字</button><button id="bu" title="下線(Ctrl+U)" style="text-decoration:underline">U 下線</button></div><div class="rbl">フォント</div></div>
-
-
 </div>
 <div class="rbp" data-p="view" role="tabpanel">
 
@@ -248,7 +247,8 @@ svg text{font:11px "Yu Gothic UI","Meiryo UI",sans-serif}
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を非表示</button></div><div class="rbl">列</div></div>
 <div class="rbg"><div class="rbc"><button id="brule" title="日数・開始日・終了日・係数などを変えたとき、何が固定され、何が自動で動くかを表で確認します">入力ルール早見表</button></div><div class="rbl">ヘルプ</div></div>
 </div>
-<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button><button id="oc_sel" title="グラフの空きスペースをドラッグすると囲んだ図形を選択できます。このボタンONの間は左の表の上でもドラッグ選択できます(Escで解除)。Ctrl/Shift+クリックでも追加・解除できます">⬚ オブジェクトの選択</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)／挿入後は図形をクリックで選択→色などを変更</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_sc" value="#d9230f"><span class="opal" data-for="oc_sc" data-p="line" title="線の色"></span><label><input type="checkbox" id="oc_scn">枠線なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">図形の枠線</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_fc" value="#ffffff"><span class="opal" data-for="oc_fc" data-p="fill" title="塗りつぶしの色"></span><label><input type="checkbox" id="oc_fcn" checked>塗りつぶしなし</label></div><div class="rbl">図形の塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_tc" value="#222222"><span class="opal" data-for="oc_tc" data-p="text" title="文字の色"></span><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">テキストの編集</button></div><div class="rbl">フォント</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ移動">前面へ移動</button><button id="oc_bk" title="最背面へ移動">背面へ移動</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">配置</div></div></div>
+<div class="rbp" data-p="ins" role="tabpanel"><div class="rbg"><div class="rbc"><button data-ot="cloud" title="雲マーク(変更箇所を囲む)">☁ 雲</button><button data-ot="rect" title="四角">▭ 四角</button><button data-ot="ellipse" title="楕円">◯ 楕円</button><button data-ot="line" title="直線">／ 線</button><button data-ot="arrow" title="矢印">➝ 矢印</button><button data-ot="text" title="テキストボックス">Ｔ テキスト</button><button id="oc_sel" title="グラフの空きスペースをドラッグすると囲んだ図形を選択できます。このボタンONの間は左の表の上でもドラッグ選択できます(Escで解除)。Ctrl/Shift+クリックでも追加・解除できます">⬚ オブジェクトの選択</button></div><div class="rbl">図形を挿入(ボタン→グラフ上をドラッグ)／挿入した図形は自動で「図形の書式」タブに切り替わり、色・枠線・文字を変更できます</div></div></div>
+<div class="rbp" data-p="shp" role="tabpanel"><div class="rbg"><div class="rbc"><input type="hidden" id="oc_sc" value="#d9230f"><span class="opal" data-for="oc_sc" data-p="line" title="線の色"></span><label><input type="checkbox" id="oc_scn">枠線なし</label><select id="oc_sw" title="線の太さ"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><select id="oc_ds" title="線の種類"><option value="0">実線</option><option value="1">破線</option></select></div><div class="rbl">図形の枠線</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_fc" value="#ffffff"><span class="opal" data-for="oc_fc" data-p="fill" title="塗りつぶしの色"></span><label><input type="checkbox" id="oc_fcn" checked>塗りつぶしなし</label></div><div class="rbl">図形の塗りつぶし</div></div><div class="rbg"><div class="rbc"><input type="hidden" id="oc_tc" value="#222222"><span class="opal" data-for="oc_tc" data-p="text" title="文字の色"></span><select id="oc_fs" title="文字サイズ"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="24">24</option><option value="28">28</option><option value="32">32</option></select><button id="oc_ed" title="選択した図形の文字を入力・編集(図形のダブルクリックでも可)">テキストの編集</button></div><div class="rbl">フォント</div></div><div class="rbg"><div class="rbc"><button id="oc_dup">複製</button><button id="oc_fr" title="最前面へ移動">最前面へ移動</button><button id="oc_f1" title="1つ前面へ移動">前面へ移動</button><button id="oc_b1" title="1つ背面へ移動">背面へ移動</button><button id="oc_bk" title="最背面へ移動">最背面へ移動</button><button id="oc_del" title="選択した図形を削除(Deleteキー)">削除</button></div><div class="rbl">配置</div></div></div>
 <div class="rbp" data-p="data" role="tabpanel">
 <div class="rbg"><div class="rbc"><button id="bx" title="「入出力設定」の出力タブで選ばれている客先のひな形(Excel)に書き込んで出力します(日付・行数は自動調整)。ひな形が無ければ白紙のExcelに出力します">Excel出力</button><button id="bxs" title="Excel読み込み(入力)と、Excel出力(貼り付け用シート・ひな形)の設定">入出力設定</button><span id="tgt"></span></div><div class="rbl">Excel</div></div>
 <div class="rbg"><div class="rbc"><button id="bo" title="JSONを読み込みます(Ctrl+O)">開く (JSON)</button><button id="bs" title="JSONで保存します(Ctrl+S)">上書き保存 (JSON)</button></div><div class="rbl">JSON</div></div>
@@ -1947,10 +1947,11 @@ MIGRDY=1;if(MIGPEND)migrate();syncView();build();tabs();initStore();
 </script><script>
 (function(){
 var bar=document.getElementById('bar'),tabs=[].slice.call(bar.querySelectorAll('.rbt')),ps=[].slice.call(bar.querySelectorAll('.rbp'));
-function show(t){tabs.forEach(function(b){var on=b.dataset.t==t;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});ps.forEach(function(p){p.classList.toggle('on',p.dataset.p==t)});try{localStorage.setItem('kouteihyo_bartab',t)}catch(e){}}
+function show(t){tabs.forEach(function(b){var on=b.dataset.t==t;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});ps.forEach(function(p){p.classList.toggle('on',p.dataset.p==t)});if(t!='shp'){try{localStorage.setItem('kouteihyo_bartab',t)}catch(e){}}}
+window.__rbShow=show;
 tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
 var t0='edit';try{t0=localStorage.getItem('kouteihyo_bartab')||t0}catch(e){}
-if(!tabs.some(function(b){return b.dataset.t==t0}))t0='edit';show(t0);
+if(t0=='shp'||!tabs.some(function(b){return b.dataset.t==t0}))t0='edit';show(t0);
 var kv=document.getElementById('kvt'),bkv=document.getElementById('bkv');
 if(kv&&bkv){var syncKV=function(){var shown=kv.textContent!=='＋';bkv.classList.toggle('on',!shown);bkv.textContent=shown?'係数・人員・必要日数を非表示':'係数・人員・必要日数を再表示'};bkv.addEventListener('click',function(){kv.click();syncKV()});kv.addEventListener('click',function(){setTimeout(syncKV,0)});syncKV()}
 ['msg','warn'].forEach(function(id){var el=document.getElementById(id);if(el)new MutationObserver(function(){el.title=el.textContent}).observe(el,{childList:true,characterData:true,subtree:true})});
@@ -2388,7 +2389,7 @@ function syncCtl(){
  if(d.sc)$i('oc_sc').value=d.sc;$i('oc_scn').checked=!d.sc;
  if(d.fc)$i('oc_fc').value=d.fc;$i('oc_fcn').checked=!d.fc;
  $i('oc_sw').value=String(d.sw);$i('oc_ds').value=String(d.ds?1:0);$i('oc_tc').value=d.tc||'#222222';$i('oc_fs').value=String(d.fs||14);
- ['oc_ed','oc_dup','oc_fr','oc_bk','oc_del'].forEach(id=>{$i(id).disabled=!o});if(!o||S.size!==1||isLn(o))$i('oc_ed').disabled=true;if(typeof swSync==='function')swSync()}
+ ['oc_ed','oc_dup','oc_fr','oc_f1','oc_b1','oc_bk','oc_del'].forEach(id=>{$i(id).disabled=!o});if(!o||S.size!==1||isLn(o))$i('oc_ed').disabled=true;if(typeof swSync==='function')swSync()}
 function setProp(p){const os=selList();if(os.length){hist();os.forEach(o=>{Object.assign(o,p);if('fs' in p)fit(o)});persistOb();renderOb()}else{Object.assign(DEFO,p);msg('次に挿入する図形の初期設定を変えました(挿入済みの図形は、先に選択してから変えます)')}}
 document.querySelectorAll('[data-ot]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.ot)));
 $i('oc_sc').onchange=()=>{$i('oc_scn').checked=false;setProp({sc:$i('oc_sc').value})};
@@ -2415,6 +2416,8 @@ $i('oc_dup').onclick=()=>{const os=selList();if(!os.length)return;hist();const i
  os.forEach(o=>{const c=JSON.parse(JSON.stringify(o));c.id=newId();{const nl=dayf(pxf(o.x)+20),nr=dayf(pxf(o.x+o.w)+20);c.x=rd(nl);c.w=rd(nr-nl)}c.y=o.y+20;OBJ().push(c);ids.push(c.id)});
  setSel(ids);persistOb();renderOb()};
 $i('oc_fr').onclick=()=>{const L=OBJ(),os=L.filter(o=>S.has(o.id));if(!os.length)return;hist();const rest=L.filter(o=>!S.has(o.id));L.length=0;rest.concat(os).forEach(o=>L.push(o));persistOb();renderOb()};
+$i('oc_f1').onclick=()=>{const L=OBJ();if(!L.some(o=>S.has(o.id)))return;hist();for(let i=L.length-2;i>=0;i--)if(S.has(L[i].id)&&!S.has(L[i+1].id)){const t=L[i];L[i]=L[i+1];L[i+1]=t}persistOb();renderOb()};
+$i('oc_b1').onclick=()=>{const L=OBJ();if(!L.some(o=>S.has(o.id)))return;hist();for(let i=1;i<L.length;i++)if(S.has(L[i].id)&&!S.has(L[i-1].id)){const t=L[i];L[i]=L[i-1];L[i-1]=t}persistOb();renderOb()};
 $i('oc_bk').onclick=()=>{const L=OBJ(),os=L.filter(o=>S.has(o.id));if(!os.length)return;hist();const rest=L.filter(o=>!S.has(o.id));L.length=0;os.concat(rest).forEach(o=>L.push(o));persistOb();renderOb()};
 renderOb();
 
@@ -2898,6 +2901,21 @@ document.getElementById('brule').onclick=open;
  // 非表示の行がある所には、行番号の上に青い線を出す(Excelと同じ目印)
  function markHid(){const rs=Q('#tb').children;for(let i=0;i<rs.length;i++)rs[i].classList.toggle('hdb',i>0&&!!T[i-1]&&!!T[i-1].hid&&rs[i].style.display!=='none')}
  if(typeof refresh==='function'){const r0=refresh;refresh=function(){const r=r0.apply(this,arguments);try{markHid()}catch(e){}return r}}
+})();
+</script>
+<script>
+// ---- 図形の書式タブ(Excelの状況依存タブ): 図形を選ぶと自動で表示・切替、選択解除で元のタブへ戻る ----
+(function(){
+ var del=document.getElementById('oc_del'),tab=document.querySelector('.rbt[data-t="shp"]'),prev='edit';
+ if(!del||!tab||!window.__rbShow)return;
+ function cur(){var b=document.querySelector('#bar .rbt.on');return b?b.dataset.t:'edit'}
+ function sync(){
+  var on=!del.disabled;
+  if(on){if(tab.hidden){tab.hidden=false;var c=cur();if(c!=='shp')prev=c;window.__rbShow('shp')}}
+  else if(!tab.hidden){var wasOn=cur()==='shp';tab.hidden=true;if(wasOn)window.__rbShow(prev||'edit')}
+ }
+ new MutationObserver(sync).observe(del,{attributes:true,attributeFilter:['disabled']});
+ sync();
 })();
 </script>
 </body></html>
