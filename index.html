@@ -484,14 +484,14 @@ async function addShapes(zip,shPath,xml,T,o,G){
  const f0=G.f0,TEN=G.TEN,PS=G.PS,N=G.N,CWl=152400,RHl=285750,LY=G.ly||234950,r0=G.r0,dc=G.dc;
  let gs='';
  const pi=x=>{let k=0;while(k+1<PS.length&&PS[k+1]<=x)k++;return k};
- const barSegs=(t,d)=>{const sg=[];if(!TEN&&o.isD){for(let a=t.cs;a<=t.ce;){const sd=!!o.isD(t,a);let b=a;while(b<t.ce&&!!o.isD(t,b+1)===sd)b++;if(a-t.cs<d)sg.push([a-t.cs,Math.min(b-t.cs+1,d),sd]);a=b+1}}return sg.length?sg:[[0,d,false]]};
+ const barSegs=(t,d,sk)=>{sk=sk||0;const sg=[];if(!TEN&&o.isD){for(let a=t.cs+sk;a<=t.ce;){const sd=!!o.isD(t,a);let b=a;while(b<t.ce&&!!o.isD(t,b+1)===sd)b++;if(a-t.cs-sk<d)sg.push([a-t.cs-sk,Math.min(b-t.cs-sk+1,d),sd]);a=b+1}}return sg.length?sg:[[0,d,false]]};
  const segXml=(q,k,i,n,d)=>`<xdr:cxnSp macro=""><xdr:nvCxnSpPr><xdr:cNvPr id="${i+2+k}" name="pLine_${n}_${k}"/><xdr:cNvCxnSpPr/></xdr:nvCxnSpPr><xdr:spPr bwMode="auto"><a:xfrm><a:off x="${q[0]*CWl}" y="${LY}"/><a:ext cx="${(q[1]-q[0])*CWl}" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:noFill/><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:prstDash val="${q[2]?'dash':'solid'}"/><a:round/>${(q[0]==0?'<a:headEnd type="oval" w="med" len="med"/>':'')+(q[1]==d?'<a:tailEnd type="oval" w="med" len="med"/>':'')}</a:ln></xdr:spPr></xdr:cxnSp>`;
  let gn=1,nBar=0;
  T.forEach((t,ix)=>{if(!(t.cs!=null&&t.ce!=null&&t.ce>=t.cs))return;
-  let k=t.cs-f0,d=t.ce-t.cs+1;if(TEN){k=t.cs<PS[0]?-1:t.cs>PS[N-1]+12?N:pi(t.cs);d=pi(t.ce)-pi(t.cs)+1}
+  let k=t.cs-f0,d=t.ce-t.cs+1,sk=0;if(TEN){k=t.cs<PS[0]?-1:t.cs>PS[N-1]+12?N:pi(t.cs);d=pi(t.ce)-pi(t.cs)+1;if(t.cs<PS[0]&&t.ce>=PS[0]){k=0;d=pi(t.ce)+1}}else if(k<0&&t.ce>=f0){sk=-k;d=t.ce-f0+1;k=0} /* 開始が表示期間より前でも、期間内にかかる線は表示開始日から描く */
   if(k<0||k>=N){warn.push(`行${ix+1}「${t.n}」は表示期間より前/後のため線を描きません`);return}
   if(k+d>N){d=N-k;warn.push(`行${ix+1}「${t.n}」は表示終了日で切りました`)}
-  const r=r0+ix,n=++gn,segs=barSegs(t,d),i=((gid+=3+segs.length)-3-segs.length),w=d*CWl,c1=dc-1+k;
+  const r=r0+ix,n=++gn,segs=barSegs(t,d,sk),i=((gid+=3+segs.length)-3-segs.length),w=d*CWl,c1=dc-1+k;
   gs+=`<xdr:twoCellAnchor><xdr:from><xdr:col>${c1}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>${r-1}</xdr:row><xdr:rowOff>12700</xdr:rowOff></xdr:from><xdr:to><xdr:col>${c1+d}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>${r-1}</xdr:row><xdr:rowOff>${Math.max(20000,rowE(r)-12700)}</xdr:rowOff></xdr:to><xdr:grpSp><xdr:nvGrpSpPr><xdr:cNvPr id="${i}" name="pGr_${n}"/><xdr:cNvGrpSpPr/></xdr:nvGrpSpPr><xdr:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${w}" cy="247650"/><a:chOff x="0" y="0"/><a:chExt cx="${w}" cy="247650"/></a:xfrm></xdr:grpSpPr>`+
   `<xdr:sp macro="" textlink=""><xdr:nvSpPr><xdr:cNvPr id="${i+1}" name="pLabel_${n}"/><xdr:cNvSpPr txBox="1"/></xdr:nvSpPr><xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${w}" cy="247650"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="FFFFFF"><a:alpha val="30000"/></a:srgbClr></a:solidFill></xdr:spPr><xdr:style><a:lnRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:lnRef><a:fillRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:fillRef><a:effectRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:effectRef><a:fontRef idx="minor"><a:schemeClr val="tx1"/></a:fontRef></xdr:style><xdr:txBody><a:bodyPr vertOverflow="clip" horzOverflow="overflow" vert="horz" wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"><a:noAutofit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"/><a:r><a:rPr kumimoji="1" lang="ja-JP" altLang="en-US" sz="900" kern="1200"><a:solidFill><a:srgbClr val="000000"/></a:solidFill></a:rPr><a:t>${X(t.n)}</a:t></a:r></a:p></xdr:txBody></xdr:sp>`+
   `${segs.map((q,kk)=>segXml(q,kk,i,n,d)).join('')}</xdr:grpSp><xdr:clientData/></xdr:twoCellAnchor>`;nBar++});
@@ -703,7 +703,7 @@ async function exportXl(zip,T,o){
  out+=rowX(5,rows[5].at,lf(5,5)+d5)+rowX(6,rows[6].at,lf(6,6)+d6)+rowX(7,rows[7].at,lf(7,7).replace(/<c r="J7"([^>]*?)\/>/,(m,a)=>`<c r="J7"${a} t="inlineStr"><is><t>物量</t></is></c>`).replace(/<c r="([GHI])7"([^>]*?)\/>/g,(m,c,a)=>{const s0=(a.match(/ s="(\d+)"/)||[])[1];return `<c r="${c}7"${sty(s0!=null?kit.mod(s0,null,1):null)} t="inlineStr"><is><t>${{G:'係数',H:'単位',I:'人員'}[c]}</t></is></c>`})+d7);
  if(T.length>MINR)warn.push(`タスクが${MINR}行を超えたため、Excelの行を${M}行まで増やしました`);
 
- const barSegs=(t,d)=>{const sg=[];if(!TEN&&o.isD){for(let a=t.cs;a<=t.ce;){const sd=!!o.isD(t,a);let b=a;while(b<t.ce&&!!o.isD(t,b+1)===sd)b++;if(a-t.cs<d)sg.push([a-t.cs,Math.min(b-t.cs+1,d),sd]);a=b+1}}return sg.length?sg:[[0,d,false]]};
+ const barSegs=(t,d,sk)=>{sk=sk||0;const sg=[];if(!TEN&&o.isD){for(let a=t.cs+sk;a<=t.ce;){const sd=!!o.isD(t,a);let b=a;while(b<t.ce&&!!o.isD(t,b+1)===sd)b++;if(a-t.cs-sk<d)sg.push([a-t.cs-sk,Math.min(b-t.cs-sk+1,d),sd]);a=b+1}}return sg.length?sg:[[0,d,false]]};
  const segXml=(q,k,x,y,i,n,d)=>`<xdr:cxnSp macro=""><xdr:nvCxnSpPr><xdr:cNvPr id="${i+2+k}" name="pLine_${n}_${k}"/><xdr:cNvCxnSpPr/></xdr:nvCxnSpPr><xdr:spPr bwMode="auto"><a:xfrm><a:off x="${x+q[0]*CW}" y="${y+234950}"/><a:ext cx="${(q[1]-q[0])*CW}" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:noFill/><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:prstDash val="${q[2]?'dash':'solid'}"/><a:round/>${(q[0]==0?'<a:headEnd type="oval" w="med" len="med"/>':'')+(q[1]==d?'<a:tailEnd type="oval" w="med" len="med"/>':'')}</a:ln></xdr:spPr></xdr:cxnSp>`;
  let gs='',gid=3000,gn=1,lvWarn=0;
  for(let ix=0;ix<M;ix++){
@@ -719,11 +719,11 @@ async function exportXl(zip,T,o){
   out+=rowX(r,rows[tr].at,(bar?`<c r="A${r}" t="inlineStr"><is><t>p</t></is></c>`:'')+left+dayRowD(r,P[tr],ix==0));
   if(!bar)continue;
   const pi=x=>{let k=0;while(k+1<PS.length&&PS[k+1]<=x)k++;return k};
-   let c=C0+t.cs-f0,d=t.ce-t.cs+1;
-   if(TEN){c=t.cs<PS[0]?C0-1:t.cs>PS[N-1]+12?C0+N:C0+pi(t.cs);d=pi(t.ce)-pi(t.cs)+1}
+   let c=C0+t.cs-f0,d=t.ce-t.cs+1,sk=0;
+   if(TEN){c=t.cs<PS[0]?C0-1:t.cs>PS[N-1]+12?C0+N:C0+pi(t.cs);d=pi(t.ce)-pi(t.cs)+1;if(t.cs<PS[0]&&t.ce>=PS[0]){c=C0;d=pi(t.ce)+1}}else if(c<C0&&t.ce>=f0){sk=C0-c;d=t.ce-f0+1;c=C0}
   if(c<C0||c>=C0+N){warn.push(`行${ix+1}「${t.n}」は表示期間より前/後のため線を描きません`);continue;}
   if(c+d>C0+N){d=C0+N-c;warn.push(`行${ix+1}「${t.n}」は表示終了日で切りました`);}
-  const x=4010000+EXC+EXC_ADD+(c-C0)*CW,y=4169019+(r-16)*RH+12700,w=d*CW,n=++gn,segs=barSegs(t,d),i=((gid+=3+segs.length)-3-segs.length);
+  const x=4010000+EXC+EXC_ADD+(c-C0)*CW,y=4169019+(r-16)*RH+12700,w=d*CW,n=++gn,segs=barSegs(t,d,sk),i=((gid+=3+segs.length)-3-segs.length);
   const xf=(yy,h)=>`<a:xfrm><a:off x="${x}" y="${yy}"/><a:ext cx="${w}" cy="${h}"/></a:xfrm>`;
   gs+=`<xdr:twoCellAnchor><xdr:from><xdr:col>${c}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>${r-1}</xdr:row><xdr:rowOff>12700</xdr:rowOff></xdr:from><xdr:to><xdr:col>${c+d}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>${r-1}</xdr:row><xdr:rowOff>260350</xdr:rowOff></xdr:to><xdr:grpSp><xdr:nvGrpSpPr><xdr:cNvPr id="${i}" name="pGr_${n}"/><xdr:cNvGrpSpPr/></xdr:nvGrpSpPr><xdr:grpSpPr><a:xfrm><a:off x="${x}" y="${y}"/><a:ext cx="${w}" cy="247650"/><a:chOff x="${x}" y="${y}"/><a:chExt cx="${w}" cy="247650"/></a:xfrm></xdr:grpSpPr>`+
   `<xdr:sp macro="" textlink=""><xdr:nvSpPr><xdr:cNvPr id="${i+1}" name="pLabel_${n}"/><xdr:cNvSpPr txBox="1"/></xdr:nvSpPr><xdr:spPr>${xf(y,247650)}<a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="FFFFFF"><a:alpha val="30000"/></a:srgbClr></a:solidFill></xdr:spPr><xdr:style><a:lnRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:lnRef><a:fillRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:fillRef><a:effectRef idx="0"><a:scrgbClr r="0" g="0" b="0"/></a:effectRef><a:fontRef idx="minor"><a:schemeClr val="tx1"/></a:fontRef></xdr:style><xdr:txBody><a:bodyPr vertOverflow="clip" horzOverflow="overflow" vert="horz" wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"><a:noAutofit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"/><a:r><a:rPr kumimoji="1" lang="ja-JP" altLang="en-US" sz="900" kern="1200"><a:solidFill><a:srgbClr val="000000"/></a:solidFill></a:rPr><a:t>${X(t.n)}</a:t></a:r></a:p></xdr:txBody></xdr:sp>`+
