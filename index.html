@@ -985,15 +985,15 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
  T.forEach((t,i)=>{if(V[i]&&t._hv)bg+=`<rect class="hvbg" x="0" y="${ry[i]*H}" width="${w}" height="${H}" fill="#3b78d8" fill-opacity="${t._hroot?.16:.1}"/>`});
  for(let i=0;i<=vc+ex;i++)bg+=`<line class="gl" x1="0" x2="${w}" y1="${i*H}" y2="${i*H}"/>`;
  T.forEach((t,i)=>{if(!V[i])return;const y=ry[i]*H;if(HIDB(t))return;
-  if(t.cs!=null&&t.ce!=null){const x=px(t.cs),bw=px(t.ce+1)-px(t.cs);
+  if(t.cs!=null&&t.ce!=null){const ds=dsOf(t),x=px(ds),bw=px(t.ce+1)-px(ds);
    if(ZM==10)s+=`<rect class="bar" x="${x+1}" y="${y+BY-1.5}" width="${Math.max(bw-2,1)}" height="3" rx="1.5"/>`;
-   else for(let a=t.cs;a<=t.ce;){const st=isDash(t,a);let b=a;while(b<t.ce&&isDash(t,b+1)===st)b++;const rx=px(a),rw=px(b+1)-px(a);
+   else for(let a=ds;a<=t.ce;){const st=isDash(t,a);let b=a;while(b<t.ce&&isDash(t,b+1)===st)b++;const rx=px(a),rw=px(b+1)-px(a);
     s+=st?`<line class="bd2" x1="${rx+1}" x2="${rx+rw-1}" y1="${y+BY}" y2="${y+BY}"/>`:`<rect class="bar" x="${rx+1}" y="${y+BY-1.5}" width="${Math.max(rw-2,1)}" height="3" rx="1.5"/>`;a=b+1}
    s+=`<text x="${Math.max(x,0)+2}" y="${y+20}"${x+bw<=0?' fill="#888"':''}>${X(t.n)}</text>`;}
   else if(T[i+1]&&T[i+1].l>t.l){let lo=1e9,hi=-1e9;for(let j=i+1;j<T.length&&T[j].l>t.l;j++)if(T[j].ce!=null){lo=Math.min(lo,T[j].cs);hi=Math.max(hi,T[j].ce)}
    if(0&&hi>=lo)s+=`<rect class="sm" x="${px(lo)}" y="${y+BY-1.5}" width="${Math.max(px(hi+1)-px(lo),1)}" height="3" rx="1.5"/>`;}
   for(const q of t.pp){const u=T[q.i];if(u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
-   const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(t.cs)+1,y2=y+BY,m=(y1+y2)/2;
+   const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(dsOf(t))+1,y2=y+BY,m=(y1+y2)/2;
    s+=`<polyline class="ar" marker-end="url(#ah)" points="${x1},${y1} ${x1+6},${y1} ${x2>=x1+8?`${x1+6},${y2}`:`${x1+6},${m} ${x2-6},${m} ${x2-6},${y2}`} ${x2},${y2}"/>`;}});
  {const LGL=lgLayer(ry,V,vc,h);s+=LGL.s;hd=LGL.hd+hd;{const d0=lgBase();document.querySelectorAll('#tb .r').forEach(r=>{const t=T[+r.dataset.i];r.classList.remove('lgdone')})}}
  {const E=$('#ym'),sm=r=>Object.values(r).reduce((a,b)=>a+b,0);
@@ -1590,6 +1590,7 @@ function toggleSeg(i,dn){hist();const t=T[i];if(t._hv){hvWkInit(t);const k=t.wk.
 const pt=(el,e)=>{const r=el.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
 $('#hd').onclick=e=>{const g=e.target.closest&&e.target.closest('.mt');if(g){toggleMonth(g.dataset.m);return}const[x,y]=pt($('#hd'),e);if(y<24||x<0||ZM==10)return;toggleCol(dayAt(x))};
 $('#hd').onmousemove=e=>{const[x,y]=pt($('#hd'),e);$('#hd').style.cursor=(e.target.closest&&e.target.closest('.mt'))||(y>=24&&ZM!=10)?'pointer':'default'};
+function dsOf(t){let a=t.cs;if(!t._hv&&a!=null&&t.ce!=null)while(a<t.ce&&isDash(t,a))a++;return a} // 表示上の開始日: 先頭が破線(休み)の日は描かず、最初の実線日から線を引く
 const isDash=(t,dn)=>t._hv?(t.wk?t.wk.indexOf(dn)<0:false):colDash(dn)!==!!(t.dd&&t.dd.indexOf(dn)>=0); // 重機・車両行: wk(稼働日リスト)に無い日が破線(wk未設定=全日稼働)
 // 実働日数: 破線の日は数えない
 function wdN(t,a,b){if(t._hv)return Math.max(0,b-a+1);let n=0;for(let x=a;x<=b;x++)if(!isDash(t,x))n++;return n}
@@ -1688,7 +1689,7 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!LGON||LGPICK||lgIn|
  lgOpenAt(L.find(i=>!(T[i].lgm&&T[i].lgm[d0]!=null))??L[0],true)},true);
 $('#hd').addEventListener('click',e=>{if(!LGON)return;if(e.target.closest&&e.target.closest('.mt'))return;const[x,y]=pt($('#hd'),e);if(y<24||x<0)return;e.stopImmediatePropagation();const d=dayAt(x);LGD=iso(d);syncLG();draw();persist();msg('稲妻線: 記入日を '+fmt(d)+' にしました')},true);
 $('#bd').addEventListener('contextmenu',e=>{if(!LGON)return;const h=lgHit(e),d0=lgBase();if(h&&T[h.i].lgm&&T[h.i].lgm[d0]!=null){e.preventDefault();e.stopImmediatePropagation();hist();const t=T[h.i];delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm;draw();persist();msg('稲妻線: 点を消しました')}},true);
-let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:left;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(4500,String(m).length*120))}
+let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:left;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(2500,String(m).length*60))}
 $('#bd').ondblclick=e=>{if(e.altKey||!barHit(e))return;{const q=barHit(e);if(T[q.i]._hv){openWk();return}}wkToast('【破線にする方法】\nAltキーを押しながら、変更したい日の線をクリック\n(もう一度Alt+クリックで元の実線に戻ります)')};
 // 稲妻線モード: 予定の線にカーソルを当てている間、その行を記入日の曜日色で薄く塗る
 function lgHover(r){for(const id of['lgrow','lgrowL','lgrowS']){const o=document.getElementById(id);if(o)o.remove()}
