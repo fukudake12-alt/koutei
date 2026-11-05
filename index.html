@@ -963,7 +963,7 @@ function lgLayer(ry,V,vc,h){if(!LGON)return{s:'',hd:''};
  const c=line(d0,true);return{s:gy+s+c[0],hd:hs+c[1]}}
 function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
- const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),n=Math.max(n0,(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
+ const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),n=Math.max(n0,VE!=null?0:(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
  const SG=[];{let st=0;for(let k=1;k<=n;k++){if(k==n||dt(f0+k).getUTCDate()==1){const ky=mkey(f0+st);SG.push({st,en:k,key:ky,col:CM.has(ky)});st=k}}}
  DX=[0];SG.forEach(g=>{const pw=g.col?MCW/(g.en-g.st):W;for(let k=g.st;k<g.en;k++)DX.push(DX[k]+pw)});
  const w=DX[n],CD=k=>CM.has(mkey(f0+k));
@@ -1214,6 +1214,17 @@ function outline(){const o=$('#so'),rows=$('#tb').children;if(!o)return;
  let e=Math.min(b,rows.length-1);while(e>k&&rows[e].style.display=='none')e--;
  o.style.top=rows[k].offsetTop+'px';o.style.height=(rows[e].offsetTop+rows[e].offsetHeight-rows[k].offsetTop)+'px';o.style.display='block'}
 const hl=()=>{[...$('#tb').children].forEach((x,i)=>x.classList.toggle('sel',inR(i)));outline();updFmt()};
+/* 行選択の解除: 選択行に対する操作の場所(リボン・メニュー・ダイアログ・行番号・左の表)以外をクリックしたら解除する */
+document.addEventListener('mousedown',e=>{
+ if(e.button!==0||sel<0)return;
+ const t=e.target;if(!t||!t.closest)return;
+ if(t.closest('#bar,#tabs,#cm,#cpop,#pdlg,#xdlg,.no'))return;
+ for(let n=t;n&&n!==document.body;n=n.parentNode){if(n.parentNode===document.body){if(getComputedStyle(n).position==='fixed')return;break}} /* ダイアログ・ポップアップ内 */
+ const tr=t.getBoundingClientRect();if(t.scrollHeight>t.clientHeight&&e.clientX>tr.left+t.clientLeft+t.clientWidth)return;if(t.scrollWidth>t.clientWidth&&e.clientY>tr.top+t.clientTop+t.clientHeight)return; /* スクロールバー操作 */
+ const r=t.closest('#tb .r');
+ if(r){const i=+r.dataset.i;if(!inR(i)){sel=sel2=i;hl()}return} /* 左の表の中は、クリックした行に選択を移す */
+ sel=sel2=-1;hl()
+},true);
 $('#bb').onclick=()=>fmtSel('b');$('#bu').onclick=()=>fmtSel('u');
 $('#tb').onfocusin=e=>{const r=e.target.closest('.r');if(r){sel=sel2=+r.dataset.i;hl()}};
 function autoBackK(t){const en=msFind(t.n);if(!en||en.k===''){msg('品目マスターに該当するタスク名がありません');return false}hist();delF(t,'k');t.k=en.k;addF(t,'K');autoDays(t);msg(`係数を品目マスターの ${en.k} に戻しました`);return true}
