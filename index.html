@@ -28,7 +28,7 @@ button.rbt:hover{background:#e2e2e2}button.rbt.on,button.rbt.on:hover{background
 .rbc{display:flex;align-items:center;gap:4px;min-height:26px}
 .rbl{text-align:center;font-size:10px;color:#778;line-height:1}
 .rbc button{height:26px;padding:0 10px;white-space:nowrap}
-.rbc input[type=date]{height:26px;font:inherit;border:1px solid #99a;border-radius:3px;padding:0 4px;background:#fff}
+.rbc input[type=date],.rbc #lgd{height:26px;font:inherit;border:1px solid #99a;border-radius:3px;padding:0 4px;background:#fff}
 .rbs{color:#556}#tgt{font-size:11px;color:#667;margin-left:4px;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
 #warn{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c00;font-weight:600;padding-bottom:5px}
 #msg{flex:0 1 auto;color:#556;margin-left:auto;padding-bottom:5px;font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -171,7 +171,7 @@ body.obcp,body.obcp *{cursor:copy!important}body.osel #R,body.osel #bd,body.osel
 body{font:13px/1.2 "Yu Gothic UI","Meiryo UI","Meiryo",sans-serif;color:#000}
 .h{background:#e6e6e6;border-bottom:1px solid #ababab}
 .h b{font-weight:400;justify-content:center;align-items:center;padding:0 2px;border-right:1px solid #ababab;color:#222;background:#e6e6e6}
-.h .pj{background:#f3f3f3;border-bottom:1px solid #ababab}.h .pj .pjd{width:128px;padding:0 2px}.h .pj .pjb{height:20px;padding:0 8px;border:1px solid #ababab;background:#fff;font:inherit;cursor:pointer}.h .pj .pjs{width:10px;flex:none}
+.h .pj{background:#f3f3f3;border-bottom:1px solid #ababab}.h .pj .pjd{width:92px;padding:0 2px}.h .pj .dpk{padding:0 3px}.h .pj .pjb{height:20px;padding:0 8px;border:1px solid #ababab;background:#fff;font:inherit;cursor:pointer}.h .pj .pjs{width:10px;flex:none}
 .h .pj input{border:1px solid #ababab;border-radius:0}
 .h .pj input:focus{outline:0;border-color:#217346}
 #hd{background:#e6e6e6}
@@ -243,7 +243,7 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="rbp" data-p="view" role="tabpanel">
 
 <div class="rbg"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
-<div class="rbg"><div class="rbc"><button id="blg" title="稲妻線モード: 記入日(初期値=今日)の線を、Enterで予定の線を上から順に(またはクリックで1本ずつ)進捗%を入力して引きます。記入日は変更でき、引き忘れ・修正ができます">稲妻線</button><label for="lgd" style="font-size:12px;margin-left:6px">記入日</label><button id="lgb" title="前日にする">◀</button><input type="date" id="lgd" title="空欄=今日。引き忘れ・間違いの修正は日付を選んで記入します" style="margin:0 2px"><button id="lgf" title="翌日にする">▶</button><button id="lgt" title="記入日を今日に戻します">今日</button><button id="lgc" title="この記入日の線を消します(他の日の線は残ります。Ctrl+Zで戻せます)">この日の線を消す</button><label style="font-size:12px;margin-left:6px"><input type="checkbox" id="lgh" checked>過去の線も表示</label></div><div class="rbl">実績管理</div></div>
+<div class="rbg"><div class="rbc"><button id="blg" title="稲妻線モード: 記入日(初期値=今日)の線を、Enterで予定の線を上から順に(またはクリックで1本ずつ)進捗%を入力して引きます。記入日は変更でき、引き忘れ・修正ができます">稲妻線</button><label for="lgd" style="font-size:12px;margin-left:6px">記入日</label><button id="lgb" title="前日にする">◀</button><input type="text" id="lgd" autocomplete="off" placeholder="例 11/11" title="空欄=今日。11/11 と打つと今年の11/11になります。引き忘れ・間違いの修正は日付を入力して記入します" style="margin:0 2px;width:92px"><button type="button" class="dpk" data-for="lgd" title="カレンダーから選ぶ">📅</button><button id="lgf" title="翌日にする">▶</button><button id="lgt" title="記入日を今日に戻します">今日</button><button id="lgc" title="この記入日の線を消します(他の日の線は残ります。Ctrl+Zで戻せます)">この日の線を消す</button><label style="font-size:12px;margin-left:6px"><input type="checkbox" id="lgh" checked>過去の線も表示</label></div><div class="rbl">実績管理</div></div>
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を非表示</button></div><div class="rbl">列</div></div>
 <div class="rbg"><div class="rbc"><button id="brule" title="日数・開始日・終了日・係数などを変えたとき、何が固定され、何が自動で動くかを表で確認します">入力ルール早見表</button></div><div class="rbl">ヘルプ</div></div>
 </div>
@@ -301,7 +301,7 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="pb"><button id="bx0" type="button" title="Excelの工程表から、タスク名・日付・工程バー(塗りつぶし・図形)を読み込みます。「入出力設定」で出力したExcelを読み戻せます(.xlsx / .xlsm)">Excel読み込み</button><button id="xgo" title="リボンの「Excel出力」と同じ出力です。指定書式(ひな形)を選んでいればその書式で、無ければこのソフトの書式で出力します">Excel出力</button><button id="xok">保存</button><button id="xcx">キャンセル</button></div>
 </div></div>
 <div id="main"><div class="wrap"><div id="L">
-<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="date" id="vs" class="pjd"><span class="pjt">〜</span><input type="date" id="ve" class="pjd"><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
+<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="text" id="vs" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="vs" title="カレンダーから選ぶ">📅</button><span class="pjt">〜</span><input type="text" id="ve" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="ve" title="カレンダーから選ぶ">📅</button><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
 <div id="R"><svg id="hd"></svg><svg id="bd"></svg></div></div></div>
 <div id="hs"><div id="hsp"></div><div id="hsc"><div id="hsi"></div></div></div>
 <div id="tabs"></div>
@@ -963,7 +963,7 @@ function lgLayer(ry,V,vc,h){if(!LGON)return{s:'',hd:''};
  const c=line(d0,true);return{s:gy+s+c[0],hd:hs+c[1]}}
 function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
- const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(45,mx-f0+14),n=Math.max(n0,VE!=null?0:(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
+ const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(15,mx-f0+14),n=Math.max(n0,VE!=null?0:(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
  const SG=[];{let st=0;for(let k=1;k<=n;k++){if(k==n||dt(f0+k).getUTCDate()==1){const ky=mkey(f0+st);SG.push({st,en:k,key:ky,col:CM.has(ky)});st=k}}}
  DX=[0];SG.forEach(g=>{const pw=g.col?MCW/(g.en-g.st):W;for(let k=g.st;k<g.en;k++)DX.push(DX[k]+pw)});
  const w=DX[n],CD=k=>CM.has(mkey(f0+k));
@@ -1274,9 +1274,27 @@ const dl=(b,n)=>{const a=document.createElement('a');a.href=URL.createObjectURL(
 $('#bs').onclick=()=>dl(new Blob([JSON.stringify(pack())],{type:'application/json'}),fname('json'));
 const err=t=>{msg(t);wkToast(t,'sticky')};
 const iso=n=>n==null?'':dt(n).toISOString().slice(0,10),day=v=>v?Math.round(Date.parse(v+'T00:00:00Z')/864e5):null;
-function syncLG(){document.body.classList.toggle('lgm',LGON);document.body.classList.toggle('lgpick',LGON&&LGPICK);const b=$('#blg');if(b)b.classList.toggle('on',LGON);const d=$('#lgd');if(d)d.value=LGD||iso(lgBase());const hh=$('#lgh');if(hh)hh.checked=LGH}
-function syncView(){$('#vs').value=iso(VS);$('#ve').value=iso(VE);syncLG()}
-$('#vs').onchange=$('#ve').onchange=()=>{hist();VS=day($('#vs').value);VE=day($('#ve').value);if(VS!=null&&VE!=null&&VE<VS){wkToast('表示終了日は開始日より後にしてください');VE=null;syncView()}refresh()};
+function syncLG(){document.body.classList.toggle('lgm',LGON);document.body.classList.toggle('lgpick',LGON&&LGPICK);const b=$('#blg');if(b)b.classList.toggle('on',LGON);const d=$('#lgd');if(d)d.value=fmt(day(LGD||iso(lgBase())));const hh=$('#lgh');if(hh)hh.checked=LGH}
+/* 日付入力: 11/11・11-11・1111・11月11日 は今年、2026/11/11・20261111・26/11/11 は年つき。空欄=null、形式が不正=undefined。roll(日番号)を渡すと、年なしでそれより前になる日付は翌年にする */
+function parseDI(s,roll){s=String(s==null?'':s).normalize('NFKC').trim();if(!s)return null;
+ s=s.replace(/[年月]/g,'/').replace(/日/g,'').replace(/[\s,]+/g,'').replace(/[\/\-.]+$/,'');
+ let y=null,m,d,x;
+ if(x=s.match(/^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/)){y=+x[1];m=+x[2];d=+x[3]}
+ else if(x=s.match(/^(\d{2})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/)){y=2000+(+x[1]);m=+x[2];d=+x[3]}
+ else if(x=s.match(/^(\d{1,2})[\/\-.](\d{1,2})$/)){m=+x[1];d=+x[2]}
+ else if(x=s.match(/^(\d{4})(\d{2})(\d{2})$/)){y=+x[1];m=+x[2];d=+x[3]}
+ else if(x=s.match(/^(\d{2})(\d{2})$/)){m=+x[1];d=+x[2]}
+ else return undefined;
+ const ok=(yy)=>{const q=new Date(Date.UTC(yy,m-1,d));return q.getUTCFullYear()===yy&&q.getUTCMonth()===m-1&&q.getUTCDate()===d};
+ if(y==null){y=new Date().getFullYear();if(roll!=null&&ok(y)&&dayOf(y,m,d)<roll&&ok(y+1))y++}
+ return ok(y)?dayOf(y,m,d):undefined}
+const DI_MSG='日付は 11/11(今年) や 2026/11/11 の形で入力してください';
+function syncView(){$('#vs').value=VS==null?'':fmt(VS);$('#ve').value=VE==null?'':fmt(VE);syncLG()}
+$('#vs').onchange=$('#ve').onchange=()=>{const a=parseDI($('#vs').value),b=a===undefined?undefined:parseDI($('#ve').value,a);if(a===undefined||b===undefined){wkToast(DI_MSG);syncView();return}hist();VS=a;VE=b;if(VS!=null&&VE!=null&&VE<VS){wkToast('表示終了日は開始日より後にしてください');VE=null}syncView();refresh()};
+/* カレンダーで選ぶボタン(📅): 見えない日付入力を開き、選んだ日を文字欄に入れる */
+document.querySelectorAll('.dpk').forEach(bt=>{const t=document.getElementById(bt.dataset.for);if(!t)return;const h=document.createElement('input');h.type='date';h.tabIndex=-1;h.setAttribute('aria-hidden','true');h.style.cssText='position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0';document.body.appendChild(h);
+ bt.onclick=()=>{const r=bt.getBoundingClientRect();h.style.left=r.left+'px';h.style.top=r.bottom+'px';const v=parseDI(t.value);h.value=v!=null?iso(v):'';try{h.showPicker()}catch(e){h.focus();h.click()}};
+ h.onchange=()=>{if(!h.value)return;t.value=fmt(day(h.value));t.dispatchEvent(new Event('change'))}});
 $('#va').onclick=()=>{if(VS!=null||VE!=null)hist();VS=VE=null;syncView();refresh()};
 function tabs(){stash();const bx=$('#tabs');let ad=bx.querySelector('#tn');
  if(!ad){ad=document.createElement('button');ad.id='tn';ad.type='button';ad.textContent='+';ad.title='新しいシート (Shift+F11)';bx.appendChild(ad)}
@@ -1621,7 +1639,7 @@ $('#main').addEventListener('scroll',()=>{const m=$('#main'),h=$('#hsc');if(h.sc
 $('#main').addEventListener('wheel',e=>{const dx=e.shiftKey&&!e.deltaX?e.deltaY:e.deltaX;if(dx&&(e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))){e.preventDefault();$('#main').scrollLeft+=dx}},{passive:false});
 if(window.ResizeObserver){const ro=new ResizeObserver(syncHS);ro.observe($('#main'));ro.observe($('#L'));ro.observe($('.wrap'))}
 addEventListener('resize',syncHS);
-$('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{LGD=$('#lgd').value||null;syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
+$('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{const v=parseDI($('#lgd').value);if(v===undefined){wkToast(DI_MSG);syncLG();return}LGD=v==null?null:iso(v);syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
 $('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
 // ---- バーのドラッグ操作: 中央=移動 / 左端=開始日変更 / 右端=終了日変更(いずれも実働日数・先行タスクと連動) ----
 let barDragged=false;
@@ -1823,7 +1841,7 @@ function openWk(i,fr){
  render();document.body.appendChild(m)}
 
 $('#fj').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)loadJ(f)};
-function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(45,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),cn:($('#cn').value||'').trim(),xs:XS,ym:ymData(),nt:(SH[cur].nt||['備考','','','']).slice(),ob:(SH[cur].ob||[]).map(q=>({...q})).concat(lgObs()),lw:$('#L').offsetWidth,rowOf:y=>{const v=y/H,i=Math.floor(v);if(v<0)return v;if(i<VI.length)return VI[i]+(v-i);return Math.max(T.length,MINR)+(v-VI.length)}}}
+function exOpt(){const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn,f0=VS??mn-3;return{f0,ten:ZM==10,n:VE!=null?Math.max(7,VE-f0+1):Math.max(15,mx-f0+14),cd:dn=>colDash(dn),isD:(t,d)=>isDash(t,d),pn:($('#pn').value||'').trim(),cn:($('#cn').value||'').trim(),xs:XS,ym:ymData(),nt:(SH[cur].nt||['備考','','','']).slice(),ob:(SH[cur].ob||[]).map(q=>({...q})).concat(lgObs()),lw:$('#L').offsetWidth,rowOf:y=>{const v=y/H,i=Math.floor(v);if(v<0)return v;if(i<VI.length)return VI[i]+(v-i);return Math.max(T.length,MINR)+(v-VI.length)}}}
 
 // ---- 白紙から新規作成(ひな形に依存しない出力): 工程表シートを一から作る。バーはセルの塗りつぶし ----
 async function exportBlank(T,o,tz){
