@@ -2948,4 +2948,165 @@ document.getElementById('brule').onclick=open;
  sync();
 })();
 </script>
+<script>
+/* ===== セル範囲選択(Excelのように複数セルを選んで 削除/コピー/切り取り/貼り付け) =====
+   ・ドラッグ、またはクリック→Shift+クリックで範囲選択
+   ・Delete/Backspace=内容を削除、Ctrl+C/X/V=コピー/切り取り/貼り付け、矢印・Tab=移動、Shift+矢印=範囲拡張、Esc=解除
+   ・削除や貼り付けは既存の入力処理(#tbのchange)を1セルずつ通すので、必要日数・日付などの自動計算は手入力と同じに動く
+   ・1回の操作は「元に戻す」1回で戻る */
+(function(){
+const tb=document.getElementById('tb');if(!tb)return;
+const ORDER=['p','sc','n','q','co','k','m','d','s','e'];
+const stl=document.createElement('style');
+stl.textContent='body.cdrag,body.cdrag *{user-select:none!important;-webkit-user-select:none!important}';
+document.head.appendChild(stl);
+let anc=null,foc=null,active=false,down=false;
+const isEd=t=>!!t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable);
+const mdl=()=>document.getElementById('mdl');
+const cellOf=el=>{const x=el&&el.closest?el.closest('[data-f]'):null;if(!x||!tb.contains(x)||!ORDER.includes(x.dataset.f))return null;const r=x.closest('.r');return r?{i:+r.dataset.i,f:x.dataset.f}:null};
+const cellEl=(i,f)=>{const r=tb.children[i];return r?r.querySelector('[data-f="'+f+'"]'):null};
+const visRows=()=>{const a=[];[...tb.children].forEach((r,i)=>{if(r.style.display!=='none')a.push(i)});return a};
+const visFields=()=>{const r=[...tb.children].find(x=>x.style.display!=='none');if(!r)return[];return ORDER.filter(f=>{const x=r.querySelector('[data-f="'+f+'"]');return x&&x.getClientRects().length>0})};
+function rect(){
+ if(!active||!anc||!foc)return null;
+ const vr=visRows(),vf=visFields(),a=vr.indexOf(anc.i),b=vr.indexOf(foc.i),c=vf.indexOf(anc.f),d=vf.indexOf(foc.f);
+ if(a<0||b<0||c<0||d<0)return null;
+ return{rows:vr.slice(Math.min(a,b),Math.max(a,b)+1),fields:vf.slice(Math.min(c,d),Math.max(c,d)+1),vr,vf}}
+const painted=[];
+function unpaint(){painted.forEach(x=>{x.style.boxShadow=''});painted.length=0}
+function paint(){
+ unpaint();const r=rect();if(!r)return;
+ r.rows.forEach((i,ri)=>r.fields.forEach((f,fi)=>{
+  const el=cellEl(i,f);if(!el)return;const t=f=='n'?el.parentElement:el;
+  let s='inset 0 0 0 9999px rgba(33,115,70,.18)';
+  if(ri==0)s+=',inset 0 2px 0 #217346';
+  if(ri==r.rows.length-1)s+=',inset 0 -2px 0 #217346';
+  if(fi==0)s+=',inset 2px 0 0 #217346';
+  if(fi==r.fields.length-1)s+=',inset -2px 0 0 #217346';
+  t.style.boxShadow=s;painted.push(t)}))}
+function clear(){active=false;anc=foc=null;unpaint();document.body.classList.remove('cdrag')}
+function start(){
+ if(active)return;active=true;
+ if(sel>=0){sel=sel2=-1;hl()}                       // 行選択は解除(行の削除と取り違えない)
+ const ae=document.activeElement;if(ae&&ae.blur&&tb.contains(ae))ae.blur();
+ const s=window.getSelection&&window.getSelection();if(s)s.removeAllRanges()}
+function focusCell(c){
+ clear();const el=c&&cellEl(c.i,c.f);
+ if(el){el.focus();try{el.select()}catch(x){}el.scrollIntoView({block:'nearest',inline:'nearest'})}}
+// 値を1セルずつ既存の入力処理に通す(履歴は1回分だけ積む)
+function apply(list,text){
+ if(!list.length)return;
+ hist();
+ list.forEach(x=>{const el=cellEl(x.i,x.f);if(!el)return;el.value=x.v;typing=true;try{tb.onchange({target:el})}catch(err){console.error(err)}});
+ typing=false;paint();msg(text)}
+function clearRange(){
+ const r=rect();if(!r)return;const l=[];
+ r.rows.forEach(i=>r.fields.forEach(f=>l.push({i,f,v:''})));
+ apply(l,l.length+'セルの内容を削除しました(Ctrl+Zで元に戻せます)')}
+function rangeText(r){return r.rows.map(i=>r.fields.map(f=>{const el=cellEl(i,f);return el?el.value.replace(/[\t\r\n]/g,' '):''}).join('\t')).join('\n')}
+function doPaste(tx,r){
+ tx=tx.replace(/\r\n?/g,'\n');if(tx.endsWith('\n'))tx=tx.slice(0,-1);
+ const grid=tx.split('\n').map(l=>l.split('\t')),vr=visRows(),vf=visFields();
+ const i0=vr.indexOf(r.rows[0]),f0=vf.indexOf(r.fields[0]);if(i0<0||f0<0)return;
+ const list=[];let over=false;
+ if(!r.single&&grid.length===1&&grid[0].length===1&&(r.rows.length>1||r.fields.length>1)){
+  r.rows.forEach(i=>r.fields.forEach(f=>list.push({i,f,v:grid[0][0]})));   // 1つの値を選択範囲すべてに入れる
+  anc={i:r.rows[0],f:r.fields[0]};foc={i:r.rows[r.rows.length-1],f:r.fields[r.fields.length-1]};
+ }else{
+  grid.forEach((row,ri)=>row.forEach((v,ci)=>{const i=vr[i0+ri],f=vf[f0+ci];if(i===undefined||f===undefined){over=true;return}list.push({i,f,v})}));
+  const lr=Math.min(vr.length-1,i0+grid.length-1),lf=Math.min(vf.length-1,f0+Math.max(...grid.map(x=>x.length))-1);
+  anc={i:vr[i0],f:vf[f0]};foc={i:vr[lr],f:vf[lf]};
+ }
+ start();active=true;
+ apply(list,list.length+'セルに貼り付けました'+(over?'(表の外にはみ出した分は貼り付けていません)':''))}
+
+// ---- マウス: ドラッグ / Shift+クリック ----
+tb.addEventListener('mousedown',e=>{
+ if(e.button!==0)return;
+ const c=cellOf(e.target);
+ if(!c){if(e.target.closest&&e.target.closest('.no'))clear();return}
+ if(e.shiftKey){
+  const ae=document.activeElement,ac=ae&&tb.contains(ae)?cellOf(ae):null,a=anc||ac;
+  if(a){e.preventDefault();e.stopPropagation();anc=a;foc=c;start();paint();return}
+ }
+ clear();anc=c;foc=c;down=true;
+},true);
+tb.addEventListener('focusin',e=>{if(down||active)return;const c=cellOf(e.target);if(c)anc=c});   // キー移動したセルを基点に
+document.addEventListener('mousemove',e=>{
+ if(!down)return;
+ if(!(e.buttons&1)){down=false;document.body.classList.remove('cdrag');return}
+ const c=cellOf(document.elementFromPoint(e.clientX,e.clientY));
+ const mr=document.getElementById('main');
+ if(active&&mr){const b=mr.getBoundingClientRect();if(e.clientY<b.top+90)mr.scrollTop-=15;else if(e.clientY>b.bottom-30)mr.scrollTop+=15}
+ if(!c)return;
+ if(!active){if(!anc||(c.i===anc.i&&c.f===anc.f))return;start();document.body.classList.add('cdrag')}
+ if(!foc||c.i!==foc.i||c.f!==foc.f){foc=c;paint()}
+ e.preventDefault()},true);
+addEventListener('mouseup',()=>{down=false;document.body.classList.remove('cdrag')},true);
+document.addEventListener('mousedown',e=>{       // 表の外をクリックしたら解除
+ if(!active)return;const t=e.target;
+ if(t.closest&&(t.closest('#tb')||t.closest('#cm')))return;clear()},true);
+new MutationObserver(()=>{if(anc||active)clear()}).observe(tb,{childList:true});   // 行の追加・削除などで表が作り直されたら解除
+
+// ---- キーボード ----
+document.addEventListener('keydown',e=>{
+ if(!active||mdl()||isEd(e.target))return;
+ if(e.ctrlKey||e.metaKey)return;                 // Ctrl+C/X/V/Z は下のイベント・既存処理に任せる
+ const k=e.key;
+ if(k==='Delete'||k==='Backspace'){e.preventDefault();e.stopPropagation();clearRange();return}
+ if(k==='Escape'){e.preventDefault();e.stopPropagation();clear();return}
+ const mv={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1]}[k]||(k==='Tab'?[0,e.shiftKey?-1:1]:null);
+ if(mv){
+  e.preventDefault();e.stopPropagation();const r=rect();if(!r)return;
+  const ext=e.shiftKey&&k!=='Tab',b=ext?foc:anc,vr=r.vr,vf=r.vf;
+  const ri=Math.max(0,Math.min(vr.length-1,vr.indexOf(b.i)+mv[0])),fi=Math.max(0,Math.min(vf.length-1,vf.indexOf(b.f)+mv[1])),nc={i:vr[ri],f:vf[fi]};
+  if(ext){foc=nc;paint();const el=cellEl(nc.i,nc.f);if(el)el.scrollIntoView({block:'nearest',inline:'nearest'})}
+  else focusCell(nc);
+  return}
+ if(k==='Enter'||k==='F2'){e.preventDefault();e.stopPropagation();focusCell(anc);return}
+ if(k.length===1||k==='Process'||e.keyCode===229)focusCell(anc);   // そのまま打ち始めると、基点のセルを上書き入力
+},true);
+
+// ---- コピー / 切り取り / 貼り付け ----
+function onCopy(e,cut){
+ if(!active||mdl()||isEd(document.activeElement))return;
+ const r=rect();if(!r)return;
+ e.clipboardData.setData('text/plain',rangeText(r));e.preventDefault();e.stopImmediatePropagation();
+ if(cut)clearRange();else msg(r.rows.length*r.fields.length+'セルをコピーしました');
+}
+document.addEventListener('copy',e=>onCopy(e,false),true);
+document.addEventListener('cut',e=>onCopy(e,true),true);
+document.addEventListener('paste',e=>{
+ if(mdl())return;
+ const ae=document.activeElement,tx=e.clipboardData.getData('text/plain')||'';let st=null;
+ if(active){if(isEd(ae))return;st=rect();if(!st)return}
+ else{
+  const c=ae&&tb.contains(ae)?cellOf(ae):null;if(!c)return;
+  if(!/[\t\n]/.test(tx.replace(/\r?\n$/,'')))return;                     // 1個の値は普通に貼り付け
+  if(typeof CB!=='undefined'&&CB&&sel>=0&&tx.trim()===CB.text.trim())return; // 行のコピーの貼り付けは既存処理へ
+  st={rows:[c.i],fields:[c.f],single:true};
+ }
+ e.preventDefault();e.stopImmediatePropagation();doPaste(tx,st);
+},true);
+
+// ---- 右クリック(範囲内なら、行メニューではなくセル用メニュー) ----
+tb.addEventListener('contextmenu',e=>{
+ if(!active)return;
+ const c=cellOf(e.target),r=rect();
+ if(!c||!r||!r.rows.includes(c.i)||!r.fields.includes(c.f)){clear();return}   // 範囲の外は解除して通常の行メニューへ
+ e.preventDefault();e.stopPropagation();cmClose();
+ const m=document.createElement('div');m.id='cm';
+ m.innerHTML='<div data-a="cut">切り取り<i>Ctrl+X</i></div><div data-a="copy">コピー<i>Ctrl+C</i></div><div data-a="paste">貼り付け<i>Ctrl+V</i></div><hr><div data-a="clr">内容を削除<i>Delete</i></div>';
+ m.style.left=Math.min(e.clientX,innerWidth-250)+'px';m.style.top=Math.min(e.clientY,innerHeight-140)+'px';
+ m.onclick=ev=>{
+  const a=ev.target.closest('[data-a]');if(!a)return;const k=a.dataset.a;cmClose();
+  const rr=rect();if(!rr)return;
+  if(k==='clr'){clearRange();return}
+  if(k==='copy'||k==='cut'){try{navigator.clipboard.writeText(rangeText(rr)).catch(()=>{})}catch(x){}if(k==='cut')clearRange();else msg(rr.rows.length*rr.fields.length+'セルをコピーしました');return}
+  if(k==='paste'){try{navigator.clipboard.readText().then(t=>doPaste(t,rr)).catch(()=>msg('貼り付けできませんでした。Ctrl+Vをお使いください'))}catch(x){msg('貼り付けできませんでした。Ctrl+Vをお使いください')}}
+ };
+ document.body.appendChild(m);
+},true);
+})();
+</script>
 </body></html>
