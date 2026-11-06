@@ -1035,7 +1035,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
     for(let k=r.i;k<r.j;k++){const q=T[k];if(q.cs==null)continue;const e=q.ce!=null?q.ce:q.cs;if(a==null||q.cs<a)a=q.cs;if(b==null||e>b)b=e;
      if(q.ce!=null){const ds=dsOf(q);for(let d=ds;d<=q.ce;d++)if(ZM==10||!isDash(q,d))sol.add(d)}else sol.add(q.cs)}
     const kids=!c1&&T.slice(r.i+1,r.j).some(q=>q.l===1),mark=kids?(SMOP.has(nm)?'▾ ':'▸ '):'';
-    if(c1)st+=`<rect x="0" y="${y0+ri*SMRH}" width="${w}" height="${SMRH}" fill="${col}" opacity=".12" style="pointer-events:none"/>`;
+    if(c1||(r.l===0&&SMOP.has(nm)))st+=`<rect x="0" y="${y0+ri*SMRH}" width="${w}" height="${SMRH}" fill="${col}" opacity=".12" style="pointer-events:none"/>`;
     if(ri>0)st+=`<line x1="0" x2="${w}" y1="${y0+ri*SMRH}" y2="${y0+ri*SMRH}" stroke="#d0d0d0"/>`;
     const tt=kids?'ダブルクリックで中項目を'+(SMOP.has(nm)?'閉じる':'表示'):'';
     if(a==null){st+=`<text x="2" y="${ry0+11}" font-size="11" fill="#999" style="pointer-events:none">${mark}${E2(nm)}</text>`}
@@ -1690,7 +1690,7 @@ sl.oninput=()=>{DWV=+sl.value;vl.textContent=DWV+'px';try{localStorage.setItem('
 $('#dwauto').onclick=()=>{if(ZM==10){msg('幅の設定は1日表示のときに効きます');return}DWV=-1;try{localStorage.setItem('wk_dw','auto')}catch(e){}redo();msg('日付の幅を画面に合わせました')};
 $('#dwrst').onclick=()=>{DWV=0;try{localStorage.setItem('wk_dw','0')}catch(e){}redo()};
 let rt=0;addEventListener('resize',()=>{if(DWV<0&&ZM==1){clearTimeout(rt);rt=setTimeout(redo,150)}});
-const _sz=setZoom;setZoom=function(m){_sz(m);sync()};sync()}{const ap=()=>document.querySelectorAll('#bd .ar').forEach(a=>{const h=ARSEL>=0&&(+a.dataset.a===ARSEL||+a.dataset.b===ARSEL);a.classList.toggle('hl',h);a.setAttribute('marker-end',h?'url(#ah2)':'url(#ah)')}),pk=e=>{const el=e.target;let n=-1;if(el&&el.matches&&el.matches('#tb input[data-f="p"],#tb input[data-f="sc"]')){const r=el.closest('.r');if(r)n=+r.dataset.i}if(n!==ARSEL){ARSEL=n;ap()}};document.addEventListener('focusin',pk);document.addEventListener('focusout',e=>{if(!e.relatedTarget)pk({target:null})});const ba=$('#barw'),sa=()=>{ba.classList.toggle('on',ARW);ba.textContent=ARW?'連結矢印: ON':'連結矢印: OFF'};sa();ba.onclick=()=>{ARW=!ARW;try{localStorage.setItem('wk_arw',ARW?'1':'0')}catch(e){}sa();draw();msg('連結矢印を'+(ARW?'表示':'非表示')+'にしました')}}$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
+const _sz=setZoom;setZoom=function(m){_sz(m);sync()};sync()}{const ap=()=>document.querySelectorAll('#bd .ar').forEach(a=>{const h=ARSEL>=0&&(+a.dataset.a===ARSEL||+a.dataset.b===ARSEL);a.classList.toggle('hl',h);a.setAttribute('marker-end',h?'url(#ah2)':'url(#ah)')}),pk=e=>{const el=e.target;let n=-1;if(el&&el.matches&&el.matches('#tb input[data-f="p"],#tb input[data-f="sc"],#tb input[data-f="n"]')){const r=el.closest('.r');if(r)n=+r.dataset.i}if(n!==ARSEL){ARSEL=n;ap()}};document.addEventListener('focusin',pk);document.addEventListener('focusout',e=>{if(!e.relatedTarget)pk({target:null})});const ba=$('#barw'),sa=()=>{ba.classList.toggle('on',ARW);ba.textContent=ARW?'連結矢印: ON':'連結矢印: OFF'};sa();ba.onclick=()=>{ARW=!ARW;try{localStorage.setItem('wk_arw',ARW?'1':'0')}catch(e){}sa();draw();msg('連結矢印を'+(ARW?'表示':'非表示')+'にしました')}}$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
 // ---- バーのドラッグ操作: 中央=移動 / 左端=開始日変更 / 右端=終了日変更(いずれも実働日数・先行タスクと連動) ----
 let barDragged=false;
 const barZone=e=>{const[x,y]=pt($('#bd'),e),i=VI[Math.floor(y/H)];if(i==null||x<0)return null;const t=T[i];if(t.cs==null||t.ce==null||HIDB(t))return null;
