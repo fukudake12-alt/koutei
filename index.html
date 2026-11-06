@@ -301,7 +301,7 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="pb"><button id="bx0" type="button" title="Excelの工程表から、タスク名・日付・工程バー(塗りつぶし・図形)を読み込みます。「入出力設定」で出力したExcelを読み戻せます(.xlsx / .xlsm)">Excel読み込み</button><button id="xgo" title="リボンの「Excel出力」と同じ出力です。指定書式(ひな形)を選んでいればその書式で、無ければこのソフトの書式で出力します">Excel出力</button><button id="xok">保存</button><button id="xcx">キャンセル</button></div>
 </div></div>
 <div id="main"><div class="wrap"><div id="L">
-<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b>先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="text" id="vs" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="vs" title="カレンダーから選ぶ">📅</button><span class="pjt">〜</span><input type="text" id="ve" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="ve" title="カレンダーから選ぶ">📅</button><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
+<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b title="先行タスクのNoを入力。例: 9 = No9の終了翌日から開始 / 9SS = No9と同じ日に開始 / 9SS+1 = No9の1日後に開始 / 9-1 = No9の終了日に開始">先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="text" id="vs" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="vs" title="カレンダーから選ぶ">📅</button><span class="pjt">〜</span><input type="text" id="ve" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="ve" title="カレンダーから選ぶ">📅</button><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
 <div id="R"><svg id="hd"></svg><svg id="bd"></svg></div></div></div>
 <div id="hs"><div id="hsp"></div><div id="hsc"><div id="hsi"></div></div></div>
 <div id="tabs"></div>
@@ -875,14 +875,14 @@ try{LS_T=+localStorage.getItem('koutei_t')||0;LS_RAW=localStorage.getItem('koute
 try{const j=JSON.parse(localStorage.getItem('koutei'));if(j&&(j.SH||j.length))unpack(j)}catch(e){}
 const msg=t=>$('#msg').textContent=t;
 const toks=s=>s.split(/[,、\s]+/).filter(Boolean);
-const parseP=s=>toks(s).map(k=>{const m=k.match(/^(\d+)([+-]\d+)?/);return m&&{i:+m[1]-1,lag:+(m[2]||0)}}).filter(Boolean);
+const parseP=s=>toks(s).map(k=>{const m=k.match(/^(\d+)(SS|S)?([+-]\d+)?/i);return m&&{i:+m[1]-1,ss:!!m[2],lag:+(m[3]||0)}}).filter(Boolean);
 function parseD(s){const m=s.trim().match(/^(?:(\d{4})[\/\-.])?(\d{1,2})[\/\-.](\d{1,2})$/);if(!m)return undefined;
  const a=T.find(t=>t.cs!=null);return dayOf(m[1]?+m[1]:(a?dt(a.cs):new Date(Date.UTC(2026,0,1))).getUTCFullYear(),+m[2],+m[3]);}
 function calc(){
  {let hq=null;T.forEach((t,i)=>{t._hvp=t.hv!=null?!!t.hv:(!!T[i+1]&&T[i+1].l>t.l&&/重機|車両/.test(t.n||'')); /* 未設定の大項目は、名前に「重機」「車両」を含めば自動でモードON */if(hq!=null&&t.l>hq){t._hv=true;t._hroot=false}else{hq=null;t._hv=t._hvp;t._hroot=!!t._hvp;if(t._hvp)hq=t.l}})} // 重機・車両モード: 親行(hv)とその配下
  T.forEach((t,i)=>{t.cs=t.s;t.ce=null;t.pp=parseP(t.p).filter(x=>T[x.i]&&x.i!=i)});
  for(let k=0;k<=T.length;k++){let ch=0;
-  T.forEach(t=>{let s=t.s;for(const q of t.pp){const u=T[q.i];if(u.ce!=null){const v=u.ce+1+q.lag;if(s==null||v>s)s=v}}
+  T.forEach(t=>{let s=t.s;for(const q of t.pp){const u=T[q.i];const b=q.ss?u.cs:(u.ce!=null?u.ce+1:null);if(b!=null){const v=b+q.lag;if(s==null||v>s)s=v}}
    const ce=s!=null&&t.d>0?(MIG?s+t.d-1:endOf(t,s,t.d)):null;if(s!==t.cs||ce!==t.ce){t.cs=s;t.ce=ce;ch=1}});
   if(!ch)break;}
 }
@@ -993,6 +993,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
   else if(T[i+1]&&T[i+1].l>t.l){let lo=1e9,hi=-1e9;for(let j=i+1;j<T.length&&T[j].l>t.l;j++)if(T[j].ce!=null){lo=Math.min(lo,T[j].cs);hi=Math.max(hi,T[j].ce)}
    if(0&&hi>=lo)s+=`<rect class="sm" x="${px(lo)}" y="${y+BY-1.5}" width="${Math.max(px(hi+1)-px(lo),1)}" height="3" rx="1.5"/>`;}
   for(const q of t.pp){const u=T[q.i];if(u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
+   if(q.ss){const sx=px(dsOf(u))+1,sy=ry[q.i]*H+BY,ex=px(dsOf(t))+1,ey=y+BY,lx=Math.min(sx,ex)-6;s+=`<polyline class="ar" marker-end="url(#ah)" points="${sx},${sy} ${lx},${sy} ${lx},${ey} ${ex},${ey}"/>`;continue}
    const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(dsOf(t))+1,y2=y+BY,m=(y1+y2)/2;
    s+=`<polyline class="ar" marker-end="url(#ah)" points="${x1},${y1} ${x1+6},${y1} ${x2>=x1+8?`${x1+6},${y2}`:`${x1+6},${m} ${x2-6},${m} ${x2-6},${y2}`} ${x2},${y2}"/>`;}});
  {const LGL=lgLayer(ry,V,vc,h);s+=LGL.s;hd=LGL.hd+hd;{const d0=lgBase();document.querySelectorAll('#tb .r').forEach(r=>{const t=T[+r.dataset.i];r.classList.remove('lgdone')})}}
@@ -1025,7 +1026,7 @@ function chgMark(old,el){const rs=$('#tb').children;let n=0;
  if(n){msg(`${n}行が変わりました(橙色の欄は次の入力まで残ります)`);}}
 $('#tb').onchange=e=>{const el=e.target,i=+el.closest('.r').dataset.i,t=T[i],f=el.dataset.f,v=el.value.trim();
  if(typing)typing=false;else hist();clrChg();const old=T.map((x,k)=>({s:x.cs,e:x.ce,p:x.p,c:succ(k),d:x.d}));
- if(f=='p'){t.p=v;if(t.d==null)autoDays(t)}else if(f=='sc')setSucc(i,v);else if(f=='n'){t.n=v;const lk=linkK(t),au=addUnits(t);if(lk){const en=msFind(t.n);msg(`品目マスターから係数 ${t.k} を入力しました(${en.n})`)}else if(au)msg('単位をタスク名に合わせて入力しました')}else if(f=='co'){t.co=v;if(v){let n=0;for(let j=i+1;j<T.length&&T[j].l>=t.l;j++)if(T[j].l==t.l&&!(T[j+1]&&T[j+1].l>T[j].l)&&!(T[j].co||'').trim()){T[j].co=v;n++}if(n)msg(`同じ階層の下の${n}行にも施工会社「${v}」を入れました(空欄の行のみ)`)}}else if(f=='q'||f=='k'||f=='m'){t[f]=v;if(f=='k'){if(v===''){delF(t,'k','K');linkK(t)}else{addF(t,'k');delF(t,'K')}}const au=(f=='q'||f=='k')&&addUnits(t);if(autoDays(t))msg(`必要日数 = ${numOf(t.q)} ÷ (${numOf(t.k)} × ${numOf(t.m)}) → ${t.d}日`);else if(au)msg('単位をタスク名に合わせて入力しました')}
+ if(f=='p'){const oldp=t.p||'',isS=x=>/\d\s*S/i.test(x||'');t.p=v;if(isS(v)&&!isS(oldp)&&t.s!=null){t.s=null;delF(t,'s')}if(t.d==null)autoDays(t)}else if(f=='sc')setSucc(i,v);else if(f=='n'){t.n=v;const lk=linkK(t),au=addUnits(t);if(lk){const en=msFind(t.n);msg(`品目マスターから係数 ${t.k} を入力しました(${en.n})`)}else if(au)msg('単位をタスク名に合わせて入力しました')}else if(f=='co'){t.co=v;if(v){let n=0;for(let j=i+1;j<T.length&&T[j].l>=t.l;j++)if(T[j].l==t.l&&!(T[j+1]&&T[j+1].l>T[j].l)&&!(T[j].co||'').trim()){T[j].co=v;n++}if(n)msg(`同じ階層の下の${n}行にも施工会社「${v}」を入れました(空欄の行のみ)`)}}else if(f=='q'||f=='k'||f=='m'){t[f]=v;if(f=='k'){if(v===''){delF(t,'k','K');linkK(t)}else{addF(t,'k');delF(t,'K')}}const au=(f=='q'||f=='k')&&addUnits(t);if(autoDays(t))msg(`必要日数 = ${numOf(t.q)} ÷ (${numOf(t.k)} × ${numOf(t.m)}) → ${t.d}日`);else if(au)msg('単位をタスク名に合わせて入力しました')}
  else if(f=='d'){t.d=v===''?null:Math.max(0,parseInt(v)||0);if(v==='')delF(t,'d','e');else{addF(t,'d');delF(t,'e')}if(t.d>0&&t.cs==null&&!t.pp.length){const pv=T.slice(0,i).reverse().find(x=>x.cs!=null);t.s=pv?pv.cs:BASE??dayOf(2026,9,1)}}
  else if(f=='s'){const x=v?parseD(v):null;if(x!==undefined){t.s=x;if(x!=null)addF(t,'s');else delF(t,'s');if(x!=null&&t.d==null&&!autoDays(t))t.d=1}}
  else if(f=='e'){if(v===''){t.d=null;delF(t,'d','e')}else{const x=parseD(v);if(x){if(t.cs!=null){t.d=Math.max(1,wdN(t,t.cs,x));addF(t,'d','e')}else{if(!(t.d>0))autoDays(t);if(t.d>0){t.s=startOf(t,x,t.d);addF(t,'s','e')}else msg('必要日数が未入力のため開始日を逆算できません(係数・人員か必要日数を入力してください)')}}}}
@@ -1656,7 +1657,7 @@ const barZone=e=>{const[x,y]=pt($('#bd'),e),i=VI[Math.floor(y/H)];if(i==null||x<
  const x0=px(t.cs),x1=px(t.ce+1);if(x<x0-3||x>x1+3)return null;
  let ex=Math.min(6,Math.floor((x1-x0)/3));if(ex<2)ex=0;
  return{i,z:x<=x0+ex?'l':x>=x1-ex?'r':'m'}};
-const minStart=t=>{let m=-Infinity;for(const q of t.pp){const u=T[q.i];if(u&&u.ce!=null)m=Math.max(m,u.ce+1+q.lag)}return m};
+const minStart=t=>{let m=-Infinity;for(const q of t.pp){const u=T[q.i];if(!u)continue;const b=q.ss?u.cs:(u.ce!=null?u.ce+1:null);if(b!=null)m=Math.max(m,b+q.lag)}return m};
 const snapFwd=(t,x)=>{if(t._hv)return x;for(let k=0;k<400&&isDash(t,x);k++)x++;return x};
 function barApply(g,dd){const t=T[g.i];
  if(g.z=='r'){t.d=Math.max(1,wdN(t,g.cs0,g.ce0+dd));addF(t,'d','e')}
@@ -2872,7 +2873,7 @@ const rows=[
 const html=`<div id="rlb" role="dialog" aria-label="入力ルール早見表"><h3>入力ルール早見表 ― 変えたとき、どこにしわ寄せが行くか</h3><div class="bd">
 <div class="lg"><span style="background:#ffe699">✎ 入力した欄</span><span style="background:#d9e2f3">🔒 動かない(守られる)</span><span style="background:#e2efda">⚡ 自動で動く(しわ寄せ先)</span></div>
 <table><thead><tr><th>こう操作すると…</th><th>必要日数</th><th>開始日</th><th>終了日</th><th>後続タスク</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="rh">${r[0]}</td>${r.slice(1).join('')}</tr>`).join('')}</tbody></table>
-<p class="nt">・実際に動いた欄は、入力直後に<b>橙色</b>で表示されます(次の入力まで残ります)。<br>・後続タスク = その行を「先行」に指定している行です。先行の終了日の翌日より前には始まりません。<br>・手入力した欄は「手動」として記憶され、係数・必要日数を空欄に戻すと自動計算に戻ります。<br>・ルールは固定です。「どれを動かすか」を選ぶ設定はありません。</p>
+<p class="nt">・実際に動いた欄は、入力直後に<b>橙色</b>で表示されます(次の入力まで残ります)。<br>・後続タスク = その行を「先行」に指定している行です。先行の終了日の翌日より前には始まりません(先行欄に <b>9SS</b> と書くと、No9と同じ日に開始します)。<br>・手入力した欄は「手動」として記憶され、係数・必要日数を空欄に戻すと自動計算に戻ります。<br>・ルールは固定です。「どれを動かすか」を選ぶ設定はありません。</p>
 </div><div class="ft"><button id="rlc">閉じる</button></div></div>`;
 function close(){const o=document.getElementById('rlo');if(o)o.remove();removeEventListener('keydown',key,true)}
 function key(e){if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close()}}
