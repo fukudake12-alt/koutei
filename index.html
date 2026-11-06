@@ -999,7 +999,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
   for(const q of t.pp){const u=T[q.i];if(u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
    if(q.ss){const sx=px(dsOf(u))+1,sy=ry[q.i]*H+BY,ex=px(dsOf(t))+1,ey=y+BY,lx=Math.min(sx,ex)-6;s+=`<polyline class="${arC(q,i)}" data-a="${q.i}" data-b="${i}" marker-end="url(#${(q.i==ARSEL||i==ARSEL)?'ah2':'ah'})" points="${sx},${sy} ${lx},${sy} ${lx},${ey} ${ex},${ey}"/>`;continue}
    const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(dsOf(t))+1,y2=y+BY,m=(y1+y2)/2;
-   s+=`<polyline class="${arC(q,i)}" data-a="${q.i}" data-b="${i}" marker-end="url(#${(q.i==ARSEL||i==ARSEL)?'ah2':'ah'})" points="${x1},${y1} ${x1+6},${y1} ${x2>=x1+8?`${x1+6},${y2}`:`${x1+6},${m} ${x2-6},${m} ${x2-6},${y2}`} ${x2},${y2}"/>`;}});
+   s+=`<polyline class="${arC(q,i)}" data-a="${q.i}" data-b="${i}" marker-end="url(#${(q.i==ARSEL||i==ARSEL)?'ah2':'ah'})" points="${x2>=x1+8?`${x1},${y1} ${x1+6},${y1} ${x1+6},${y2} ${x2},${y2}`:(xv=>`${x1},${y1} ${xv},${y1} ${xv},${y2+(y2>y1?-2:2)}`)(Math.min(x1,x2-1))}"/>`;}});
  {const LGL=lgLayer(ry,V,vc,h);s+=LGL.s;hd=LGL.hd+hd;{const d0=lgBase();document.querySelectorAll('#tb .r').forEach(r=>{const t=T[+r.dataset.i];r.classList.remove('lgdone')})}}
  {const E=$('#ym'),sm=r=>Object.values(r).reduce((a,b)=>a+b,0);
   if(!YM)E.innerHTML='';else{
