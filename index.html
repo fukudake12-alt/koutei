@@ -243,6 +243,7 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="rbp" data-p="view" role="tabpanel">
 
 <div class="rbg"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
+<div class="rbg"><div class="rbc"><button id="barw" title="先行タスクのつながり(矢印)を表示/非表示にします">連結矢印</button></div><div class="rbl">矢印</div></div>
 <div class="rbg"><div class="rbc"><button id="blg" title="稲妻線モード: 記入日(初期値=今日)の線を、Enterで予定の線を上から順に(またはクリックで1本ずつ)進捗%を入力して引きます。記入日は変更でき、引き忘れ・修正ができます">稲妻線</button><label for="lgd" style="font-size:12px;margin-left:6px">記入日</label><button id="lgb" title="前日にする">◀</button><input type="text" id="lgd" autocomplete="off" placeholder="例 11/11" title="空欄=今日。11/11 と打つと今年の11/11になります。引き忘れ・間違いの修正は日付を入力して記入します" style="margin:0 2px;width:92px"><button type="button" class="dpk" data-for="lgd" title="カレンダーから選ぶ">📅</button><button id="lgf" title="翌日にする">▶</button><button id="lgt" title="記入日を今日に戻します">今日</button><button id="lgc" title="この記入日の線を消します(他の日の線は残ります。Ctrl+Zで戻せます)">この日の線を消す</button><label style="font-size:12px;margin-left:6px"><input type="checkbox" id="lgh" checked>過去の線も表示</label></div><div class="rbl">実績管理</div></div>
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を非表示</button></div><div class="rbl">列</div></div>
 <div class="rbg"><div class="rbc"><button id="brule" title="日数・開始日・終了日・係数などを変えたとき、何が固定され、何が自動で動くかを表で確認します">入力ルール早見表</button></div><div class="rbl">ヘルプ</div></div>
@@ -855,6 +856,7 @@ const TN="",TPL="";
 
 const $=s=>document.querySelector(s),H=34,BY=Math.round(H*.75);
 let ZM=(()=>{try{return localStorage.getItem('wk_zm')==='10'?10:1}catch(e){return 1}})(),W=ZM==10?4:20;
+let ARW=(()=>{try{return localStorage.getItem('wk_arw')!=='0'}catch(e){return true}})();
 const dayOf=(y,m,d)=>Math.round(Date.UTC(y,m-1,d)/864e5),dt=n=>new Date(n*864e5);
 const fmt=n=>n==null?'':(d=>d.getUTCFullYear()+'/'+(d.getUTCMonth()+1)+'/'+d.getUTCDate())(dt(n));
 var CORD=[],PO={},YMI=null;
@@ -992,7 +994,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
    s+=`<text x="${Math.max(x,0)+2}" y="${y+20}"${x+bw<=0?' fill="#888"':''}>${X(t.n)}</text>`;}
   else if(T[i+1]&&T[i+1].l>t.l){let lo=1e9,hi=-1e9;for(let j=i+1;j<T.length&&T[j].l>t.l;j++)if(T[j].ce!=null){lo=Math.min(lo,T[j].cs);hi=Math.max(hi,T[j].ce)}
    if(0&&hi>=lo)s+=`<rect class="sm" x="${px(lo)}" y="${y+BY-1.5}" width="${Math.max(px(hi+1)-px(lo),1)}" height="3" rx="1.5"/>`;}
-  for(const q of t.pp){const u=T[q.i];if(u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
+  for(const q of t.pp){const u=T[q.i];if(!ARW||u.ce==null||t.cs==null||!V[q.i]||HIDB(u))continue;
    if(q.ss){const sx=px(dsOf(u))+1,sy=ry[q.i]*H+BY,ex=px(dsOf(t))+1,ey=y+BY,lx=Math.min(sx,ex)-6;s+=`<polyline class="ar" marker-end="url(#ah)" points="${sx},${sy} ${lx},${sy} ${lx},${ey} ${ex},${ey}"/>`;continue}
    const x1=px(u.ce+1)-1,y1=ry[q.i]*H+BY,x2=px(dsOf(t))+1,y2=y+BY,m=(y1+y2)/2;
    s+=`<polyline class="ar" marker-end="url(#ah)" points="${x1},${y1} ${x1+6},${y1} ${x2>=x1+8?`${x1+6},${y2}`:`${x1+6},${m} ${x2-6},${m} ${x2-6},${y2}`} ${x2},${y2}"/>`;}});
@@ -1650,7 +1652,7 @@ $('#main').addEventListener('wheel',e=>{const dx=e.shiftKey&&!e.deltaX?e.deltaY:
 if(window.ResizeObserver){const ro=new ResizeObserver(syncHS);ro.observe($('#main'));ro.observe($('#L'));ro.observe($('.wrap'))}
 addEventListener('resize',syncHS);
 $('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{const v=parseDI($('#lgd').value);if(v===undefined){wkToast(DI_MSG);syncLG();return}LGD=v==null?null:iso(v);syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
-$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
+$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);{const ba=$('#barw'),sa=()=>{ba.classList.toggle('on',ARW);ba.textContent=ARW?'連結矢印: ON':'連結矢印: OFF'};sa();ba.onclick=()=>{ARW=!ARW;try{localStorage.setItem('wk_arw',ARW?'1':'0')}catch(e){}sa();draw();msg('連結矢印を'+(ARW?'表示':'非表示')+'にしました')}}$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
 // ---- バーのドラッグ操作: 中央=移動 / 左端=開始日変更 / 右端=終了日変更(いずれも実働日数・先行タスクと連動) ----
 let barDragged=false;
 const barZone=e=>{const[x,y]=pt($('#bd'),e),i=VI[Math.floor(y/H)];if(i==null||x<0)return null;const t=T[i];if(t.cs==null||t.ce==null||HIDB(t))return null;
@@ -2090,7 +2092,7 @@ document.getElementById('main').addEventListener('scroll',close);addEventListene
 <script>
 // ---- クイックアクセスツールバー(Excel風): 好きなボタンを最上段に置ける。リボンのボタンを右クリック、または右端の▾から追加/削除 ----
 (function(){
-const LB={ba:'＋ 行の挿入',bd1:'－ 行の削除',bl:'◀ インデントを減らす',br:'▶ インデントを増やす',bc:'▷ すべて折りたたむ',be:'◢ すべて展開',bb:'B 太字',bu:'U 下線',va:'表示期間:自動',zm1:'1日表示',zm10:'10日表示',bkv:'係数・人員の列を隠す/表示',bx0:'Excel読み込み',bx:'Excel出力',bxs:'入出力設定',bo:'開く (JSON)',bs:'上書き保存 (JSON)',bk:'自動回復データを復元',bms:'品目マスター',bpr:'印刷'};
+const LB={ba:'＋ 行の挿入',bd1:'－ 行の削除',bl:'◀ インデントを減らす',br:'▶ インデントを増やす',bc:'▷ すべて折りたたむ',be:'◢ すべて展開',bb:'B 太字',bu:'U 下線',va:'表示期間:自動',zm1:'1日表示',zm10:'10日表示',barw:'連結矢印 ON/OFF',bkv:'係数・人員の列を隠す/表示',bx0:'Excel読み込み',bx:'Excel出力',bxs:'入出力設定',bo:'開く (JSON)',bs:'上書き保存 (JSON)',bk:'自動回復データを復元',bms:'品目マスター',bpr:'印刷'};
 const DEF=['bs','bx'],$i=id=>document.getElementById(id);
 let Q=null;try{Q=JSON.parse(localStorage.getItem('wk_qat'))}catch(e){}
 if(!Array.isArray(Q))Q=DEF.slice();Q=Q.filter(id=>LB[id]&&$i(id));
