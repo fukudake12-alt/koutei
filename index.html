@@ -1015,7 +1015,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
    let yb=y0;
    if(YM.rows.length){blk(yb,YM.rows,YM.tot,'#f4a259','#e76f51','合計');yb+=(YM.rows.length+2)*H}
    if(YM.hv.rows.length)blk(yb,YM.hv.rows,YM.hv.tot,'#5aa9e6','#1f6fb5','重機合計')}}
- const mk='<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#555"/></marker><marker id="ah2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#e8590c"/></marker></defs>';
+ const mk='<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#555"/></marker><marker id="ah2" markerUnits="userSpaceOnUse" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#e8590c"/></marker></defs>';
  $('#hd').setAttribute('width',w);$('#hd').setAttribute('height',60);$('#hd').innerHTML=seg+hd;
  $('#bd').setAttribute('width',w);$('#bd').setAttribute('height',Math.max(h,1));$('#bd').innerHTML=mk+bg+s;syncHS();try{window.syncNt&&window.syncNt()}catch(e){}try{window.renderOb&&window.renderOb()}catch(e){}
 }
