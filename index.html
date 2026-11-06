@@ -2979,6 +2979,7 @@ document.getElementById('brule').onclick=open;
 #tb .r input[data-f].xed{cursor:text;background:#fff;outline:2px solid #217346;outline-offset:-2px}
 #tb .r input[data-f]:focus:not(.xed){outline:2px solid #217346;outline-offset:-2px}
 #tb .r input[data-f].xr{background:#cfe6d7!important}
+body.xc .r.sel{background:transparent!important}body.xc #so{display:none!important}
 </style>
 <script>
 /* Excel風のセル操作: 通常=選択モード(十字カーソル) / 文字を打つ・F2・ダブルクリック=編集モード(Iビーム) / ドラッグで複数セル選択 */
@@ -2995,7 +2996,8 @@ document.getElementById('brule').onclick=open;
   if(r.i1==r.i2&&r.c1==r.c2)return;rg=r;
   for(let i=r.i1;i<=r.i2;i++){const row=tb.children[i];if(!row||row.style.display=='none')continue;for(let c=r.c1;c<=r.c2;c++){const x=cell(i,c);if(x)x.classList.add('xr')}}};
  const cells=()=>[...tb.querySelectorAll('.xr')];
- tb.addEventListener('focusin',e=>{const el=e.target;if(isC(el)&&!el.classList.contains('xed'))el.readOnly=true},true);
+ tb.addEventListener('focusin',e=>{const el=e.target;if(isC(el)){document.body.classList.add('xc');if(!el.classList.contains('xed'))el.readOnly=true}},true);
+ tb.addEventListener('mousedown',e=>{if(e.target.closest&&e.target.closest('.no'))document.body.classList.remove('xc')},true);
  tb.addEventListener('focusout',e=>{if(isC(e.target))ex(e.target)},true);
  tb.addEventListener('dblclick',e=>{const el=e.target;if(isC(el)&&!el.classList.contains('xed'))ed(el,false)});
  tb.addEventListener('keydown',e=>{const el=e.target;if(!isC(el))return;const on=el.classList.contains('xed');
@@ -3006,6 +3008,11 @@ document.getElementById('brule').onclick=open;
    let t=[];for(let i=rg.i1;i<=rg.i2;i++){const row=tb.children[i];if(!row||row.style.display=='none')continue;const a=[];for(let c=rg.c1;c<=rg.c2;c++){const x=cell(i,c);a.push(x?x.value:'')}t.push(a.join('\t'))}
    try{navigator.clipboard.writeText(t.join('\n'))}catch(x){}return}
   if(e.key==='Escape'&&rg){clr();return}
+  if(!e.altKey&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.isComposing&&e.keyCode!=229&&/^Arrow(Up|Down|Left|Right)$/.test(e.key)){
+   const q=pos(el),dr=e.key=='ArrowUp'?-1:e.key=='ArrowDown'?1:0,dc=e.key=='ArrowLeft'?-1:e.key=='ArrowRight'?1:0;let i=q.i,c=q.c,x=null;
+   if(dr){i+=dr;while(tb.children[i]&&tb.children[i].style.display=='none')i+=dr;x=cell(i,c)}
+   else{c+=dc;while(c>=0&&c<FF.length){const y=cell(i,c);if(y&&y.offsetWidth>0){x=y;break}c+=dc}}
+   e.preventDefault();e.stopImmediatePropagation();clr();if(x){x.focus();x.select()}return}
   if(e.key==='F2'){e.preventDefault();ed(el,false);return}
   if((e.key.length===1&&!e.ctrlKey&&!e.metaKey&&!e.altKey)||e.key==='Process'){clr();ed(el,true)}
  },true);
