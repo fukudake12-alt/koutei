@@ -992,7 +992,7 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
    if(ZM==10)s+=`<rect class="bar" x="${x+1}" y="${y+BY-1.5}" width="${Math.max(bw-2,1)}" height="3" rx="1.5"/>`;
    else for(let a=ds;a<=t.ce;){const st=isDash(t,a);let b=a;while(b<t.ce&&isDash(t,b+1)===st)b++;const rx=px(a),rw=px(b+1)-px(a);
     s+=st?`<line class="bd2" x1="${rx+1}" x2="${rx+rw-1}" y1="${y+BY}" y2="${y+BY}"/>`:`<rect class="bar" x="${rx+1}" y="${y+BY-1.5}" width="${Math.max(rw-2,1)}" height="3" rx="1.5"/>`;a=b+1}
-   if(!t.pp.length&&x>=0)s+=`<circle class="stp" cx="${x+1}" cy="${y+BY}" r="3.5" fill="#e8590c" stroke="#fff" stroke-width="1" style="pointer-events:none"><title>先行なし(スタート)</title></circle>`; /* 先行がどこにもつながっていない=スタートの印 */
+   if(ARW&&!t.pp.length&&x>=0)s+=`<circle class="stp" cx="${x+1}" cy="${y+BY}" r="3.5" fill="#e8590c" stroke="#fff" stroke-width="1" style="pointer-events:none"><title>先行なし(スタート)</title></circle>`; /* 先行がどこにもつながっていない=スタートの印 */
    s+=`<text x="${Math.max(x,0)+2}" y="${y+20}"${x+bw<=0?' fill="#888"':''}>${X(t.n)}</text>`;}
   else if(T[i+1]&&T[i+1].l>t.l){let lo=1e9,hi=-1e9;for(let j=i+1;j<T.length&&T[j].l>t.l;j++)if(T[j].ce!=null){lo=Math.min(lo,T[j].cs);hi=Math.max(hi,T[j].ce)}
    if(0&&hi>=lo)s+=`<rect class="sm" x="${px(lo)}" y="${y+BY-1.5}" width="${Math.max(px(hi+1)-px(lo),1)}" height="3" rx="1.5"/>`;}
