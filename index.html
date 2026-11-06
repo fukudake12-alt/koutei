@@ -3002,8 +3002,8 @@ body.xc .r.sel{background:transparent!important}body.xc #so{display:none!importa
  tb.addEventListener('dblclick',e=>{const el=e.target;if(isC(el)&&!el.classList.contains('xed'))ed(el,false)});
  tb.addEventListener('keydown',e=>{const el=e.target;if(!isC(el))return;const on=el.classList.contains('xed');
   if(on){if(e.key==='Escape'){el.value=el._xv;ex(el);e.preventDefault();e.stopPropagation()}return}
-  if(rg&&(e.key==='Delete'||e.key==='Backspace')){e.preventDefault();e.stopImmediatePropagation();
-   const L=cells().map(x=>({...pos(x)}));L.forEach(q=>{const x=cell(q.i,q.c);if(x&&x.value!==''){x.value='';x.dispatchEvent(new Event('change',{bubbles:true}))}});clr();return}
+  if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();e.stopImmediatePropagation();
+   const L=(rg?cells():[el]).map(x=>({...pos(x)}));L.forEach(q=>{const x=cell(q.i,q.c);if(x&&x.value!==''){x.value='';x.dispatchEvent(new Event('change',{bubbles:true}))}});clr();return}
   if(rg&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='c'){e.preventDefault();e.stopImmediatePropagation();
    let t=[];for(let i=rg.i1;i<=rg.i2;i++){const row=tb.children[i];if(!row||row.style.display=='none')continue;const a=[];for(let c=rg.c1;c<=rg.c2;c++){const x=cell(i,c);a.push(x?x.value:'')}t.push(a.join('\t'))}
    try{navigator.clipboard.writeText(t.join('\n'))}catch(x){}return}
