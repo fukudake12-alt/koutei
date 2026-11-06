@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MSM</title>
+<title>MSM</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#217346"><link rel="icon" type="image/png" href="icon-192.png">
 <script>/*!
 
 JSZip v3.10.2 - A JavaScript class for generating and reading zip files
@@ -131,7 +131,7 @@ body.otool #R,body.otool #bd,body.otool #ob,body.otool #L,body.otool #L *{cursor
 #cm div:hover{background:#e6e6e6}
 #cm div.dis,#cm div.dis:hover{color:#a6a6a6;background:transparent}
 #cm i{color:#666;font-size:12px}#cm div.dis i{color:#bdbdbd}
-#cm hr{margin:2px 0;border:0;border-top:1px solid #d4d4d4}
+#cm hr{margin:2px 0;border:0;border-top:1px solid #d4d4d4}#cm.xl div{gap:0}#cm.xl .ic{flex:none;width:20px;height:16px;display:inline-flex;align-items:center;justify-content:center;margin-right:10px;color:#444;font-weight:400}#cm.xl .lb{flex:1;white-space:nowrap}#cm.xl div.dis .ic{color:#bdbdbd}#cm.xl u{text-decoration:underline;text-underline-offset:1px}
 #pk,#cpop{border:1px solid #c6c6c6!important;border-radius:0!important;box-shadow:2px 2px 6px #0003!important}
 .pg{background:#f3f3f3;border-right-color:#d4d4d4}
 .po:hover,.pg .po:hover{background:#e6e6e6}
@@ -243,7 +243,6 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="rbp" data-p="view" role="tabpanel">
 
 <div class="rbg"><div class="rbc"><button id="zm1" title="1日ごとに表示">1日</button><button id="zm10" title="10日(1日・10日・20日)ごとに表示">10日</button></div><div class="rbl">表示単位</div></div>
-<div class="rbg"><div class="rbc"><input type="range" id="cwr" min="16" max="60" step="1" value="20" style="width:130px;vertical-align:middle" title="日付の列(セル)の幅を変えます。画面表示だけで、Excel出力には反映されません"><span id="cwv" style="display:inline-block;min-width:22px;text-align:right;margin:0 6px 0 4px">20</span><button id="cw0" title="標準の幅(20)に戻します">標準</button></div><div class="rbl">日付のセル幅(画面のみ)</div></div>
 <div class="rbg"><div class="rbc"><button id="blg" title="稲妻線モード: 記入日(初期値=今日)の線を、Enterで予定の線を上から順に(またはクリックで1本ずつ)進捗%を入力して引きます。記入日は変更でき、引き忘れ・修正ができます">稲妻線</button><label for="lgd" style="font-size:12px;margin-left:6px">記入日</label><button id="lgb" title="前日にする">◀</button><input type="text" id="lgd" autocomplete="off" placeholder="例 11/11" title="空欄=今日。11/11 と打つと今年の11/11になります。引き忘れ・間違いの修正は日付を入力して記入します" style="margin:0 2px;width:92px"><button type="button" class="dpk" data-for="lgd" title="カレンダーから選ぶ">📅</button><button id="lgf" title="翌日にする">▶</button><button id="lgt" title="記入日を今日に戻します">今日</button><button id="lgc" title="この記入日の線を消します(他の日の線は残ります。Ctrl+Zで戻せます)">この日の線を消す</button><label style="font-size:12px;margin-left:6px"><input type="checkbox" id="lgh" checked>過去の線も表示</label></div><div class="rbl">実績管理</div></div>
 <div class="rbg"><div class="rbc"><button id="bkv" title="係数・人員・必要日数の列をまとめて隠す/表示します">係数・人員・必要日数を非表示</button></div><div class="rbl">列</div></div>
 <div class="rbg"><div class="rbc"><button id="brule" title="日数・開始日・終了日・係数などを変えたとき、何が固定され、何が自動で動くかを表で確認します">入力ルール早見表</button></div><div class="rbl">ヘルプ</div></div>
@@ -855,7 +854,7 @@ async function exportXl(zip,T,o){
 const TN="",TPL="";
 
 const $=s=>document.querySelector(s),H=34,BY=Math.round(H*.75);
-let DW=(()=>{try{const v=+localStorage.getItem('wk_dw');return v>=16&&v<=60?v:20}catch(e){return 20}})(),ZM=(()=>{try{return localStorage.getItem('wk_zm')==='10'?10:1}catch(e){return 1}})(),W=ZM==10?Math.max(4,Math.round(DW/5)):DW; /* DW=日付のセル幅(画面表示のみ。Excel出力には影響しない) */
+let ZM=(()=>{try{return localStorage.getItem('wk_zm')==='10'?10:1}catch(e){return 1}})(),W=ZM==10?4:20;
 const dayOf=(y,m,d)=>Math.round(Date.UTC(y,m-1,d)/864e5),dt=n=>new Date(n*864e5);
 const fmt=n=>n==null?'':(d=>d.getUTCFullYear()+'/'+(d.getUTCMonth()+1)+'/'+d.getUTCDate())(dt(n));
 var CORD=[],PO={},YMI=null;
@@ -883,8 +882,8 @@ function calc(){
  {let hq=null;T.forEach((t,i)=>{t._hvp=t.hv!=null?!!t.hv:(!!T[i+1]&&T[i+1].l>t.l&&/重機|車両/.test(t.n||'')); /* 未設定の大項目は、名前に「重機」「車両」を含めば自動でモードON */if(hq!=null&&t.l>hq){t._hv=true;t._hroot=false}else{hq=null;t._hv=t._hvp;t._hroot=!!t._hvp;if(t._hvp)hq=t.l}})} // 重機・車両モード: 親行(hv)とその配下
  T.forEach((t,i)=>{t.cs=t.s;t.ce=null;t.pp=parseP(t.p).filter(x=>T[x.i]&&x.i!=i)});
  for(let k=0;k<=T.length;k++){let ch=0;
-  T.forEach(t=>{let s=t.s;for(const q of t.pp){const u=T[q.i];if(u.ce!=null){const v=u.ce+(t.d===0?0:1)+q.lag;if(s==null||v>s)s=v}}
-   const ce=s!=null&&t.d>0?(MIG?s+t.d-1:endOf(t,s,t.d)):(s!=null&&t.d===0?s:null); /* 必要日数0: 先行と同じ日に印(1日分の線)を引く。山積み・日数には数えない */if(s!==t.cs||ce!==t.ce){t.cs=s;t.ce=ce;ch=1}});
+  T.forEach(t=>{let s=t.s;for(const q of t.pp){const u=T[q.i];if(u.ce!=null){const v=u.ce+1+q.lag;if(s==null||v>s)s=v}}
+   const ce=s!=null&&t.d>0?(MIG?s+t.d-1:endOf(t,s,t.d)):null;if(s!==t.cs||ce!==t.ce){t.cs=s;t.ce=ce;ch=1}});
   if(!ch)break;}
 }
 const succ=i=>T.map((t,j)=>t.pp.some(q=>q.i==i)?j+1:0).filter(Boolean).join(',');
@@ -923,14 +922,14 @@ function ymData(){const names=[];T.forEach(t=>{if(t._hv)return;const c=(t.co||''
  const ord=CORD.filter(c=>names.includes(c));names.forEach(c=>{if(!ord.includes(c))ord.push(c)});CORD=ord;
  // 重機・車両(稼働日モード)の山積み: 機械(行名)ごとの稼働台数。期間(開始日・終了日)が入っている行は、下に空行などの配下があっても数える。台数は人員欄の数字(空欄は1台)。破線の日は数えない
  const hn=[],hb={},ht={},hd={};
- T.forEach((t,i)=>{if(!t._hv||t.cs==null||t.ce==null||t.d===0)return;const nm0=(t.n||'').trim()||(t.co||'').trim()||'(名称未入力)',nm=nz(nm0),m=numOf(t.m),c=m>0?m:1;if(!hb[nm]){hb[nm]={};hn.push(nm);hd[nm]=nm0}
+ T.forEach((t,i)=>{if(!t._hv||t.cs==null||t.ce==null)return;const nm0=(t.n||'').trim()||(t.co||'').trim()||'(名称未入力)',nm=nz(nm0),m=numOf(t.m),c=m>0?m:1;if(!hb[nm]){hb[nm]={};hn.push(nm);hd[nm]=nm0}
   for(let d=t.cs;d<=t.ce;d++)if(!isDash(t,d)){hb[nm][d]=(hb[nm][d]||0)+c;ht[d]=(ht[d]||0)+c}});
  const hv={rows:hn.map(k=>({c:hd[k],by:hb[k]})),tot:ht};
  if(!ord.length&&!hv.rows.length)return null;
  let rows=[];const tot={};
  if(ord.length){
   const by={'':{}};ord.forEach(c=>by[c]={});let hasU=false;
-  T.forEach(t=>{if(t._hv)return;if(t.cs==null||t.ce==null||t.d===0)return;const c=(t.co||'').trim(),m=numOf(t.m)||0;if(!m)return;const o=by[c];if(c==='')hasU=true;for(let d=t.cs;d<=t.ce;d++)if(!isDash(t,d)){o[d]=(o[d]||0)+m}});
+  T.forEach(t=>{if(t._hv)return;if(t.cs==null||t.ce==null)return;const c=(t.co||'').trim(),m=numOf(t.m)||0;if(!m)return;const o=by[c];if(c==='')hasU=true;for(let d=t.cs;d<=t.ce;d++)if(!isDash(t,d)){o[d]=(o[d]||0)+m}});
   const po=c=>PO[c]||{};if(Object.keys(po('')).length)hasU=true;
   rows=ord.map(c=>({c,by:by[c],ov:po(c)}));if(hasU)rows.push({c:'',by:by[''],ov:po('')});
   rows.forEach(r=>{for(const d in r.ov){r.by[d]=r.ov[d]}});
@@ -1353,13 +1352,12 @@ function bkSave(a){let ok=false,b=a.slice();
  for(;;){try{localStorage.setItem('koutei_bk',JSON.stringify(b));ok=true;break}catch(e){lsErr=e;if(b.length<=1)break;b.pop()}}
  idbSet('koutei_bk',{t:Date.now(),v:a});return ok||(!!idb&&ready)}
 // ---- 画面設定(クイックアクセスバー・表示倍率など)の二重保存: localStorage が終了時に消える環境でも IndexedDB から復元する ----
-const UIK=['wk_xi','wk_qat','wk_zm','wk_dw','wk_cm','wk_kv','wk_cw','wk_ch','wk_msui','kouteihyo_bartab'];
+const UIK=['wk_xi','wk_qat','wk_zm','wk_cm','wk_kv','wk_cw','wk_ch','wk_msui','kouteihyo_bartab'];
 let UIM={};
 const uiMirror=()=>idbSet('wk_ui',{t:Date.now(),v:UIM});
 try{const _si=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(this===localStorage&&UIK.includes(k)){UIM[k]=String(v);try{return _si.call(this,k,v)}finally{uiMirror()}}return _si.call(this,k,v)}}catch(e){}
 function applyUI(){
  try{if(UIM.wk_zm!=null){const z=UIM.wk_zm==='10'?10:1;if(z!==ZM)setZoom(z)}}catch(e){}
- try{if(UIM.wk_dw!=null){const v=+UIM.wk_dw;if(v>=16&&v<=60&&v!==DW)setDW(v,true)}}catch(e){}
  try{if(UIM.wk_cm!=null){CM=new Set(JSON.parse(UIM.wk_cm));draw()}}catch(e){}
  try{if(UIM.wk_kv!=null){const v=UIM.wk_kv!=='0';if(v!==KV)setKV(v)}}catch(e){}
  try{if(UIM.wk_cw!=null){const j=JSON.parse(UIM.wk_cw);if(Array.isArray(j)&&(j.length==11||j.length==12)&&j.every(x=>x>=24&&x<=600)){LCW=j.length==11?[...j.slice(0,6),100,...j.slice(6)]:j;applyCW()}}}catch(e){}
@@ -1480,6 +1478,10 @@ const dgEnd=()=>{document.body.classList.remove('dragging','mv');di.style.displa
 function doMove(a,b,pos){hist();const n=b-a+1,idx=T.map((_,k)=>k),blk=idx.splice(a,n),q=pos>b?pos-n:pos;idx.splice(q,0,...blk);
  const nw=[];idx.forEach((o,k)=>nw[o]=k);const items=idx.map(o=>T[o]);T.splice(0,T.length,...items);mapP(k=>nw[k]);
  sel=q;sel2=q+n-1;build();hl();msg(`${n}行を移動しました`)}
+/* 内容のクリア(Excelの「数式と値のクリア」): 行は残し、文字・数値・日付だけ空にする */
+function clrRows(){if(sel<0||!T[Math.min(sel,sel2)])return;const a=Math.min(sel,sel2),b=Math.max(sel,sel2);hist();for(let i=a;i<=b;i++){const t=T[i];if(!t)continue;t.n='';t.d=null;t.s=null;t.p='';delete t.q;delete t.co;delete t.k;delete t.m;delete t.mf}build();hl();msg(`${b-a+1}行の内容をクリアしました`)}
+/* メニュー表示中は (T)(C)(P)… のキーでも選べる(Excelと同じ) */
+document.addEventListener('keydown',e=>{const m=$('#cm');if(!m||!m.dataset.xl||e.ctrlKey||e.metaKey||e.altKey||e.isComposing)return;const k=(e.key||'').toUpperCase();if(k.length!==1)return;const el=m.querySelector('[data-ak="'+k+'"]');if(!el||el.classList.contains('dis'))return;e.preventDefault();e.stopPropagation();el.click()},true);
 $('#tb').addEventListener('mousedown',e=>{if(e.button!==0||e.shiftKey)return;const nn=e.target.closest('.no');if(!nn)return;const i=+nn.parentNode.dataset.i;
  sel=sel2=i;hl();dg={m:'sel',on:false}});
 // 選択枠の端・角にカーソルを合わせると移動カーソルになり、そのままドラッグで行を移動(Excelと同じ)
@@ -1547,15 +1549,20 @@ function insRows(where){if(sel<0)return;hist();const a=Math.min(sel,sel2);let b=
 $('#tb').addEventListener('contextmenu',e=>{const r=e.target.closest('.r');if(!r)return;const i=+r.dataset.i,cf=e.target.dataset&&e.target.dataset.f,canCol=['n','q','co','m'].includes(cf);
  e.preventDefault();cmClose();if(!inR(i)){sel=sel2=i;hl()}
  const n=Math.abs(sel-sel2)+1,m=document.createElement('div');m.id='cm';
- m.innerHTML=`<div data-a="cut">切り取り<i>Ctrl+X</i></div><div data-a="copy">コピー<i>Ctrl+C</i></div><div data-a="paste"${CB?'':' class="dis"'}>貼り付け<i>Ctrl+V</i></div><hr><div data-a="up">挿入</div><hr><div data-a="del">削除</div><hr><div data-a="hv">🚜 重機・車両モード ON/OFF</div>`+(canCol?'<hr><div data-a="color">塗りつぶしの色</div>':'');
+ m.className='xl';m.dataset.xl='1';
+  const IC={cut:'<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="4.5" cy="12" r="2"/><circle cx="11.5" cy="12" r="2"/><path d="M5.6 10.3L11 2M10.4 10.3L5 2"/></svg>',copy:'<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="8" height="8.5"/><path d="M3 11V2h7"/></svg>',paste:'<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="10" height="11"/><rect x="6" y="1.5" width="4" height="3" fill="currentColor"/></svg>'};
+  const it=(a,ic,lb,ak,dis)=>`<div data-a="${a}"${ak?` data-ak="${ak}"`:''}${dis?' class="dis"':''}><b class="ic">${ic}</b><span class="lb">${lb}${ak?`(<u>${ak}</u>)`:''}</span></div>`;
+  const ra=Math.min(sel,sel2),rb=Math.max(sel,sel2);let hl0=ra,hh0=rb;while(hl0>0&&T[hl0-1].hid)hl0--;while(hh0<T.length-1&&T[hh0+1].hid)hh0++;
+  const hasAdj=T.slice(hl0,hh0+1).some(t=>t.hid),anyH=T.some(t=>t.hid);
+  m.innerHTML=it('cut',IC.cut,'切り取り','T')+it('copy',IC.copy,'コピー','C')+it('paste',IC.paste,'貼り付け','P',!CB)+'<hr>'+it('up','','挿入','I')+it('del','','削除','D')+it('clr','','内容のクリア','N')+'<hr>'+it('hideRow','','非表示','H')+it('unhideRow','','再表示','U',!hasAdj)+(anyH?it('unhideAll','','すべて再表示','A'):'')+'<hr>'+(canCol?it('color','','塗りつぶしの色','F'):'')+it('hv','🚜','重機・車両モード ON/OFF');
  m.style.left=Math.min(e.clientX,innerWidth-210)+'px';m.style.top=Math.min(e.clientY,innerHeight-380)+'px';
  m.onclick=ev=>{const el=ev.target.closest('[data-a]'),k=el&&el.dataset.a;if(!k||el.classList.contains('dis'))return;cmClose();
   if(k=='color'){window.__cpopOpen&&window.__cpopOpen(cf,i,e.clientX,e.clientY);return}
-  if(k=='hv'){hvToggle();return}if(k=='copy'||k=='cut'){const t=copyRows(k=='cut');if(t!=null)try{navigator.clipboard.writeText(t).catch(()=>{})}catch(x){}return}
+  if(k=='hideRow'){hideRows();return}if(k=='unhideRow'){unhideRows(false);return}if(k=='unhideAll'){unhideRows(true);return}if(k=='clr'){clrRows();return}if(k=='hv'){hvToggle();return}if(k=='copy'||k=='cut'){const t=copyRows(k=='cut');if(t!=null)try{navigator.clipboard.writeText(t).catch(()=>{})}catch(x){}return}
   if(k=='paste'){pasteRows();return}if(k=='pasteDn'){pasteRows(true);return}
   if(k=='del'){const a=Math.min(sel,sel2);let b=Math.max(sel,sel2);if(T[b].c)while(T[b+1]&&T[b+1].l>T[b].l)b++;sel=a;sel2=b;$('#bd1').onclick();hl();msg(`${b-a+1}行を削除しました`)}
   else insRows(k)};
- document.body.appendChild(m)});
+  document.body.appendChild(m);m.style.left=Math.max(4,Math.min(e.clientX,innerWidth-m.offsetWidth-8))+'px';m.style.top=Math.max(4,Math.min(e.clientY,innerHeight-m.offsetHeight-8))+'px'});
 document.addEventListener('mousedown',e=>{if(!e.target.closest('#cm'))cmClose()});
 document.addEventListener('keydown',e=>{if(e.key=='Escape')cmClose()});
 $('#main').addEventListener('scroll',cmClose);
@@ -1631,14 +1638,7 @@ function startOf(t,e,d){if(t._hv)return e-d+1;let n=0;for(let x=e,k=0;k<4000;x--
 function migrate(){const c0=cur;MIG=1;try{SH.forEach((x,k)=>{cur=k;T=x.T;calc();T.forEach(t=>{if(t.cs!=null&&t.ce!=null&&t.d>0)t.d=Math.max(1,wdN(t,t.cs,t.ce))})})}finally{MIG=0;cur=c0;T=SH[c0].T}}
 const barHit=e=>{if(ZM==10)return null;const[x,y]=pt($('#bd'),e),i=VI[Math.floor(y/H)];if(i==null||x<0)return null;const t=T[i],dn=dayAt(x);if(HIDB(t))return null;
  return t.cs!=null&&t.ce!=null&&dn>=t.cs&&dn<=t.ce?{i,dn}:null};
-const cwOf=m=>m==10?Math.max(4,Math.round(DW/5)):DW;
-let cwRaf=0,cwNext=0;
-function setDW(v,quiet){v=Math.max(16,Math.min(60,Math.round(+v)||20));if(v===DW&&W===cwOf(ZM)){const r=$('#cwr'),l=$('#cwv');if(r)r.value=v;if(l)l.textContent=v;return}
- DW=v;try{localStorage.setItem('wk_dw',String(v))}catch(e){}
- const mn=$('#main'),day=dayAt(mn.scrollLeft);W=cwOf(ZM);draw();mn.scrollLeft=px(day);
- const r=$('#cwr'),l=$('#cwv');if(r)r.value=v;if(l)l.textContent=v;
- if(!quiet)msg(`日付のセル幅を ${v} にしました(画面表示のみ。Excel出力の幅は変わりません)`)}
-function setZoom(m){const mn=$('#main'),day=dayAt(mn.scrollLeft);ZM=m;W=cwOf(m);try{localStorage.setItem('wk_zm',String(m))}catch(e){}
+function setZoom(m){const mn=$('#main'),day=dayAt(mn.scrollLeft);ZM=m;W=m==10?4:20;try{localStorage.setItem('wk_zm',String(m))}catch(e){}
  $('#zm1').classList.toggle('on',m==1);$('#zm10').classList.toggle('on',m==10);draw();mn.scrollLeft=px(day);
  msg(m==10?'10日単位(1日・10日・20日)で表示中。破線の切り替えは1日表示で行ってください':'1日単位で表示中')}
 function syncHS(){const m=$('#main'),h=$('#hsc'),lw=$('#L').offsetWidth;$('#hsp').style.width=lw+'px';$('#hs').style.paddingRight=(m.offsetWidth-m.clientWidth)+'px';
@@ -1649,8 +1649,7 @@ $('#main').addEventListener('wheel',e=>{const dx=e.shiftKey&&!e.deltaX?e.deltaY:
 if(window.ResizeObserver){const ro=new ResizeObserver(syncHS);ro.observe($('#main'));ro.observe($('#L'));ro.observe($('.wrap'))}
 addEventListener('resize',syncHS);
 $('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{const v=parseDI($('#lgd').value);if(v===undefined){wkToast(DI_MSG);syncLG();return}LGD=v==null?null:iso(v);syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
-$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);
-$('#cwr').oninput=()=>{cwNext=+$('#cwr').value;$('#cwv').textContent=cwNext;if(!cwRaf)cwRaf=requestAnimationFrame(()=>{cwRaf=0;setDW(cwNext)})};$('#cw0').onclick=()=>setDW(20);$('#cwr').value=DW;$('#cwv').textContent=DW;$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
+$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);$('#zm1').classList.toggle('on',ZM==1);$('#zm10').classList.toggle('on',ZM==10);
 // ---- バーのドラッグ操作: 中央=移動 / 左端=開始日変更 / 右端=終了日変更(いずれも実働日数・先行タスクと連動) ----
 let barDragged=false;
 const barZone=e=>{const[x,y]=pt($('#bd'),e),i=VI[Math.floor(y/H)];if(i==null||x<0)return null;const t=T[i];if(t.cs==null||t.ce==null||HIDB(t))return null;
@@ -1887,7 +1886,7 @@ async function exportBlank(T,o,tz){
  // 明細
  T.forEach((t,i)=>{const r=R0b+i,par=!!(T[i+1]&&T[i+1].l>t.l),has=t.cs!=null&&t.ce!=null;
   const fl=par?'F2F2F2':null,tx=sty(par?1:0,fl,BD,'left'),ce=sty(0,fl,BD,'center');
-  put(r,1,i+1,ce);put(r,2,t.n||'',sty(par?1:0,fl,BD,'left',Math.min(+t.l||0,7)));put(r,3,has?ds(t.cs):'',ce);put(r,4,has?ds(t.ce):'',ce);put(r,5,has?(t.d===0?0:typeof wdN=='function'?wdN(t,t.cs,t.ce):t.ce-t.cs+1):'',ce);put(r,6,t.co||'',tx);put(r,7,t.m===''||t.m==null?'':(isNaN(+t.m)?String(t.m):+t.m),ce);
+  put(r,1,i+1,ce);put(r,2,t.n||'',sty(par?1:0,fl,BD,'left',Math.min(+t.l||0,7)));put(r,3,has?ds(t.cs):'',ce);put(r,4,has?ds(t.ce):'',ce);put(r,5,has?(typeof wdN=='function'?wdN(t,t.cs,t.ce):t.ce-t.cs+1):'',ce);put(r,6,t.co||'',tx);put(r,7,t.m===''||t.m==null?'':(isNaN(+t.m)?String(t.m):+t.m),ce);
   cols.forEach(([a,b],k)=>{let f=off(a)?'F2F2F2':null;
    put(r,C1+k,'',sty(0,f,BD,'center'))})});
  let r=R0b+T.length+1;
@@ -2928,7 +2927,7 @@ document.getElementById('brule').onclick=open;
  window.hideRows=hideRows;window.unhideRows=unhideRows;
  // 右クリックメニューに追加(既存メニューのあとに差し込む)
  Q('#tb').addEventListener('contextmenu',()=>{
-  const m=document.getElementById('cm');if(!m||m.__hid)return;m.__hid=1;
+  const m=document.getElementById('cm');if(!m||m.__hid||m.dataset.xl)return;m.__hid=1;
   const anyH=T.some(t=>t.hid);let hasAdj=false;if(sel>=0){const[lo,hi]=adj();for(let i=lo;i<=hi;i++)if(T[i]&&T[i].hid)hasAdj=true}
   const add='<hr><div data-a="hideRow">非表示<i>Ctrl+9</i></div>'+(hasAdj?'<div data-a="unhideRow">再表示<i>Ctrl+Shift+9</i></div>':'')+(anyH?'<div data-a="unhideAll">すべて再表示</div>':'');
   m.innerHTML=m.innerHTML.replace('削除</div>','削除</div>'+add);
@@ -2959,173 +2958,15 @@ document.getElementById('brule').onclick=open;
 })();
 </script>
 <script>
-/* ===== セル範囲選択(Excelのように複数セルを選んで 削除/コピー/切り取り/貼り付け) =====
-   ・ドラッグ、またはクリック→Shift+クリックで範囲選択
-   ・Delete/Backspace=内容を削除、Ctrl+C/X/V=コピー/切り取り/貼り付け、矢印・Tab=移動、Shift+矢印=範囲拡張、Esc=解除
-   ・削除や貼り付けは既存の入力処理(#tbのchange)を1セルずつ通すので、必要日数・日付などの自動計算は手入力と同じに動く
-   ・1回の操作は「元に戻す」1回で戻る */
+/* PWA: インストールしたアプリで .json を開く(ダブルクリック)と、その中身を読み込む。サービスワーカーはオフライン起動用 */
 (function(){
-const tb=document.getElementById('tb');if(!tb)return;
-const ORDER=['p','sc','n','q','co','k','m','d','s','e'];
-const stl=document.createElement('style');
-stl.textContent='body.cdrag,body.cdrag *{user-select:none!important;-webkit-user-select:none!important}';
-document.head.appendChild(stl);
-let anc=null,foc=null,active=false,down=false;
-const isEd=t=>!!t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable);
-const mdl=()=>document.getElementById('mdl');
-const cellOf=el=>{const x=el&&el.closest?el.closest('[data-f]'):null;if(!x||!tb.contains(x)||!ORDER.includes(x.dataset.f))return null;const r=x.closest('.r');return r?{i:+r.dataset.i,f:x.dataset.f}:null};
-const cellEl=(i,f)=>{const r=tb.children[i];return r?r.querySelector('[data-f="'+f+'"]'):null};
-const visRows=()=>{const a=[];[...tb.children].forEach((r,i)=>{if(r.style.display!=='none')a.push(i)});return a};
-const visFields=()=>{const r=[...tb.children].find(x=>x.style.display!=='none');if(!r)return[];return ORDER.filter(f=>{const x=r.querySelector('[data-f="'+f+'"]');return x&&x.getClientRects().length>0})};
-function rect(){
- if(!active||!anc||!foc)return null;
- const vr=visRows(),vf=visFields(),a=vr.indexOf(anc.i),b=vr.indexOf(foc.i),c=vf.indexOf(anc.f),d=vf.indexOf(foc.f);
- if(a<0||b<0||c<0||d<0)return null;
- return{rows:vr.slice(Math.min(a,b),Math.max(a,b)+1),fields:vf.slice(Math.min(c,d),Math.max(c,d)+1),vr,vf}}
-const painted=[];
-function unpaint(){painted.forEach(x=>{x.style.boxShadow=''});painted.length=0}
-function paint(){
- unpaint();const r=rect();if(!r)return;
- r.rows.forEach((i,ri)=>r.fields.forEach((f,fi)=>{
-  const el=cellEl(i,f);if(!el)return;const t=f=='n'?el.parentElement:el;
-  let s='inset 0 0 0 9999px rgba(33,115,70,.18)';
-  if(ri==0)s+=',inset 0 2px 0 #217346';
-  if(ri==r.rows.length-1)s+=',inset 0 -2px 0 #217346';
-  if(fi==0)s+=',inset 2px 0 0 #217346';
-  if(fi==r.fields.length-1)s+=',inset -2px 0 0 #217346';
-  t.style.boxShadow=s;painted.push(t)}))}
-function clear(){active=false;anc=foc=null;unpaint();document.body.classList.remove('cdrag')}
-function start(){
- if(active)return;active=true;
- if(sel>=0){sel=sel2=-1;hl()}                       // 行選択は解除(行の削除と取り違えない)
- const ae=document.activeElement;if(ae&&ae.blur&&tb.contains(ae))ae.blur();
- const s=window.getSelection&&window.getSelection();if(s)s.removeAllRanges()}
-function focusCell(c){
- clear();const el=c&&cellEl(c.i,c.f);
- if(el){el.focus();try{el.select()}catch(x){}el.scrollIntoView({block:'nearest',inline:'nearest'})}}
-// 値を1セルずつ既存の入力処理に通す(履歴は1回分だけ積む)
-function apply(list,text){
- if(!list.length)return;
- hist();
- list.forEach(x=>{const el=cellEl(x.i,x.f);if(!el)return;el.value=x.v;typing=true;try{tb.onchange({target:el})}catch(err){console.error(err)}});
- typing=false;paint();msg(text)}
-function clearRange(){
- const r=rect();if(!r)return;const l=[];
- r.rows.forEach(i=>r.fields.forEach(f=>l.push({i,f,v:''})));
- apply(l,l.length+'セルの内容を削除しました(Ctrl+Zで元に戻せます)')}
-function rangeText(r){return r.rows.map(i=>r.fields.map(f=>{const el=cellEl(i,f);return el?el.value.replace(/[\t\r\n]/g,' '):''}).join('\t')).join('\n')}
-function doPaste(tx,r){
- tx=tx.replace(/\r\n?/g,'\n');if(tx.endsWith('\n'))tx=tx.slice(0,-1);
- const grid=tx.split('\n').map(l=>l.split('\t')),vr=visRows(),vf=visFields();
- const i0=vr.indexOf(r.rows[0]),f0=vf.indexOf(r.fields[0]);if(i0<0||f0<0)return;
- const list=[];let over=false;
- if(!r.single&&grid.length===1&&grid[0].length===1&&(r.rows.length>1||r.fields.length>1)){
-  r.rows.forEach(i=>r.fields.forEach(f=>list.push({i,f,v:grid[0][0]})));   // 1つの値を選択範囲すべてに入れる
-  anc={i:r.rows[0],f:r.fields[0]};foc={i:r.rows[r.rows.length-1],f:r.fields[r.fields.length-1]};
- }else{
-  grid.forEach((row,ri)=>row.forEach((v,ci)=>{const i=vr[i0+ri],f=vf[f0+ci];if(i===undefined||f===undefined){over=true;return}list.push({i,f,v})}));
-  const lr=Math.min(vr.length-1,i0+grid.length-1),lf=Math.min(vf.length-1,f0+Math.max(...grid.map(x=>x.length))-1);
-  anc={i:vr[i0],f:vf[f0]};foc={i:vr[lr],f:vf[lf]};
+ if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
+ if('launchQueue' in window){
+  setTimeout(function(){launchQueue.setConsumer(async function(lp){
+   if(!lp||!lp.files||!lp.files.length)return;
+   try{const f=await lp.files[0].getFile();await loadJ(f)}catch(e){try{err('ファイルを開けませんでした')}catch(x){}}
+  })},500);
  }
- start();active=true;
- apply(list,list.length+'セルに貼り付けました'+(over?'(表の外にはみ出した分は貼り付けていません)':''))}
-
-// ---- マウス: ドラッグ / Shift+クリック ----
-tb.addEventListener('mousedown',e=>{
- if(e.button!==0)return;
- const c=cellOf(e.target);
- if(!c){if(e.target.closest&&e.target.closest('.no'))clear();return}
- if(e.shiftKey){
-  const ae=document.activeElement,ac=ae&&tb.contains(ae)?cellOf(ae):null,a=anc||ac;
-  if(a){e.preventDefault();e.stopPropagation();anc=a;foc=c;start();paint();return}
- }
- clear();anc=c;foc=c;down=true;
-},true);
-tb.addEventListener('focusin',e=>{if(down||active)return;const c=cellOf(e.target);if(c)anc=c});   // キー移動したセルを基点に
-document.addEventListener('mousemove',e=>{
- if(!down)return;
- if(!(e.buttons&1)){down=false;document.body.classList.remove('cdrag');return}
- const c=cellOf(document.elementFromPoint(e.clientX,e.clientY));
- const mr=document.getElementById('main');
- if(active&&mr){const b=mr.getBoundingClientRect();if(e.clientY<b.top+90)mr.scrollTop-=15;else if(e.clientY>b.bottom-30)mr.scrollTop+=15}
- if(!c)return;
- if(!active){if(!anc||(c.i===anc.i&&c.f===anc.f))return;start();document.body.classList.add('cdrag')}
- if(!foc||c.i!==foc.i||c.f!==foc.f){foc=c;paint()}
- e.preventDefault()},true);
-addEventListener('mouseup',()=>{down=false;document.body.classList.remove('cdrag')},true);
-document.addEventListener('mousedown',e=>{       // 表の外をクリックしたら解除
- if(!active)return;const t=e.target;
- if(t.closest&&(t.closest('#tb')||t.closest('#cm')))return;clear()},true);
-new MutationObserver(()=>{if(anc||active)clear()}).observe(tb,{childList:true});   // 行の追加・削除などで表が作り直されたら解除
-
-// ---- キーボード ----
-document.addEventListener('keydown',e=>{
- if(!active||mdl()||isEd(e.target))return;
- if(e.ctrlKey||e.metaKey)return;                 // Ctrl+C/X/V/Z は下のイベント・既存処理に任せる
- const k=e.key;
- if(k==='Delete'||k==='Backspace'){e.preventDefault();e.stopPropagation();clearRange();return}
- if(k==='Escape'){e.preventDefault();e.stopPropagation();clear();return}
- const mv={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1]}[k]||(k==='Tab'?[0,e.shiftKey?-1:1]:null);
- if(mv){
-  e.preventDefault();e.stopPropagation();const r=rect();if(!r)return;
-  const ext=e.shiftKey&&k!=='Tab',b=ext?foc:anc,vr=r.vr,vf=r.vf;
-  const ri=Math.max(0,Math.min(vr.length-1,vr.indexOf(b.i)+mv[0])),fi=Math.max(0,Math.min(vf.length-1,vf.indexOf(b.f)+mv[1])),nc={i:vr[ri],f:vf[fi]};
-  if(ext){foc=nc;paint();const el=cellEl(nc.i,nc.f);if(el)el.scrollIntoView({block:'nearest',inline:'nearest'})}
-  else focusCell(nc);
-  return}
- if(k==='Enter'||k==='F2'){e.preventDefault();e.stopPropagation();focusCell(anc);return}
- if(k.length===1||k==='Process'||e.keyCode===229)focusCell(anc);   // そのまま打ち始めると、基点のセルを上書き入力
-},true);
-
-// ---- コピー / 切り取り / 貼り付け ----
-function onCopy(e,cut){
- if(!active||mdl()||isEd(document.activeElement))return;
- const r=rect();if(!r)return;
- e.clipboardData.setData('text/plain',rangeText(r));e.preventDefault();e.stopImmediatePropagation();
- if(cut)clearRange();else msg(r.rows.length*r.fields.length+'セルをコピーしました');
-}
-document.addEventListener('copy',e=>onCopy(e,false),true);
-document.addEventListener('cut',e=>onCopy(e,true),true);
-document.addEventListener('paste',e=>{
- if(mdl())return;
- const ae=document.activeElement,tx=e.clipboardData.getData('text/plain')||'';let st=null;
- if(active){if(isEd(ae))return;st=rect();if(!st)return}
- else{
-  const c=ae&&tb.contains(ae)?cellOf(ae):null;if(!c)return;
-  if(!/[\t\n]/.test(tx.replace(/\r?\n$/,'')))return;                     // 1個の値は普通に貼り付け
-  if(typeof CB!=='undefined'&&CB&&sel>=0&&tx.trim()===CB.text.trim())return; // 行のコピーの貼り付けは既存処理へ
-  st={rows:[c.i],fields:[c.f],single:true};
- }
- e.preventDefault();e.stopImmediatePropagation();doPaste(tx,st);
-},true);
-
-// ---- 右クリック(範囲内なら、行メニューではなくセル用メニュー) ----
-tb.addEventListener('contextmenu',e=>{
- if(!active)return;
- const c=cellOf(e.target),r=rect();
- if(!c||!r||!r.rows.includes(c.i)||!r.fields.includes(c.f)){clear();return}   // 範囲の外は解除して通常の行メニューへ
- e.preventDefault();e.stopPropagation();cmClose();
- const m=document.createElement('div');m.id='cm';
- m.innerHTML='<div data-a="cut">切り取り<i>Ctrl+X</i></div><div data-a="copy">コピー<i>Ctrl+C</i></div><div data-a="paste">貼り付け<i>Ctrl+V</i></div><hr><div data-a="clr">内容を削除<i>Delete</i></div>';
- m.style.left=Math.min(e.clientX,innerWidth-250)+'px';m.style.top=Math.min(e.clientY,innerHeight-140)+'px';
- m.onclick=ev=>{
-  const a=ev.target.closest('[data-a]');if(!a)return;const k=a.dataset.a;cmClose();
-  const rr=rect();if(!rr)return;
-  if(k==='clr'){clearRange();return}
-  if(k==='copy'||k==='cut'){try{navigator.clipboard.writeText(rangeText(rr)).catch(()=>{})}catch(x){}if(k==='cut')clearRange();else msg(rr.rows.length*rr.fields.length+'セルをコピーしました');return}
-  if(k==='paste'){try{navigator.clipboard.readText().then(t=>doPaste(t,rr)).catch(()=>msg('貼り付けできませんでした。Ctrl+Vをお使いください'))}catch(x){msg('貼り付けできませんでした。Ctrl+Vをお使いください')}}
- };
- document.body.appendChild(m);
-},true);
-
-// ---- Enterで行の選択表示を解除(行を選んだあと、セルを編集してEnterを押したとき等に、行の強調が残らないように) ----
-document.addEventListener('keydown',e=>{
- if(e.key!=='Enter'||e.isComposing||e.keyCode===229||e.ctrlKey||e.metaKey||e.altKey)return;
- if(sel<0||mdl()||(typeof LGON!=='undefined'&&LGON))return;
- const t=e.target;
- if(t&&t!==document.body&&t!==document.documentElement&&!(t.closest&&t.closest('#tb')&&t.tagName==='INPUT'))return; // ボタンや他の入力欄でのEnterは対象外
- sel=sel2=-1;hl();
-});
 })();
 </script>
 </body></html>

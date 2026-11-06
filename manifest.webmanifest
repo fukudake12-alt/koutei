@@ -1,0 +1,48 @@
+{
+  "id": "./",
+  "name": "MSM 工程表",
+  "short_name": "MSM",
+  "description": "工程表(ガントチャート)作成ソフト",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#217346",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "file_handlers": [
+    {
+      "action": "./",
+      "name": "MSM 工程表(JSON)",
+      "accept": {
+        "application/json": [
+          ".json",
+          ".msm"
+        ]
+      },
+      "launch_type": "single-client"
+    }
+  ]
+}
