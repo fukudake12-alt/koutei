@@ -2974,4 +2974,49 @@ document.getElementById('brule').onclick=open;
  }
 })();
 </script>
+<style>
+#tb .r input[data-f]{cursor:cell}
+#tb .r input[data-f].xed{cursor:text;background:#fff;outline:2px solid #217346;outline-offset:-2px}
+#tb .r input[data-f]:focus:not(.xed){outline:2px solid #217346;outline-offset:-2px}
+#tb .r input[data-f].xr{background:#cfe6d7!important}
+</style>
+<script>
+/* Excel風のセル操作: 通常=選択モード(十字カーソル) / 文字を打つ・F2・ダブルクリック=編集モード(Iビーム) / ドラッグで複数セル選択 */
+(function(){
+ const tb=document.getElementById('tb'),FF=['p','sc','n','q','co','k','m','d','s','e'];
+ const isC=el=>!!(el&&el.dataset&&el.dataset.f&&el.tagName=='INPUT'&&el.closest('#tb'));
+ const ed=(el,all)=>{el.readOnly=false;el.classList.add('xed');el._xv=el.value;if(all)el.select();else{const n=el.value.length;el.setSelectionRange(n,n)}};
+ const ex=el=>{el.classList.remove('xed');el.readOnly=true};
+ const pos=el=>({i:+el.closest('.r').dataset.i,c:FF.indexOf(el.dataset.f)});
+ const cell=(i,c)=>{const r=tb.children[i];return r&&r.querySelector('[data-f="'+FF[c]+'"]')};
+ let an=null,rg=null,dn=false;
+ const clr=()=>{tb.querySelectorAll('.xr').forEach(x=>x.classList.remove('xr'));rg=null};
+ const show=(a,b)=>{clr();const r={i1:Math.min(a.i,b.i),i2:Math.max(a.i,b.i),c1:Math.min(a.c,b.c),c2:Math.max(a.c,b.c)};
+  if(r.i1==r.i2&&r.c1==r.c2)return;rg=r;
+  for(let i=r.i1;i<=r.i2;i++){const row=tb.children[i];if(!row||row.style.display=='none')continue;for(let c=r.c1;c<=r.c2;c++){const x=cell(i,c);if(x)x.classList.add('xr')}}};
+ const cells=()=>[...tb.querySelectorAll('.xr')];
+ tb.addEventListener('focusin',e=>{const el=e.target;if(isC(el)&&!el.classList.contains('xed'))el.readOnly=true},true);
+ tb.addEventListener('focusout',e=>{if(isC(e.target))ex(e.target)},true);
+ tb.addEventListener('dblclick',e=>{const el=e.target;if(isC(el)&&!el.classList.contains('xed'))ed(el,false)});
+ tb.addEventListener('keydown',e=>{const el=e.target;if(!isC(el))return;const on=el.classList.contains('xed');
+  if(on){if(e.key==='Escape'){el.value=el._xv;ex(el);e.preventDefault();e.stopPropagation()}return}
+  if(rg&&(e.key==='Delete'||e.key==='Backspace')){e.preventDefault();e.stopImmediatePropagation();
+   const L=cells().map(x=>({...pos(x)}));L.forEach(q=>{const x=cell(q.i,q.c);if(x&&x.value!==''){x.value='';x.dispatchEvent(new Event('change',{bubbles:true}))}});clr();return}
+  if(rg&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='c'){e.preventDefault();e.stopImmediatePropagation();
+   let t=[];for(let i=rg.i1;i<=rg.i2;i++){const row=tb.children[i];if(!row||row.style.display=='none')continue;const a=[];for(let c=rg.c1;c<=rg.c2;c++){const x=cell(i,c);a.push(x?x.value:'')}t.push(a.join('\t'))}
+   try{navigator.clipboard.writeText(t.join('\n'))}catch(x){}return}
+  if(e.key==='Escape'&&rg){clr();return}
+  if(e.key==='F2'){e.preventDefault();ed(el,false);return}
+  if((e.key.length===1&&!e.ctrlKey&&!e.metaKey&&!e.altKey)||e.key==='Process'){clr();ed(el,true)}
+ },true);
+ tb.addEventListener('mousedown',e=>{const el=e.target;if(e.button!==0||!isC(el)||e.shiftKey)return;
+  if(document.body.classList.contains('edge')||document.body.classList.contains('bdm'))return;
+  if(el.classList.contains('xed'))return;an=pos(el);dn=true;clr()},true);
+ document.addEventListener('mousemove',e=>{if(!dn)return;if(!(e.buttons&1)){dn=false;return}
+  const el=document.elementFromPoint(e.clientX,e.clientY),x=el&&el.closest&&el.closest('input[data-f]');
+  if(x&&isC(x)){const b=pos(x);if(b.i!=an.i||b.c!=an.c||rg){show(an,b);getSelection().removeAllRanges()}}},true);
+ document.addEventListener('mouseup',()=>{dn=false},true);
+ document.addEventListener('mousedown',e=>{if(!e.target.closest||!e.target.closest('#tb'))clr()},true);
+})();
+</script>
 </body></html>
