@@ -57,6 +57,7 @@ button{padding:4px 9px;border:1px solid #99a;background:#fff;border-radius:3px;c
 .r{position:relative}.r input.lk{background:#e3f4e8}.r input.nm0{background:#ffd6d6}.au{display:none;position:absolute;right:2px;top:9px;width:15px;height:15px;line-height:13px;text-align:center;border:1px solid #6b8fd6;border-radius:50%;background:#fff;color:#2f6fd6;font-size:11px;font-style:normal;cursor:pointer;z-index:2;grid-row:1}.au:hover{background:#2f6fd6;color:#fff}.au[data-au=k]{grid-column:8/9}.au[data-au=d]{grid-column:10/11}.au[data-au=s]{grid-column:11/12}.au[data-au=e]{grid-column:12/13}#L.hk .au[data-au=d]{display:none!important}#L.hk .au[data-au=s]{grid-column:8/9}#L.hk .au[data-au=e]{grid-column:9/10}.r.as .au[data-au=s],.r.ad .au[data-au=d],.r.ad .au[data-au=e],.r.ak .au[data-au=k]{display:block}#L.hk .au[data-au=k]{display:none!important}
 .r input:focus{outline:2px solid #4c7bd9;outline-offset:-2px;background:#fff}.r input.chg{background:#ffd27a}.r>input{border-right:1px solid #e1e4ea}.r.sel .no{cursor:var(--ar)}body.rs,body.rs *{cursor:col-resize!important;user-select:none!important}body.bdm,body.bdm *{cursor:grabbing!important;user-select:none!important}body.bde,body.bde *{cursor:ew-resize!important;user-select:none!important}#so{position:absolute;left:0;right:0;border:2px solid #2f6fd6;box-sizing:border-box;pointer-events:none;z-index:5;display:none}#gh{position:absolute;left:0;right:0;border:2px dashed #2f6fd6;background:rgba(76,123,217,.12);box-sizing:border-box;pointer-events:none;z-index:7;display:none}body.edge,body.edge *{cursor:move!important}.r.mvs{opacity:.45}.dragging *{user-select:none!important}.dragging.mv *{cursor:move!important}#di{position:absolute;left:0;right:0;height:5px;background:#e8590c;border-radius:3px;box-shadow:0 0 0 1px #fff;pointer-events:none;z-index:6;display:none}#mdl table{border-collapse:collapse;margin:8px 0}#mdl td{padding:4px 8px;border-bottom:1px solid #e1e4ea}
 #hd{position:sticky;top:0;z-index:2;background:#e9edf3;display:block}#bd{display:block}
+#sm{position:sticky;top:60px;z-index:4;height:34px;box-sizing:border-box;background:#f2f2f2;border-bottom:1px solid #889;display:flex;align-items:flex-start;padding-top:3px!important;gap:6px;padding:0 6px;font-size:12px;color:#333;white-space:nowrap;overflow:hidden}#smt{flex:none;width:13px;height:13px;line-height:11px;text-align:center;border:1px solid #7f7f7f;border-radius:2px;background:#fff;color:#217346;font-style:normal;font-size:13px;cursor:pointer;user-select:none}#smt:hover{background:#e2efda}#sm.c{height:18px;padding-top:0!important;align-items:center}
 svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:#777}.mo{font-weight:700;fill:#234}
 .ml{stroke:#445;stroke-width:1.6}.wl{stroke:#c3c9d6}.we{fill:#f0f2f6}.gl{stroke:#e6e8ee}.bd2{stroke:#3b78d8;stroke-width:3;stroke-dasharray:5 7;fill:none}.bar{fill:#3b78d8}.sm{fill:#222}.ar{fill:none;stroke:#555}.ar.off{display:none}.ar.hl{display:inline;stroke:#e8590c;stroke-width:2.5}
 .nm input[data-f=n]{padding-right:20px}.dd{display:none;position:absolute;right:0;top:0;width:20px;height:33px;line-height:33px;text-align:center;font-size:10px;font-style:normal;color:#667;cursor:pointer;z-index:1}.nm:hover .dd,.nm:focus-within .dd{display:block}.dd:hover{color:#06f;background:#e8eefc}
@@ -79,7 +80,7 @@ svg text{font:11px sans-serif}.dy,.wk{text-anchor:middle}.dy{fill:#333}.wk{fill:
 .pps{position:absolute;left:0;top:0;transform-origin:0 0}
 .ptt{display:flex;justify-content:space-between;align-items:center;height:22px;font-size:14px;font-weight:700;border-bottom:1px solid #889}.ptt span{font-size:11px;font-weight:400;color:#556}
 .pcl{position:absolute;overflow:hidden}.pcl>*{position:absolute!important;margin:0!important}
-.pcl .h,.pcl #hd{position:relative!important;top:0!important}
+.pcl .h,.pcl #hd,.pcl #sm{position:relative!important;top:0!important}
 @media print{
  html,body{height:auto!important;overflow:visible!important;display:block!important;background:#fff!important}
  body>*:not(#pprint){display:none!important}
@@ -302,7 +303,7 @@ button.rbt[data-t="shp"]{color:#c55a11}button.rbt[data-t="shp"].on,button.rbt[da
 <div class="pb"><button id="bx0" type="button" title="Excelの工程表から、タスク名・日付・工程バー(塗りつぶし・図形)を読み込みます。「入出力設定」で出力したExcelを読み戻せます(.xlsx / .xlsm)">Excel読み込み</button><button id="xgo" title="リボンの「Excel出力」と同じ出力です。指定書式(ひな形)を選んでいればその書式で、無ければこのソフトの書式で出力します">Excel出力</button><button id="xok">保存</button><button id="xcx">キャンセル</button></div>
 </div></div>
 <div id="main"><div class="wrap"><div id="L">
-<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b title="先行タスクのNoを入力。例: 9 = No9の終了翌日から開始 / 9SS = No9と同じ日に開始 / 9SS+1 = No9の1日後に開始 / 9-1 = No9の終了日に開始">先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="text" id="vs" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="vs" title="カレンダーから選ぶ">📅</button><span class="pjt">〜</span><input type="text" id="ve" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="ve" title="カレンダーから選ぶ">📅</button><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
+<div class="h"><b title="右クリックで行メニュー(切り取り・コピー・貼り付け・挿入・削除)">No</b><b>階層</b><b title="先行タスクのNoを入力。例: 9 = No9の終了翌日から開始 / 9SS = No9と同じ日に開始 / 9SS+1 = No9の1日後に開始 / 9-1 = No9の終了日に開始">先行</b><b>後続</b><b>タスク名</b><b>物量<span id="kvt"></span></b><b>施工会社</b><b>係数</b><b>人員</b><b title="必要日数 = 物量 ÷ (係数 × 人員)(単位は無視・切り上げ)。破線の日は数えません。直接入力も可">必要日数</b><b>開始日</b><b>終了日</b><div class="pj"><label for="cn">客先名</label><input id="cn" class="pjc" type="text" autocomplete="off" placeholder="例: ○○株式会社 ○○工場"><label for="pn">工事名称</label><input id="pn" class="pjn" type="text" autocomplete="off" placeholder="例: ○○設備定期修理工事"><span class="pjs"></span><label for="vs">表示期間</label><input type="text" id="vs" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="vs" title="カレンダーから選ぶ">📅</button><span class="pjt">〜</span><input type="text" id="ve" class="pjd" autocomplete="off" placeholder="例 11/11" title="日付を入力(11/11 と打つと今年の11/11になります)"><button type="button" class="pjb dpk" data-for="ve" title="カレンダーから選ぶ">📅</button><button id="va" class="pjb" title="表示期間を工程に合わせて自動設定します">自動</button></div></div><div id="sm"><i id="smt" title="各大項目の期間の表示/非表示">－</i><span>各大項目の期間</span></div><div id="tb"></div><div id="pl" title="行を追加">＋</div><div id="nt"></div><div id="ym"></div></div>
 <div id="R"><svg id="hd"></svg><svg id="bd"></svg></div></div></div>
 <div id="hs"><div id="hsp"></div><div id="hsc"><div id="hsi"></div></div></div>
 <div id="tabs"></div>
@@ -856,6 +857,7 @@ const TN="",TPL="";
 
 const $=s=>document.querySelector(s),H=34,BY=Math.round(H*.75);
 let ZM=(()=>{try{return localStorage.getItem('wk_zm')==='10'?10:1}catch(e){return 1}})(),W=ZM==10?4:20;
+let SMO=(()=>{try{return localStorage.getItem('wk_sm')!=='0'}catch(e){return true}})();const SMRH=24,SMOP=new Set(),SMPAL=['#217346','#2f6fd0','#d9730d','#8e44ad','#c0392b','#16a2a8','#b8860b','#6b7a8f'];window.smRowList=()=>{const r=[];let i=0,g=0;while(i<T.length){if(T[i].l!==0){i++;continue}let j=i+1;while(j<T.length&&T[j].l>0)j++;r.push({i,j,l:0,g});if(SMOP.has(T[i].n||'')){let k=i+1;while(k<j){if(T[k].l===1){let m=k+1;while(m<j&&T[m].l>1)m++;r.push({i:k,j:m,l:1,g});k=m}else k++}}i=j;g++}return r};const SMHF=()=>SMO?Math.max(34,Math.max(1,window.smRowList().length)*SMRH+4):18;window.SMHF=SMHF;
 let DWV=(()=>{try{const v=localStorage.getItem('wk_dw');return v==='auto'?-1:(+v>=20&&+v<=100?+v:0)}catch(e){return 0}})(); // 1日表示の日付幅: 0=標準(20) / -1=画面に合わせる / 数値=px
 let ARW=(()=>{try{return localStorage.getItem('wk_arw')!=='0'}catch(e){return true}})(),ARSEL=-1;
 const arC=(q,i)=>'ar'+(ARW?'':' off')+((q.i==ARSEL||i==ARSEL)?' hl':'');
@@ -965,6 +967,9 @@ function lgLayer(ry,V,vc,h){if(!LGON)return{s:'',hd:''};
   return[o,(cur?`<rect x="${px(d)}" y="24" width="${x0-px(d)}" height="36" fill="${col}" fill-opacity=".4" style="pointer-events:none"/><rect x="${px(d)}" y="57" width="${x0-px(d)}" height="3" fill="${col}" style="pointer-events:none"/>`:'')+`<line x1="${x0}" x2="${x0}" y1="25" y2="60" stroke="${col}" stroke-opacity="${op}" stroke-width="${sw}" style="pointer-events:none"/>`]};
  let s='',hs='';if(LGH)Object.keys(M).map(Number).filter(d=>d!=d0).sort((a,b)=>a-b).forEach(d=>{const r=line(d,false);s+=r[0];hs+=r[1]});
  const c=line(d0,true);return{s:gy+s+c[0],hd:hs+c[1]}}
+$('#hd').addEventListener('dblclick',e=>{if(!SMO)return;const y=e.clientY-$('#hd').getBoundingClientRect().top-60;if(y<0)return;const r=smRowList()[Math.floor((y-1)/SMRH)];if(!r||r.l!==0)return;const nm=T[r.i].n||'';if(SMOP.has(nm))SMOP.delete(nm);else SMOP.add(nm);e.preventDefault();draw()});
+window.smSpans=()=>{const sp=[];let i=0;while(i<T.length){if(T[i].l!==0){i++;continue}let j=i+1;while(j<T.length&&T[j].l>0)j++;let a=null,b=null;for(let k=i;k<j;k++){const t=T[k];if(t.cs!=null){if(a==null||t.cs<a)a=t.cs;const e=t.ce!=null?t.ce:t.cs;if(b==null||e>b)b=e}}if(a!=null)sp.push({a,b,n:T[i].n||''});i=j}return sp.sort((p,q)=>p.a-q.a)};
+const dtS=d=>{const x=dt(d);return x.getUTCFullYear()+'/'+(x.getUTCMonth()+1)+'/'+x.getUTCDate()};let SMSP=[];
 function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM&&YM.hv.rows.length?YM.hv.rows.length+2:0,nr=ntRows(),ex=1+nr+(YM?cR+hR:0); /* 「＋」行 + 会社ブロック(見出し+会社行+合計) + 重機ブロック(見出し+機械行+合計) */const V=vis(),ry=[];let vc=0;T.forEach((t,i)=>ry[i]=V[i]?vc++:-1);VI=[];T.forEach((t,i)=>{if(V[i])VI.push(i)});
  const a=T.filter(t=>t.cs!=null&&t.ce!=null),mn=a.length?Math.min(...a.map(t=>t.cs)):dayOf(2026,9,1),mx=a.length?Math.max(...a.map(t=>t.ce)):mn;
  const f0=VS??mn-3,n0=VE!=null?Math.max(7,VE-f0+1):ZM==10?Math.max(150,mx-f0+45):Math.max(15,mx-f0+14),n=Math.max(n0,VE!=null?0:(()=>{let m=0;try{((SH[cur]&&SH[cur].ob)||[]).forEach(o=>{if(o&&o.t&&o.x!=null){const r=Math.max(o.x,o.x+(o.w||0));if(isFinite(r))m=Math.max(m,Math.ceil(r-f0)+1)}})}catch(e){}return m})()),h=(vc+ex)*H;let hd='',bg='',s='';F0=f0;
@@ -1019,7 +1024,31 @@ function draw(){const YM=ymData(),cR=YM&&YM.rows.length?YM.rows.length+2:0,hR=YM
    if(YM.rows.length){blk(yb,YM.rows,YM.tot,'#f4a259','#e76f51','合計');yb+=(YM.rows.length+2)*H}
    if(YM.hv.rows.length)blk(yb,YM.hv.rows,YM.hv.tot,'#5aa9e6','#1f6fb5','重機合計')}}
  const mk='<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#555"/></marker><marker id="ah2" markerUnits="userSpaceOnUse" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#e8590c"/></marker></defs>';
- $('#hd').setAttribute('width',w);$('#hd').setAttribute('height',60);$('#hd').innerHTML=seg+hd;
+ {const SH=SMHF(),y0=60;let st='';
+  st+=`<rect x="0" y="${y0}" width="${w}" height="${SH}" fill="#f2f2f2"/>`;
+  for(let k=0;k<n;k++){if(CD(k))continue;const wd=dt(f0+k).getUTCDay();if(ZM==1&&(wd==0||wd==6||colDash(f0+k)))st+=`<rect x="${DX[k]}" y="${y0}" width="${W}" height="${SH}" fill="#e6e6e6"/>`}
+  st+=`<line x1="0" x2="${w}" y1="${y0+SH-.5}" y2="${y0+SH-.5}" stroke="#889"/>`;
+  SMSP=[];
+  if(SMO){const fD=(x,y0)=>{const q=dt(x);return (y0!=null&&q.getUTCFullYear()!==y0?q.getUTCFullYear()+'/':'')+(q.getUTCMonth()+1)+'/'+q.getUTCDate()};const E2=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');const dEnd=f0+n-1;
+   smRowList().forEach((r,ri)=>{
+    const nm=T[r.i].n||'',ry0=y0+ri*SMRH+1,ky=ry0+SMRH-5,c1=r.l===1,col=SMPAL[r.g%SMPAL.length];let a=null,b=null;const sol=new Set();
+    for(let k=r.i;k<r.j;k++){const q=T[k];if(q.cs==null)continue;const e=q.ce!=null?q.ce:q.cs;if(a==null||q.cs<a)a=q.cs;if(b==null||e>b)b=e;
+     if(q.ce!=null){const ds=dsOf(q);for(let d=ds;d<=q.ce;d++)if(ZM==10||!isDash(q,d))sol.add(d)}else sol.add(q.cs)}
+    const kids=!c1&&T.slice(r.i+1,r.j).some(q=>q.l===1),mark=kids?(SMOP.has(nm)?'▾ ':'▸ '):'';
+    if(c1)st+=`<rect x="0" y="${y0+ri*SMRH}" width="${w}" height="${SMRH}" fill="${col}" opacity=".12" style="pointer-events:none"/>`;
+    if(ri>0)st+=`<line x1="0" x2="${w}" y1="${y0+ri*SMRH}" y2="${y0+ri*SMRH}" stroke="#d0d0d0"/>`;
+    const tt=kids?'ダブルクリックで中項目を'+(SMOP.has(nm)?'閉じる':'表示'):'';
+    if(a==null){st+=`<text x="2" y="${ry0+11}" font-size="11" fill="#999" style="pointer-events:none">${mark}${E2(nm)}</text>`}
+    else{SMSP.push({a,b,n:nm});
+     const v0=Math.max(a,f0),v1=Math.min(b,dEnd);
+     if(v0<=v1){let d=v0;while(d<=v1){const so=sol.has(d);let e=d;while(e<v1&&sol.has(e+1)===so)e++;const x1=DX[d-f0],x2=DX[e+1-f0];
+       st+=so?`<line x1="${x1}" x2="${x2}" y1="${ky}" y2="${ky}" stroke="${col}" stroke-width="3"><title>${E2(nm)}  ${dtS(a)}〜${dtS(b)}${tt?'\n'+tt:''}</title></line>`
+        :`<line x1="${x1}" x2="${x2}" y1="${ky}" y2="${ky}" stroke="${col}" stroke-width="3" stroke-dasharray="5 7"><title>${E2(nm)}: 実線なし(工程なし・休み)</title></line>`;d=e+1}}
+     const lx=DX[Math.max(0,Math.min(n,a-f0))];
+     st+=`<text x="${lx+2}" y="${ry0+11}" font-size="11" fill="${c1?'#444':'#222'}" style="pointer-events:none">${mark}${E2(nm)}　${fD(a)}～${fD(b,dt(a).getUTCFullYear())}</text>`}
+   })}
+  $('#hd').setAttribute('width',w);$('#hd').setAttribute('height',60+SH);$('#hd').innerHTML=seg+hd+st;
+  const sm=$('#sm');if(sm){sm.classList.toggle('c',!SMO);sm.style.height=SMO?SH+'px':''}const sb=$('#smt');if(sb)sb.textContent=SMO?'－':'＋'}
  $('#bd').setAttribute('width',w);$('#bd').setAttribute('height',Math.max(h,1));$('#bd').innerHTML=mk+bg+s;syncHS();try{window.syncNt&&window.syncNt()}catch(e){}try{window.renderOb&&window.renderOb()}catch(e){}
 }
 let chgT=0;
@@ -1359,7 +1388,7 @@ function bkSave(a){let ok=false,b=a.slice();
  for(;;){try{localStorage.setItem('koutei_bk',JSON.stringify(b));ok=true;break}catch(e){lsErr=e;if(b.length<=1)break;b.pop()}}
  idbSet('koutei_bk',{t:Date.now(),v:a});return ok||(!!idb&&ready)}
 // ---- 画面設定(クイックアクセスバー・表示倍率など)の二重保存: localStorage が終了時に消える環境でも IndexedDB から復元する ----
-const UIK=['wk_dw','wk_xi','wk_qat','wk_zm','wk_cm','wk_kv','wk_cw','wk_ch','wk_msui','kouteihyo_bartab'];
+const UIK=['wk_sm','wk_dw','wk_xi','wk_qat','wk_zm','wk_cm','wk_kv','wk_cw','wk_ch','wk_msui','kouteihyo_bartab'];
 let UIM={};
 const uiMirror=()=>idbSet('wk_ui',{t:Date.now(),v:UIM});
 try{const _si=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(this===localStorage&&UIK.includes(k)){UIM[k]=String(v);try{return _si.call(this,k,v)}finally{uiMirror()}}return _si.call(this,k,v)}}catch(e){}
@@ -1633,8 +1662,8 @@ function toggleCol(dn){hist();const o=DC();
 function hvWkInit(t){if(!t.wk){t.wk=[];if(t.cs!=null&&t.ce!=null)for(let x=t.cs;x<=t.ce;x++)t.wk.push(x)}}
 function toggleSeg(i,dn){hist();const t=T[i];if(t._hv){hvWkInit(t);const k=t.wk.indexOf(dn);if(k>=0)t.wk.splice(k,1);else t.wk.push(dn);refresh();return}t.dd=t.dd||[];const k=t.dd.indexOf(dn);if(k>=0)t.dd.splice(k,1);else t.dd.push(dn);refresh()}
 const pt=(el,e)=>{const r=el.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
-$('#hd').onclick=e=>{const g=e.target.closest&&e.target.closest('.mt');if(g){toggleMonth(g.dataset.m);return}const[x,y]=pt($('#hd'),e);if(y<24||x<0||ZM==10)return;toggleCol(dayAt(x))};
-$('#hd').onmousemove=e=>{const[x,y]=pt($('#hd'),e);$('#hd').style.cursor=(e.target.closest&&e.target.closest('.mt'))||(y>=24&&ZM!=10)?'pointer':'default'};
+$('#hd').onclick=e=>{const g=e.target.closest&&e.target.closest('.mt');if(g){toggleMonth(g.dataset.m);return}const[x,y]=pt($('#hd'),e);if(y<24||y>=60||x<0||ZM==10)return;toggleCol(dayAt(x))};
+$('#hd').onmousemove=e=>{const[x,y]=pt($('#hd'),e);$('#hd').style.cursor=(e.target.closest&&e.target.closest('.mt'))||(y>=24&&y<60&&ZM!=10)?'pointer':'default'};
 function dsOf(t){let a=t.cs;if(!t._hv&&a!=null&&t.ce!=null)while(a<t.ce&&isDash(t,a))a++;return a} // 表示上の開始日: 先頭が破線(休み)の日は描かず、最初の実線日から線を引く
 const isDash=(t,dn)=>t._hv?(t.wk?t.wk.indexOf(dn)<0:false):colDash(dn)!==!!(t.dd&&t.dd.indexOf(dn)>=0); // 重機・車両行: wk(稼働日リスト)に無い日が破線(wk未設定=全日稼働)
 // 実働日数: 破線の日は数えない
@@ -1656,7 +1685,7 @@ $('#main').addEventListener('wheel',e=>{const dx=e.shiftKey&&!e.deltaX?e.deltaY:
 if(window.ResizeObserver){const ro=new ResizeObserver(syncHS);ro.observe($('#main'));ro.observe($('#L'));ro.observe($('.wrap'))}
 addEventListener('resize',syncHS);
 $('#blg').onclick=()=>{LGON=!LGON;LGPICK=false;syncLG();draw();persist();msg(LGON?'稲妻線: 記入日は今日です(◀▶・日付欄・日付行のクリックで変更可)。Enterで予定の線を上から順に進捗%を入力できます(クリックで1本ずつも可・右クリックで点を消す)':'')};$('#lgb').onclick=()=>{LGD=iso(lgBase()-1);syncLG();draw();persist()};$('#lgf').onclick=()=>{LGD=iso(lgBase()+1);syncLG();draw();persist()};$('#lgd').onchange=()=>{const v=parseDI($('#lgd').value);if(v===undefined){wkToast(DI_MSG);syncLG();return}LGD=v==null?null:iso(v);syncLG();draw();persist()};$('#lgt').onclick=()=>{LGD=null;syncLG();draw();persist()};$('#lgc').onclick=()=>{const d0=lgBase();if(!T.some(t=>t.lgm&&t.lgm[d0]!=null))return;hist();T.forEach(t=>{if(t.lgm){delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm}});draw();persist();msg('稲妻線('+fmt(d0)+')の点をすべて消しました')};$('#lgh').onchange=()=>{LGH=$('#lgh').checked;draw();persist()};
-$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);{const sl=$('#dwsl'),vl=$('#dwv');const sync=()=>{sl.value=W;vl.textContent=W+'px';sl.disabled=ZM==10;sl.style.opacity=ZM==10?.4:1};const redo=()=>{const mn=$('#main'),dy=dayAt(mn.scrollLeft);draw();mn.scrollLeft=px(dy);sync()};
+$('#smt').onclick=()=>{SMO=!SMO;try{localStorage.setItem('wk_sm',SMO?'1':'0')}catch(e){}draw()};$('#zm1').onclick=()=>setZoom(1);$('#zm10').onclick=()=>setZoom(10);{const sl=$('#dwsl'),vl=$('#dwv');const sync=()=>{sl.value=W;vl.textContent=W+'px';sl.disabled=ZM==10;sl.style.opacity=ZM==10?.4:1};const redo=()=>{const mn=$('#main'),dy=dayAt(mn.scrollLeft);draw();mn.scrollLeft=px(dy);sync()};
 sl.oninput=()=>{DWV=+sl.value;vl.textContent=DWV+'px';try{localStorage.setItem('wk_dw',String(DWV))}catch(e){}redo()};
 $('#dwauto').onclick=()=>{if(ZM==10){msg('幅の設定は1日表示のときに効きます');return}DWV=-1;try{localStorage.setItem('wk_dw','auto')}catch(e){}redo();msg('日付の幅を画面に合わせました')};
 $('#dwrst').onclick=()=>{DWV=0;try{localStorage.setItem('wk_dw','0')}catch(e){}redo()};
@@ -1737,7 +1766,7 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!LGON||LGPICK||lgIn|
  if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT'||(a&&a.isContentEditable))return;if(tg==='BUTTON'&&!/^(blg|lgb|lgf|lgt)$/.test(a.id))return;
  const d0=lgBase(),L=lgRows().filter(j=>!lgIsDone(T[j],d0));if(!lgRows().length)return;e.preventDefault();e.stopPropagation();if(a&&a.blur)a.blur();if(!L.length){msg('稲妻線: すべての予定線が100%です(修正はマウスで線をクリック)');return}
  lgOpenAt(L.find(i=>!(T[i].lgm&&T[i].lgm[d0]!=null))??L[0],true)},true);
-$('#hd').addEventListener('click',e=>{if(!LGON)return;if(e.target.closest&&e.target.closest('.mt'))return;const[x,y]=pt($('#hd'),e);if(y<24||x<0)return;e.stopImmediatePropagation();const d=dayAt(x);LGD=iso(d);syncLG();draw();persist();msg('稲妻線: 記入日を '+fmt(d)+' にしました')},true);
+$('#hd').addEventListener('click',e=>{if(!LGON)return;if(e.target.closest&&e.target.closest('.mt'))return;const[x,y]=pt($('#hd'),e);if(y<24||y>=60||x<0)return;e.stopImmediatePropagation();const d=dayAt(x);LGD=iso(d);syncLG();draw();persist();msg('稲妻線: 記入日を '+fmt(d)+' にしました')},true);
 $('#bd').addEventListener('contextmenu',e=>{if(!LGON)return;const h=lgHit(e),d0=lgBase();if(h&&T[h.i].lgm&&T[h.i].lgm[d0]!=null){e.preventDefault();e.stopImmediatePropagation();hist();const t=T[h.i];delete t.lgm[d0];if(!Object.keys(t.lgm).length)delete t.lgm;draw();persist();msg('稲妻線: 点を消しました')}},true);
 let wkToastT=0;function wkToast(m,ms){const st=ms==='sticky';let d=document.getElementById('wkToast');if(!d){d=document.createElement('div');d.id='wkToast';d.style.cssText='position:fixed;left:50%;top:24px;transform:translateX(-50%);background:#fff;color:#222;border:1px solid #c9cfdb;padding:12px 20px;border-radius:8px;font-size:14px;line-height:1.7;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;white-space:pre-line;text-align:left;transition:opacity .3s;opacity:0';document.body.appendChild(d)}d.textContent=st?m+'\n(クリックで閉じる)':m;d.style.pointerEvents=st?'auto':'none';d.style.cursor=st?'pointer':'';d.onclick=st?()=>{d.style.opacity='0';d.style.pointerEvents='none'}:null;d.style.opacity='1';clearTimeout(wkToastT);if(!st)wkToastT=setTimeout(()=>{d.style.opacity='0'},ms||Math.max(2500,String(m).length*60))}
 $('#bd').ondblclick=e=>{if(e.altKey||!barHit(e))return;{const q=barHit(e);if(T[q.i]._hv){openWk();return}}wkToast('【破線にする方法】\nAltキーを押しながら、変更したい日の線をクリック\n(もう一度Alt+クリックで元の実線に戻ります)')};
@@ -1885,7 +1914,7 @@ async function exportBlank(T,o,tz){
   while(cols.length<need){let y=x+1;while(![1,10,20].includes(domD(y)))y++;cols.push([x,y-1]);x=y}}
  else{const N=Math.max(7,o.n|0);for(let k=0;k<N;k++)cols.push([o.f0+k,o.f0+k])}
  const off=x=>TEN?false:(o.cd?!!o.cd(x):(dw(x)==0||dw(x)==6));
- const GR='D9D9D9',BD=1,H0=4,H1=5,H2=6,R0b=7;
+ const GR='D9D9D9',BD=1,H0=4,H1=5,H2=6,SMX=!!(window.SMHF&&window.SMHF()>18),SMR=7,R0b=SMX?8:7;
  // 表題
  put(1,1,'工程表'+(o.pn?'　'+o.pn:''),sty(2,null,0));put(2,1,o.cn?'客先: '+o.cn:'',sty(1,null,0));
  // 見出し(月・日・曜日)
@@ -1895,6 +1924,11 @@ async function exportBlank(T,o,tz){
   else put(H0,c,'',sty(1,'DDEBF7',BD,'center'));
   put(H1,c,domD(a),sty(1,g,BD,'center'));put(H2,c,TEN?'':'日月火水木金土'[dw(a)],sty(1,g,BD,'center'))});
  ['#','工程名','開始','終了','日数','施工会社','人員'].forEach((h,i)=>{put(H2,i+1,h,sty(1,'DDEBF7',BD,'center'));put(H0,i+1,'',sty(1,'DDEBF7',BD,'center'));put(H1,i+1,'',sty(1,'DDEBF7',BD,'center'))});
+ // 各大項目の期間(見出しと1行目の間): 工程のある期間は緑、空白期間は破線(-)
+ if(SMX){const sp=window.smSpans(),on=(a,b)=>sp.some(p=>p.a<=b&&p.b>=a);let first=null,last=null;sp.forEach(p=>{if(first==null||p.a<first)first=p.a;if(last==null||p.b>last)last=p.b});
+  put(SMR,1,'',sty(1,'F2F2F2',BD,'center'));put(SMR,2,'各大項目の期間',sty(1,'F2F2F2',BD,'left'));[3,4,5,6,7].forEach(c=>put(SMR,c,'',sty(0,'F2F2F2',BD,'center')));
+  if(first!=null){put(SMR,3,ds(first),sty(0,'F2F2F2',BD,'center'));put(SMR,4,ds(last),sty(0,'F2F2F2',BD,'center'))}
+  cols.forEach(([a,b],k)=>{const c=C1+k;if(on(a,b))put(SMR,c,'',sty(0,'217346',BD,'center'));else if(first!=null&&b>=first&&a<=last)put(SMR,c,'-',sty(0,off(a)?'F2F2F2':null,BD,'center'));else put(SMR,c,'',sty(0,off(a)?'F2F2F2':null,BD,'center'))})}
  // 明細
  T.forEach((t,i)=>{const r=R0b+i,par=!!(T[i+1]&&T[i+1].l>t.l),has=t.cs!=null&&t.ce!=null;
   const fl=par?'F2F2F2':null,tx=sty(par?1:0,fl,BD,'left'),ce=sty(0,fl,BD,'center');
@@ -1920,7 +1954,7 @@ async function exportBlank(T,o,tz){
  const maxR=Math.max(...Object.keys(R).map(Number));
  let sd='';for(let i=1;i<=maxR;i++){const rw=R[i];if(!rw)continue;sd+=`<row r="${i}"${i==1?' ht="24" customHeight="1"':''}>${Object.keys(rw).map(Number).sort((a,b)=>a-b).map(c=>rw[c]).join('')}</row>`}
  const wd=[4,28,7,7,5,12,6],cw=wd.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')+`<col min="${C1}" max="${C1+cols.length-1}" width="${TEN?6:3.4}" customWidth="1"/>`;
- const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0" showGridLines="0"><pane xSplit="${LC}" ySplit="${H2}" topLeftCell="${colN(C1)}${R0b}" activePane="bottomRight" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>${cw}</cols><sheetData>${sd}</sheetData>${merges.length?`<mergeCells count="${merges.length}">${merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>`:''}<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="8" orientation="landscape" fitToHeight="0"/></worksheet>`;
+ const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0" showGridLines="0"><pane xSplit="${LC}" ySplit="${SMX?SMR:H2}" topLeftCell="${colN(C1)}${R0b}" activePane="bottomRight" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>${cw}</cols><sheetData>${sd}</sheetData>${merges.length?`<mergeCells count="${merges.length}">${merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>`:''}<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="8" orientation="landscape" fitToHeight="0"/></worksheet>`;
  const fn=(sz,b)=>`<font>${b?'<b/>':''}<sz val="${sz}"/><name val="Meiryo UI"/><family val="2"/></font>`;
  const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3">${fn(10)}${fn(10,1)}${fn(14,1)}</fonts><fills count="${fills.length}">${fills.join('')}</fills><borders count="${bds.length}">${bds.join('')}</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="${xfs.length}">${xfs.join('')}</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
  if(tz){
@@ -2131,7 +2165,7 @@ window.__qatReload=function(){let q=null;try{q=JSON.parse(UIM.wk_qat)}catch(e){}
 // ---- 印刷機能 ----
 (function(){
 const $i=id=>document.getElementById(id);
-const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34,HH=60;let TH=20;
+const SZ={A4:[297,210],A3:[420,297]},MGS={n:2,s:4,m:8},RH=34;let HH=60,TH=20;
 let P={p:'A4',o:'landscape',z:'fit',m:'s'};
 try{Object.assign(P,JSON.parse(localStorage.getItem('wk_print2')||'{}'))}catch(e){}
 const st=document.createElement('style');st.id='pgst';document.head.appendChild(st);
@@ -2160,7 +2194,7 @@ function clip(host,node,x,y,w,h,ox,oy){
 function build(){
  const old=$i('pprint');if(old)old.remove();
  const L=$i('L'),R=$i('R'),bd=$i('bd');
- const MG=mgOf(),d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
+ HH=60+(window.SMHF?window.SMHF():0);const MG=mgOf(),d=SZ[P.p],pw=Math.floor(((P.o==='landscape'?d[0]:d[1])-MG*2)*96/25.4)-3,ph=Math.floor(((P.o==='landscape'?d[1]:d[0])-MG*2)*96/25.4)-3;
  const Lw=L.offsetWidth,Rw=+bd.getAttribute('width')||bd.getBoundingClientRect().width,bh=+bd.getAttribute('height')||bd.getBoundingClientRect().height;
  let nR=Math.max(1,Math.round(bh/RH));try{const ob=$i('ob');if(ob){const obh=(+ob.getAttribute('height')||0)-12;if(obh>bh)nR=Math.max(nR,Math.ceil(obh/RH))}}catch(e){}
  const WN=(/^w(\d)$/.exec(P.z)||[])[1]|0; // 「横N ページ」: 左の表は各ページに付け、日付の部分をN枚に分けて大きく印刷
@@ -2672,7 +2706,7 @@ window.openX=async function(f){
 const g=id=>document.getElementById(id);
 const busy=()=>!!(g('mdl')||document.querySelector('#pdlg.on,#xdlg.on'));
 const inField=el=>!!el&&(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||el.isContentEditable);
-function reveal(row){const m=g('main');if(!m||!row)return;const r=row.getBoundingClientRect(),c=m.getBoundingClientRect(),hh=60;
+function reveal(row){const m=g('main');if(!m||!row)return;const r=row.getBoundingClientRect(),c=m.getBoundingClientRect(),hh=60+(window.SMHF?window.SMHF():0);
  if(r.top<c.top+hh)m.scrollTop-=(c.top+hh-r.top);else if(r.bottom>c.bottom)m.scrollTop+=r.bottom-c.bottom}
 async function delRows(){
  if(sel<0||!T[Math.min(sel,sel2)])return;
